@@ -1,0 +1,20 @@
+debug: false
+
+spring:
+  application:
+    name: mocko-server
+  profiles:
+    active: prod
+  thymeleaf:
+    cache: true
+  cache:
+    type: CAFFEINE
+    caffeine:
+      spec: initialCapacity=10240,maximumSize=102400,expireAfterAccess=10m
+
+server:
+  port: 8190
+
+mybatis:
+  configuration:
+    mapUnderscoreToCamelCase: true
