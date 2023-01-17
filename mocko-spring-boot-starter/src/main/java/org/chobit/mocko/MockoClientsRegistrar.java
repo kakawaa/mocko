@@ -62,7 +62,7 @@ class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, ResourceLo
             AnnotationMetadata annotationMetadata = beanDefinition.getMetadata();
 
             Map<String, Object> attributes = annotationMetadata.getAnnotationAttributes(MockoClient.class.getName());
-            String clientName = "$moco." + comp.getBeanClassName();
+            String clientName = "$mocko." + comp.getBeanClassName();
 
         }
     }

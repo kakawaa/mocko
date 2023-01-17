@@ -1,5 +1,8 @@
 package org.chobit.mocko;
 
+import ch.qos.logback.core.net.server.Client;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -8,6 +11,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 /**
  * @author rui.zhang
@@ -15,13 +19,15 @@ import org.springframework.util.Assert;
 public class MockoClientFactoryBean implements FactoryBean<Object>, InitializingBean, ApplicationContextAware, BeanFactoryAware {
 
 
+    private static final Logger logger = LoggerFactory.getLogger(MockoClientFactoryBean.class);
+
     private Class<?> type;
 
     private String name;
 
     private String url;
 
-    private String componentId;
+    private String contextId;
 
     private ApplicationContext applicationContext;
 
@@ -30,7 +36,7 @@ public class MockoClientFactoryBean implements FactoryBean<Object>, Initializing
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        Assert.hasText(this.componentId, "componentId不能为空");
+        Assert.hasText(this.contextId, "contextId不能为空");
     }
 
     @Override
@@ -51,10 +57,13 @@ public class MockoClientFactoryBean implements FactoryBean<Object>, Initializing
     }
 
 
-    <T> T getTarget(){
+    <T> T getTarget() {
+        MockoContext context = (null != beanFactory ? beanFactory.getBean(MockoContext.class) : applicationContext.getBean(MockoContext.class));
+
+        Client client = context.getInstance(contextId, Client.class);
+
 
     }
-
 
 
     @Override
