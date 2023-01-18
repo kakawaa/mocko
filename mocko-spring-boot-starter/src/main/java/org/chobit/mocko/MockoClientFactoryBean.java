@@ -50,6 +50,16 @@ public class MockoClientFactoryBean implements FactoryBean<Object>, Initializing
         this.beanFactory = applicationContext;
     }
 
+
+    private <T> T get(MockoContext context, Class<T> type) {
+        T instance = context.getInstance(contextId, type);
+        if (null == instance) {
+            throw new IllegalStateException("No bean found of type " + type + " for " + contextId);
+        }
+        return instance;
+    }
+
+
     @Override
     public Object getObject() throws Exception {
 

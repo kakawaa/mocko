@@ -1,6 +1,8 @@
 package org.chobit.mocko;
 
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.util.Map;
 
 /**
  * InvocationHandler 工厂接口
@@ -15,7 +17,7 @@ public interface InvocationHandlerFactory {
      *
      * @return InvocationHandler实例
      */
-    InvocationHandler create();
+    InvocationHandler create(Target target, Map<Method, MethodHandler> dispatch);
 
 
     interface MethodHandler {
