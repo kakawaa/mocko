@@ -1,6 +1,6 @@
 package org.chobit.mocko.codec;
 
-import org.apache.http.client.fluent.Response;
+import org.apache.http.HttpResponse;
 import org.chobit.mocko.exception.DecodeException;
 import org.chobit.mocko.exception.MockoException;
 
@@ -23,7 +23,7 @@ public interface Decoder {
      * @throws DecodeException 解码异常
      * @throws MockoException  其他异常
      */
-    Object decode(Response response, Type type) throws IOException, DecodeException, MockoException;
+    Object decode(HttpResponse response, Type type) throws IOException, DecodeException, MockoException;
 
 
 }

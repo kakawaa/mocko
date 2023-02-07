@@ -13,4 +13,5 @@ public class DecodeException extends MockoException {
     public DecodeException(int status, String message) {
         super(status, message);
     }
+
 }
