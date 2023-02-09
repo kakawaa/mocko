@@ -13,11 +13,14 @@ public interface InvocationHandlerFactory {
 
 
     /**
+     *
      * 创建InvocationHandler实例
      *
-     * @return InvocationHandler实例
+     * @param target
+     * @param dispatch
+     * @return
      */
-    InvocationHandler create(Target target, Map<Method, MethodHandler> dispatch);
+    InvocationHandler create(Target<?> target, Map<Method, MethodHandler> dispatch);
 
 
     interface MethodHandler {

@@ -3,7 +3,6 @@ package org.chobit.mocko.codec;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.chobit.mocko.exception.DecodeException;
-import org.chobit.mocko.exception.MockoException;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -18,7 +17,7 @@ public class StringDecoder implements Decoder {
 
 
     @Override
-    public Object decode(HttpResponse response, Type type) throws IOException, DecodeException, MockoException {
+    public Object decode(HttpResponse response, Type type) throws IOException, DecodeException {
         int status = response.getStatusLine().getStatusCode();
         if (String.class.equals(type)) {
             return EntityUtils.toString(response.getEntity());

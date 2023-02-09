@@ -1,4 +1,4 @@
-package org.chobit.mocko.core.utils;
+package org.chobit.mocko.tools;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package org.chobit.mocko.core;
+package org.chobit.mocko;
 
 
 /**

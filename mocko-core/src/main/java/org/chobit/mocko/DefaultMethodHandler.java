@@ -1,11 +1,11 @@
 package org.chobit.mocko;
 
-import org.chobit.mocko.InvocationHandlerFactory.MethodHandler;
 
-import java.lang.invoke.MethodHandles.*;
+import org.chobit.mocko.InvocationHandlerFactory.MethodHandler;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

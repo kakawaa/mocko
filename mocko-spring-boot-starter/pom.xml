@@ -43,10 +43,6 @@
             <artifactId>spring-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>fluent-hc</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.chobit.common</groupId>
             <artifactId>zhy-utils</artifactId>
         </dependency>

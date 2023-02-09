@@ -1,4 +1,4 @@
-package org.chobit.mocko.core.utils;
+package org.chobit.mocko.tools;
 
 import static java.lang.String.format;
 
@@ -21,6 +21,22 @@ public final class Args {
             throw new NullPointerException(format(errorMessageTemplate, errorMessageArgs));
         }
         return reference;
+    }
+
+
+    /**
+     * 检查状态
+     *
+     * @param expression           表达式
+     * @param errorMessageTemplate 错误信息
+     * @param errorMessageArgs     错误信息相关参数
+     */
+    public static void checkState(boolean expression,
+                                  String errorMessageTemplate,
+                                  Object... errorMessageArgs) {
+        if (!expression) {
+            throw new IllegalStateException(format(errorMessageTemplate, errorMessageArgs));
+        }
     }
 
 

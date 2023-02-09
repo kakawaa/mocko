@@ -1,19 +1,37 @@
 package org.chobit.mocko;
 
 
+import org.chobit.mocko.tools.Args;
+
 import java.util.Objects;
 
-import static org.chobit.mocko.core.utils.Args.checkNotNull;
-
+/**
+ * @author rui.zhang
+ */
 public interface Target<T> {
 
 
+    /**
+     * 返回target对应的类
+     *
+     * @return target 对应的类
+     */
     Class<T> type();
 
 
+    /**
+     * Target的名称
+     *
+     * @return 名称
+     */
     String name();
 
 
+    /**
+     * 请求路径
+     *
+     * @return 路径
+     */
     String url();
 
 
@@ -33,9 +51,9 @@ public interface Target<T> {
 
 
         public DefaultTarget(Class<T> type, String name, String url) {
-            this.type = checkNotNull(type, "type");
-            this.name = checkNotNull(name, "name");
-            this.url = checkNotNull(url, "url");
+            this.type = Args.checkNotNull(type, "type");
+            this.name = Args.checkNotNull(name, "name");
+            this.url = Args.checkNotNull(url, "url");
         }
 
 

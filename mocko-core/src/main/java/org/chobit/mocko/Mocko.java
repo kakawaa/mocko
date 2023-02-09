@@ -8,6 +8,10 @@ package org.chobit.mocko;
 public class Mocko {
 
 
+
+
+
+
     /**
      * 返回结果实例
      *
