@@ -70,9 +70,8 @@ public class MockoClientFactoryBean implements FactoryBean<Object>, Initializing
     <T> T getTarget() {
         MockoContext context = (null != beanFactory ? beanFactory.getBean(MockoContext.class) : applicationContext.getBean(MockoContext.class));
 
-        Client client = context.getInstance(contextId, Client.class);
 
-
+        return null;
     }
 
 

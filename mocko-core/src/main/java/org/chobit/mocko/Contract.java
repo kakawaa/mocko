@@ -31,6 +31,7 @@ public interface Contract {
         @Override
         public List<MethodMetadata> parseAndValidMetadata(Class<?> targetType) {
 
+
             final Map<String, MethodMetadata> result = new LinkedHashMap<>(8);
 
             Method[] methods = targetType.getMethods();

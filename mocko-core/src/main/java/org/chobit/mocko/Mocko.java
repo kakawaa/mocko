@@ -20,7 +20,7 @@ public class Mocko {
      * @return 结果实例
      */
     public <T> T newInstance(Target<T> target) {
-
+        return null;
     }
 
 

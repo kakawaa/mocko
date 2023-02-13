@@ -1,6 +1,5 @@
 package org.chobit.mocko;
 
-import org.springframework.cloud.context.named.NamedContextFactory;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -8,7 +7,7 @@ import java.util.Objects;
 /**
  * @author rui.zhang
  */
-public class MockoClientSpecification implements NamedContextFactory.Specification {
+public class MockoClientSpecification  {
 
 
     private String name;
@@ -25,7 +24,6 @@ public class MockoClientSpecification implements NamedContextFactory.Specificati
         this.configuration = configuration;
     }
 
-    @Override
     public String getName() {
         return this.name;
     }
@@ -35,7 +33,6 @@ public class MockoClientSpecification implements NamedContextFactory.Specificati
         this.name = name;
     }
 
-    @Override
     public Class<?>[] getConfiguration() {
         return this.configuration;
     }
