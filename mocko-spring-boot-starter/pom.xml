@@ -42,9 +42,5 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.chobit.common</groupId>
-            <artifactId>zhy-utils</artifactId>
-        </dependency>
     </dependencies>
 </project>

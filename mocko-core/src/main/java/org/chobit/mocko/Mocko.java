@@ -1,5 +1,14 @@
 package org.chobit.mocko;
 
+import org.chobit.mocko.InvocationHandlerFactory.MethodHandler;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * 处理类
  *
@@ -8,9 +17,15 @@ package org.chobit.mocko;
 public class Mocko {
 
 
+    private final Contract contract;
+
+    private final InvocationHandlerFactory factory;
 
 
-
+    public Mocko(Contract contract, InvocationHandlerFactory factory) {
+        this.contract = contract;
+        this.factory = factory;
+    }
 
     /**
      * 返回结果实例
@@ -19,14 +34,18 @@ public class Mocko {
      * @param <T>    类型泛型
      * @return 结果实例
      */
+    @SuppressWarnings("unchecked")
     public <T> T newInstance(Target<T> target) {
-        return null;
+
+        List<MethodMetadata> metadataList = contract.parseAndValidMetadata(target.type());
+
+        Map<Method, MethodHandler> methodToHandler = new LinkedHashMap<>(8);
+
+        for (MethodMetadata metadata : metadataList) {
+            methodToHandler.put(metadata.method(), null);
+        }
+
+        InvocationHandler handler = factory.create(target, methodToHandler);
+        return (T) Proxy.newProxyInstance(target.type().getClassLoader(), new Class<?>[]{target.type()}, handler);
     }
-
-
-
-    static final class ParseHandlersByName{
-
-    }
-
 }

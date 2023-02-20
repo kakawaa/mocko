@@ -14,15 +14,14 @@ public final class MethodMetadata implements Serializable {
 
     private static final long serialVersionUID = 8974434856533609672L;
 
-    private String configKey;
-
-    private transient Type returnType;
-
-    private transient Type bodyType;
 
     private transient Class<?> targetType;
 
     private transient Method method;
+
+    private String configKey;
+
+    private transient Type returnType;
 
 
     public String configKey() {
@@ -43,17 +42,6 @@ public final class MethodMetadata implements Serializable {
 
     public MethodMetadata returnType(Type returnType) {
         this.returnType = returnType;
-        return this;
-    }
-
-
-    public Type bodyType() {
-        return this.bodyType;
-    }
-
-
-    public MethodMetadata bodyType(Type bodyType) {
-        this.bodyType = bodyType;
         return this;
     }
 

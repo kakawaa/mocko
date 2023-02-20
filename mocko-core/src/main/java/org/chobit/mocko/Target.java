@@ -35,7 +35,7 @@ public interface Target<T> {
     String url();
 
 
-    public static class DefaultTarget<T> implements Target<T> {
+    class DefaultTarget<T> implements Target<T> {
 
 
         private final Class<T> type;
