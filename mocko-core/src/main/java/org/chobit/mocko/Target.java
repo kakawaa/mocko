@@ -1,14 +1,14 @@
 package org.chobit.mocko;
 
 
-import org.chobit.mocko.tools.Args;
-
 import java.util.Objects;
+
+import static org.chobit.mocko.tools.Args.checkNotNull;
 
 /**
  * @author rui.zhang
  */
-public interface Target<T> {
+interface Target<T> {
 
 
     /**
@@ -51,25 +51,25 @@ public interface Target<T> {
 
 
         public DefaultTarget(Class<T> type, String name, String url) {
-            this.type = Args.checkNotNull(type, "type");
-            this.name = Args.checkNotNull(name, "name");
-            this.url = Args.checkNotNull(url, "url");
+            this.type = checkNotNull(type, "type");
+            this.name = checkNotNull(name, "name");
+            this.url = checkNotNull(url, "url");
         }
 
 
         @Override
         public Class<T> type() {
-            return null;
+            return this.type;
         }
 
         @Override
         public String name() {
-            return null;
+            return this.name;
         }
 
         @Override
         public String url() {
-            return null;
+            return this.url;
         }
 
 

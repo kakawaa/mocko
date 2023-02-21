@@ -48,4 +48,25 @@ public class Mocko {
         InvocationHandler handler = factory.create(target, methodToHandler);
         return (T) Proxy.newProxyInstance(target.type().getClassLoader(), new Class<?>[]{target.type()}, handler);
     }
+
+
+    static class MockoInvocationHandler implements InvocationHandler {
+
+
+        private final Target<?> target;
+
+        private final Map<Method, MethodHandler> dispatch;
+
+
+        public MockoInvocationHandler(Target<?> target, Map<Method, MethodHandler> dispatch) {
+            this.target = target;
+            this.dispatch = dispatch;
+        }
+
+        @Override
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            return dispatch.get(method).invoke(args);
+        }
+    }
+
 }
