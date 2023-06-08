@@ -5,13 +5,18 @@
 							 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.chobit</groupId>
+    <parent>
+        <groupId>org.chobit</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>0.1.1</version>
+    </parent>
+
+    <groupId>org.chobit.mocko</groupId>
     <artifactId>mocko</artifactId>
     <packaging>pom</packaging>
     <version>0.1-SNAPSHOT</version>
 
     <properties>
-        <project.version>0.1-SNAPSHOT</project.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -22,6 +27,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.chobit.mocko</groupId>
+                <artifactId>mocko-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -40,8 +50,8 @@
                 <version>[2.1.214,)</version>
             </dependency>
             <dependency>
-                <groupId>org.chobit.common</groupId>
-                <artifactId>zhy-utils</artifactId>
+                <groupId>org.chobit.commons</groupId>
+                <artifactId>common-utils</artifactId>
                 <version>[0.1, )</version>
             </dependency>
             <dependency>
@@ -50,13 +60,14 @@
                 <version>4.5.14</version>
             </dependency>
             <dependency>
-                <groupId>org.chobit</groupId>
-                <artifactId>mocko-core</artifactId>
-                <version>${project.version}</version>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>2.0</version>
             </dependency>
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>5.10.0-M1</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>

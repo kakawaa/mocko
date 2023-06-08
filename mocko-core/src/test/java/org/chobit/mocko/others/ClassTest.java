@@ -1,6 +1,7 @@
 package org.chobit.mocko.others;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
