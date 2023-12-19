@@ -1,4 +1,4 @@
-package org.chobit.mocko;
+package org.chobit.mocko.client;
 
 
 import java.util.Arrays;

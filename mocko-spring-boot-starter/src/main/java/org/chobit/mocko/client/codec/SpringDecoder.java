@@ -1,7 +1,8 @@
-package org.chobit.mocko.codec;
+package org.chobit.mocko.client.codec;
 
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
+import org.chobit.mocko.codec.Decoder;
 import org.chobit.mocko.exception.DecodeException;
 import org.chobit.mocko.exception.MockoException;
 import org.springframework.beans.factory.ObjectFactory;

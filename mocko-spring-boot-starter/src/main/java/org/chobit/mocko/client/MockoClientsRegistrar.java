@@ -1,4 +1,4 @@
-package org.chobit.mocko;
+package org.chobit.mocko.client;
 
 import org.chobit.mocko.annotations.MockoClient;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;

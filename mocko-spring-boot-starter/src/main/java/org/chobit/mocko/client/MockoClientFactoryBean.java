@@ -1,6 +1,5 @@
-package org.chobit.mocko;
+package org.chobit.mocko.client;
 
-import ch.qos.logback.core.net.server.Client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 
 /**
  * @author rui.zhang
