@@ -8,8 +8,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.chobit.mocko.tools.ReflectionUtils.isDefault;
-import static org.chobit.mocko.tools.ReflectionUtils.isStatic;
+import static org.chobit.commons.utils.ReflectKit.isDefault;
+import static org.chobit.commons.utils.ReflectKit.isStatic;
 
 /**
  * 解析类，获取MethodMetadata

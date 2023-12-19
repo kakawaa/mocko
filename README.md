@@ -1,2 +1,2 @@
 # mocko
-一个SpringBoot环境下的mock解决方案
+一种SpringBoot环境下的mock解决方案

@@ -14,11 +14,11 @@ public final class Args {
      * 校验参数是否为空，为空则抛出空指针异常
      */
     public static <T> T checkNotNull(T reference,
-                                     String errorMessageTemplate,
-                                     Object... errorMessageArgs) {
+                                     String errorMsgTemplate,
+                                     Object... errorMsgArgs) {
         if (null == reference) {
             // If either of these parameters is null, the right thing happens anyway
-            throw new NullPointerException(format(errorMessageTemplate, errorMessageArgs));
+            throw new NullPointerException(format(errorMsgTemplate, errorMsgArgs));
         }
         return reference;
     }
