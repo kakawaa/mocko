@@ -16,6 +16,8 @@ import java.lang.reflect.Method;
 public class MockoInterceptor extends MockoAspectSupport implements MethodInterceptor, Serializable {
 
 
+    private static final long serialVersionUID = -2894283504201230353L;
+
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
@@ -34,8 +36,6 @@ public class MockoInterceptor extends MockoAspectSupport implements MethodInterc
             throw wte.getOriginal();
         }
     }
-
-
 
 
     protected Object execute(final OperationInvoker invoker, @Nullable final Object target, Method method, Object[] args) {
