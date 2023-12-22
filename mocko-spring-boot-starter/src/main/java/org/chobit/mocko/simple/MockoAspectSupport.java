@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
  *
  * @author rui.zhang
  */
-public abstract class MockoAspectSupport {
+public class MockoAspectSupport {
 
 
 }
