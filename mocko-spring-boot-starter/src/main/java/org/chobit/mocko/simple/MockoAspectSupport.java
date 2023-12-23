@@ -13,4 +13,8 @@ import java.lang.reflect.Method;
 public class MockoAspectSupport {
 
 
+    protected Object execute(final OperationInvoker invoker, @Nullable final Object target, Method method, Object[] args) {
+        return invoker.invoke();
+    }
+
 }

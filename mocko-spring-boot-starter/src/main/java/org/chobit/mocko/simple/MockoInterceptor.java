@@ -37,9 +37,4 @@ public class MockoInterceptor extends MockoAspectSupport implements MethodInterc
         }
     }
 
-
-    protected Object execute(final OperationInvoker invoker, @Nullable final Object target, Method method, Object[] args) {
-        return null;
-    }
-
 }

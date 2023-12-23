@@ -14,7 +14,7 @@ import java.lang.annotation.*;
 public @interface MockoClient {
 
 
-    String componentId();
+    String componentId() default "";
 
 
 }
