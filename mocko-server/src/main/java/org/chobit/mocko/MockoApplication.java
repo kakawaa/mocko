@@ -3,7 +3,6 @@ package org.chobit.mocko;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 /**
@@ -12,7 +11,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @author rui.zhang
  */
 @EnableCaching
-@EnableScheduling
 @SpringBootApplication
 public class MockoApplication {
 

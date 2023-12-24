@@ -4,9 +4,7 @@ spring:
   application:
     name: mocko-server
   profiles:
-    active: prod
-  thymeleaf:
-    cache: true
+    active: dev
   cache:
     type: CAFFEINE
     caffeine:
