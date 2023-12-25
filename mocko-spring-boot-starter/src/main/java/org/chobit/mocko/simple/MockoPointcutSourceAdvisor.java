@@ -1,10 +1,9 @@
 package org.chobit.mocko.simple;
 
+import org.springframework.aop.ClassFilter;
+import org.springframework.aop.MethodMatcher;
 import org.springframework.aop.Pointcut;
 import org.springframework.aop.support.AbstractBeanFactoryPointcutAdvisor;
-import org.springframework.aop.support.StaticMethodMatcherPointcut;
-
-import java.lang.reflect.Method;
 
 /**
  * Mocko切面定义
@@ -20,10 +19,15 @@ public class MockoPointcutSourceAdvisor extends AbstractBeanFactoryPointcutAdvis
     private final MockoMethodMatcher matcher = new MockoMethodMatcher(true);
 
 
-    private final Pointcut pointcut = new StaticMethodMatcherPointcut() {
+    private final Pointcut pointcut = new Pointcut() {
         @Override
-        public boolean matches(Method method, Class<?> targetClass) {
-            return matcher.matches(method, targetClass);
+        public ClassFilter getClassFilter() {
+            return ClassFilter.TRUE;
+        }
+
+        @Override
+        public MethodMatcher getMethodMatcher() {
+            return matcher;
         }
     };
 
