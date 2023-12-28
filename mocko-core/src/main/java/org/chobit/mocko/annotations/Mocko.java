@@ -19,18 +19,8 @@ public @interface Mocko {
 
 
     /**
-     * 方法ID
-     * <p>
-     * 在服务端会为每个方法对应的记录设置一个ID
-     * </p>
-     *
-     * @return 方法ID
+     * 方法说明
      */
-    String mid();
-
-    /**
-     * 同mid
-     */
-    String value();
+    String value() default "";
 
 }
