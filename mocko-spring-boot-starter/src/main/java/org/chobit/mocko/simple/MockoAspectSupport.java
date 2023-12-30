@@ -51,6 +51,9 @@ class MockoAspectSupport {
 
         List<ArgInfo> argList = takeArgList(args);
 
+        Class<?> returnType = method.getReturnType();
+
+
         String methodId = computeMethodId(className, methodName, argList);
 
         MethodInfo methodInfo = new MethodInfo();
