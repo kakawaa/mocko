@@ -1,5 +1,6 @@
 package org.chobit.mocko.model.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 /**
@@ -7,8 +8,9 @@ import lombok.Data;
  *
  * @author rui.zhang
  */
+@TableName("m_app")
 @Data
-public class App extends BaseEntity {
+public class App extends AbstractEntity {
 
 
     /**

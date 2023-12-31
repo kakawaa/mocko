@@ -1,11 +1,16 @@
 package org.chobit.mocko.model.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 /**
  * 用户信息
  *
  * @author rui.zhang
  */
-public class User extends BaseEntity {
+@TableName("m_user")
+@Data
+public class User extends AbstractEntity {
 
 
     /**

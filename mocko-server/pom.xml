@@ -20,7 +20,7 @@
         <dependency>
             <groupId>org.chobit.mocko</groupId>
             <artifactId>mocko-spring-boot-starter</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <!--spring boot common-->
         <dependency>
@@ -38,8 +38,9 @@
         </dependency>
         <!--database-->
         <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.5.5</version>
         </dependency>
         <!--maven plugin-->
         <dependency>

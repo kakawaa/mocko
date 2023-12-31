@@ -10,7 +10,7 @@ import java.util.Date;
  * @author rui.zhang
  */
 @Data
-public abstract class BaseEntity {
+abstract class AbstractEntity {
 
 
     /**
