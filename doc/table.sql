@@ -3,7 +3,7 @@
 --
 
 --
--- 应用信息表
+-- 用户信息表
 --
 create table mocko.m_user
 (
@@ -20,7 +20,7 @@ create table mocko.m_user
     primary key (id)
 ) engine = myisam
   character set = utf8mb4
-  collate = utf8mb4_bin comment = '退款信息总览表';
+  collate = utf8mb4_bin comment = '用户信息表';
 
 --
 -- 应用信息表
@@ -39,7 +39,7 @@ create table mocko.m_app
     primary key (id)
 ) engine = myisam
   character set = utf8mb4
-  collate = utf8mb4_bin comment = '退款信息总览表';
+  collate = utf8mb4_bin comment = '应用信息表';
 
 
 --
@@ -61,6 +61,30 @@ create table mocko.m_component
     primary key (id)
 ) engine = myisam
   character set = utf8mb4
-  collate = utf8mb4_bin comment = '退款信息总览表';
+  collate = utf8mb4_bin comment = '组件信息表';
+
+
+--
+-- 方法信息表
+--
+create table mocko.m_method
+(
+    id           int unsigned not null default 0 auto_increment comment 'id',
+
+    cmp_id       varchar(32)  not null default '' comment '组件ID',
+    method_id    varchar(32)  not null default '' comment '方法ID',
+    method_alias varchar(32)  not null default '' comment '方法别名',
+    method_name  varchar(64)  not null default '' comment '方法名称: 全限定类名#方法名',
+    args         varchar(512) not null default '' comment '参数信息',
+    response     tinytext     not null default '' comment '响应信息',
+
+    operator_id  int          not null default 0 comment '操作人ID',
+    deleted      int          not null default 0 comment '删除标记',
+    create_time  datetime     not null default now() comment '创建时间',
+    update_time  timestamp    not null default current_timestamp on update current_timestamp comment '更新时间',
+    primary key (id)
+) engine = myisam
+  character set = utf8mb4
+  collate = utf8mb4_bin comment = '方法信息表';
 
 
