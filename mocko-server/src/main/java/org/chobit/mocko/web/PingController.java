@@ -1,6 +1,7 @@
 package org.chobit.mocko.web;
 
 import org.chobit.mocko.biz.MyBiz;
+import org.chobit.mocko.spring.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,9 +10,10 @@ import org.springframework.web.bind.annotation.*;
  *
  * @author rui.zhang
  */
+@ResponseWrapper
 @RestController
-@RequestMapping("/mocko")
-public class HelloController {
+@RequestMapping("")
+public class PingController {
 
 
     @Autowired

@@ -23,4 +23,10 @@ public class ArgInfo {
     private String argName;
 
 
+    /**
+     * 参数值
+     */
+    private Object value;
+
+
 }

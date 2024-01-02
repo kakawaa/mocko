@@ -1,6 +1,7 @@
 package org.chobit.mocko.service.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 import org.chobit.mocko.model.entity.User;
 
 
@@ -9,7 +10,6 @@ import org.chobit.mocko.model.entity.User;
  *
  * @author rui.zhang
  */
+@Mapper
 public interface UserMapper extends BaseMapper<User> {
-
-
 }
