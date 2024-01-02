@@ -10,7 +10,13 @@ import java.util.List;
  * @author rui.zhang
  */
 @Data
-public class MethodInfo {
+public class MethodMeta {
+
+
+    /**
+     * 应用ID
+     */
+    private String appId;
 
 
     /**

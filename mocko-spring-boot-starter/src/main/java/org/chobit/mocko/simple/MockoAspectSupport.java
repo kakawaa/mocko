@@ -6,7 +6,7 @@ import org.chobit.mocko.OperationInvoker;
 import org.chobit.mocko.annotations.Mocko;
 import org.chobit.mocko.annotations.MockoClient;
 import org.chobit.mocko.model.ArgInfo;
-import org.chobit.mocko.model.MethodInfo;
+import org.chobit.mocko.model.MethodMeta;
 
 import java.lang.reflect.Method;
 import java.util.LinkedList;
@@ -33,7 +33,7 @@ class MockoAspectSupport {
      * @param args   参数
      * @return 方法信息
      */
-    private MethodInfo parseMethodInfo(Object target, Method method, Object[] args) {
+    private MethodMeta parseMethodInfo(Object target, Method method, Object[] args) {
 
         String className = target.getClass().getCanonicalName();
         MockoClient mockoClient = target.getClass().getAnnotation(MockoClient.class);
@@ -56,15 +56,15 @@ class MockoAspectSupport {
 
         String methodId = computeMethodId(className, methodName, argList);
 
-        MethodInfo methodInfo = new MethodInfo();
-        methodInfo.setMethodId(methodId);
-        methodInfo.setClassName(className);
-        methodInfo.setClassAlias(classAlias);
-        methodInfo.setMethodName(methodName);
-        methodInfo.setMethodAlias(methodAlias);
-        methodInfo.setArgs(argList);
+        MethodMeta methodMeta = new MethodMeta();
+        methodMeta.setMethodId(methodId);
+        methodMeta.setClassName(className);
+        methodMeta.setClassAlias(classAlias);
+        methodMeta.setMethodName(methodName);
+        methodMeta.setMethodAlias(methodAlias);
+        methodMeta.setArgs(argList);
 
-        return methodInfo;
+        return methodMeta;
     }
 
 
