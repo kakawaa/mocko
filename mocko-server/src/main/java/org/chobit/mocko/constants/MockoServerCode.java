@@ -1,12 +1,14 @@
 package org.chobit.mocko.constants;
 
+import org.chobit.commons.contract.CodeDescEnum;
+
 /**
  * 响应编码
  *
  * @author rui.zhang
  */
 
-public enum ResponseCode {
+public enum MockoServerCode implements CodeDescEnum {
 
 
     /**
@@ -23,6 +25,11 @@ public enum ResponseCode {
      * 未定义错误
      */
     ERROR(1000, "未定义错误"),
+
+    /**
+     * 方法不存在
+     */
+    METHOD_NOT_EXISTS(20000, "方法不存在"),
     ;
 
 
@@ -31,8 +38,20 @@ public enum ResponseCode {
     public final String msg;
 
 
-    ResponseCode(int code, String msg) {
+    MockoServerCode(int code, String msg) {
         this.code = code;
         this.msg = msg;
+    }
+
+
+    @Override
+    public String getDesc() {
+        return msg;
+    }
+
+
+    @Override
+    public int getCode() {
+        return 0;
     }
 }
