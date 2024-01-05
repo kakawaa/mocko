@@ -6,12 +6,12 @@ import java.lang.annotation.*;
 /**
  * Mocko注解
  * <p>
- * 用于标记方法，说明这个方法可以使用Mocko提供的服务
+ * 用于标记类或方法，说明相关方法可以使用Mocko提供的服务
  * </p>
  *
  * @author rui.zhang
  */
-@Target(ElementType.METHOD)
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
