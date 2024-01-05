@@ -8,9 +8,9 @@ import lombok.Data;
  *
  * @author rui.zhang
  */
-@TableName("m_component")
+@TableName("m_class")
 @Data
-public class Component extends AbstractEntity {
+public class Class extends AbstractEntity {
 
 
     /**
@@ -20,15 +20,15 @@ public class Component extends AbstractEntity {
 
 
     /**
-     * 组件ID
+     * 类ID
      */
-    private String cmpId;
+    private String classId;
 
 
     /**
-     * 组件别名
+     * 类别名
      */
-    private String cmpAlias;
+    private String classAlias;
 
 
     /**

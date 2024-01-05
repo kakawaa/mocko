@@ -18,6 +18,12 @@ import org.springframework.stereotype.Service;
 public class MethodService extends ServiceImpl<MethodMapper, Method> {
 
 
+    /**
+     * 根据方法Id查询方法信息
+     *
+     * @param methodId 方法ID
+     * @return 方法信息
+     */
     public Method getByMethodId(String methodId) {
         LambdaQueryWrapper<Method> lqw = new LambdaQueryWrapper<>();
         lqw.eq(Method::getMethodId, methodId);

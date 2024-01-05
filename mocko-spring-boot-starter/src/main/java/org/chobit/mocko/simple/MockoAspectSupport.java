@@ -68,25 +68,6 @@ class MockoAspectSupport {
     }
 
 
-    /**
-     * 计算方法ID
-     *
-     * @param className  类名
-     * @param methodName 方法名
-     * @param args       参数集合
-     * @return 方法ID
-     */
-    private String computeMethodId(String className, String methodName, List<ArgInfo> args) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(className)
-                .append(Symbol.SHARP).append(methodName)
-                .append(Symbol.SHARP);
-        for (ArgInfo a : args) {
-            builder.append(a.getArgClass()).append(Symbol.COMMA);
-        }
-
-        return MD5.encode(builder.toString());
-    }
 
 
     /**

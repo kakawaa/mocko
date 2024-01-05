@@ -19,9 +19,9 @@ abstract class AbstractEntity {
     private Integer id;
 
     /**
-     * 操作人ID
+     * 操作人code
      */
-    private Integer operatorId;
+    private String operatorCode;
 
     /**
      * 删除标记

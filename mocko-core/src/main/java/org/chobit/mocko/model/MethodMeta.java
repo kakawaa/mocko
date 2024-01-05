@@ -2,6 +2,7 @@ package org.chobit.mocko.model;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**
@@ -16,18 +17,14 @@ public class MethodMeta {
     /**
      * 应用ID
      */
+    @NotBlank(message = "应用ID不可为空")
     private String appId;
-
-
-    /**
-     * 方法ID
-     */
-    private String methodId;
 
 
     /**
      * 类名称
      */
+    @NotBlank(message = "类名不可为空")
     private String className;
 
 
@@ -40,6 +37,7 @@ public class MethodMeta {
     /**
      * 方法名称
      */
+    @NotBlank(message = "方法名不可为空")
     private String methodName;
 
 

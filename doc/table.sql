@@ -13,8 +13,8 @@ create table mocko.m_user
     username    varchar(32)  not null default '' comment '用户名',
     password    varchar(32)  not null default '' comment '密码',
 
-    operator_id int          not null default 0 comment '操作人ID',
-    deleted     int          not null default 0 comment '删除标记',
+    operator_code varchar(32)          not null default 0 comment '操作人ID',
+    deleted     tinyint          not null default 0 comment '删除标记',
     create_time datetime     not null default now() comment '创建时间',
     update_time timestamp    not null default current_timestamp on update current_timestamp comment '更新时间',
     primary key (id)
@@ -32,8 +32,8 @@ create table mocko.m_app
     app_id      varchar(32)  not null default '' comment '应用ID',
     app_name    varchar(32)  not null default '' comment '应用名称',
 
-    operator_id int          not null default 0 comment '操作人ID',
-    deleted     int          not null default 0 comment '删除标记',
+    operator_code varchar(32)          not null default 0 comment '操作人ID',
+    deleted     tinyint          not null default 0 comment '删除标记',
     create_time datetime     not null default now() comment '创建时间',
     update_time timestamp    not null default current_timestamp on update current_timestamp comment '更新时间',
     primary key (id)
@@ -45,17 +45,18 @@ create table mocko.m_app
 --
 -- 组件信息表
 --
-create table mocko.m_component
+create table mocko.m_class
 (
     id          int unsigned not null default 0 auto_increment comment 'id',
 
     app_id      varchar(32)  not null default '' comment '应用ID',
-    cmp_id      varchar(32)  not null default '' comment '组件ID',
-    cmp_alias   varchar(32)  not null default '' comment '组件别名',
+
+    class_id      varchar(32)  not null default '' comment '类ID',
+    class_alias   varchar(32)  not null default '' comment '类别名',
     class_name  varchar(64)  not null default '' comment '全限定类名',
 
-    operator_id int          not null default 0 comment '操作人ID',
-    deleted     int          not null default 0 comment '删除标记',
+    operator_code varchar(32)          not null default 0 comment '操作人ID',
+    deleted     tinyint          not null default 0 comment '删除标记',
     create_time datetime     not null default now() comment '创建时间',
     update_time timestamp    not null default current_timestamp on update current_timestamp comment '更新时间',
     primary key (id)
@@ -78,7 +79,7 @@ create table mocko.m_method
     args         varchar(512) not null default '' comment '参数信息',
     response     tinytext     not null default '' comment '响应信息',
 
-    operator_id  int          not null default 0 comment '操作人ID',
+    operator_code  int          not null default 0 comment '操作人ID',
     deleted      int          not null default 0 comment '删除标记',
     create_time  datetime     not null default now() comment '创建时间',
     update_time  timestamp    not null default current_timestamp on update current_timestamp comment '更新时间',
