@@ -52,4 +52,10 @@ public class MethodMeta {
      */
     private List<ArgInfo> args;
 
+
+    /**
+     * 返回值类型
+     */
+    private Class<?> returnType;
+
 }

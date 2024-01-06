@@ -1,20 +1,25 @@
 package org.chobit.mocko.biz;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.chobit.commons.codec.MD5;
 import org.chobit.commons.constans.Symbol;
 import org.chobit.commons.utils.JsonKit;
 import org.chobit.mocko.constants.Constants;
+import org.chobit.mocko.constants.ResponseCode;
+import org.chobit.mocko.except.MockoServerException;
 import org.chobit.mocko.model.ArgInfo;
 import org.chobit.mocko.model.MethodMeta;
 import org.chobit.mocko.model.entity.App;
-import org.chobit.mocko.model.entity.Class;
+import org.chobit.mocko.model.entity.Type;
 import org.chobit.mocko.model.entity.Method;
 import org.chobit.mocko.service.AppService;
-import org.chobit.mocko.service.ClassService;
+import org.chobit.mocko.service.TypeService;
 import org.chobit.mocko.service.MethodService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+
+import static org.chobit.commons.utils.StrKit.isBlank;
 
 
 /**
@@ -29,25 +34,44 @@ public class MockoBiz {
     @Resource
     private AppService appService;
     @Resource
-    private ClassService classService;
+    private TypeService typeService;
     @Resource
     private MethodService methodService;
+
+
+    public JsonNode queryMockResponse(MethodMeta meta) {
+        String methodId = this.computeMethodId(meta);
+        Method method = methodService.getByMethodId(methodId);
+
+        checkAndSave(meta, method, methodId);
+
+        if (isBlank(method.getResponse())) {
+            throw new MockoServerException(ResponseCode.EMPTY_MOCK_RESPONSE);
+        }
+
+        JsonNode result = JsonKit.parse(method.getResponse());
+        if (null == result) {
+            throw new MockoServerException(ResponseCode.ILLEGAL_MOCK_RESPONSE);
+        }
+
+        return result;
+    }
 
 
     /**
      * 检查并保存方法元数据等信息
      *
-     * @param meta 方法元数据
+     * @param meta     方法元数据
+     * @param method   方法信息
+     * @param methodId 方法ID
      */
-    public void checkAndSave(MethodMeta meta) {
-        String methodId = this.computeMethodId(meta);
-        Method method = methodService.getByMethodId(methodId);
+    private void checkAndSave(MethodMeta meta, Method method, String methodId) {
 
         if (null == method) {
             String classId = computeClassId(meta);
-            Class classInfo = classService.getByClassId(classId);
+            Type type = typeService.getByTypeId(classId);
 
-            if (null == classInfo) {
+            if (null == type) {
                 App app = appService.getByAppId(meta.getAppId());
                 if (null == app) {
                     this.addApp(meta);
@@ -56,6 +80,8 @@ public class MockoBiz {
             }
 
             this.addMethod(meta, classId, methodId);
+
+            throw new MockoServerException(ResponseCode.METHOD_NOT_EXISTS);
         }
     }
 
@@ -80,13 +106,13 @@ public class MockoBiz {
      * @param classId 类ID
      */
     private void addClass(MethodMeta meta, String classId) {
-        Class classInfo = new Class();
-        classInfo.setAppId(meta.getAppId());
-        classInfo.setClassId(classId);
-        classInfo.setClassName(meta.getClassName());
-        classInfo.setClassAlias(meta.getClassAlias());
-        classInfo.setOperatorCode(Constants.SYSTEM);
-        classService.save(classInfo);
+        Type typeInfo = new Type();
+        typeInfo.setAppId(meta.getAppId());
+        typeInfo.setTypeId(classId);
+        typeInfo.setTypeName(meta.getClassName());
+        typeInfo.setTypeAlias(meta.getClassAlias());
+        typeInfo.setOperatorCode(Constants.SYSTEM);
+        typeService.save(typeInfo);
     }
 
 
@@ -99,7 +125,7 @@ public class MockoBiz {
      */
     private void addMethod(MethodMeta meta, String classId, String methodId) {
         Method method = new Method();
-        method.setClassId(classId);
+        method.setTypeId(classId);
         method.setMethodId(methodId);
         method.setMethodAlias(meta.getMethodAlias());
         method.setMethodName(meta.getMethodName());

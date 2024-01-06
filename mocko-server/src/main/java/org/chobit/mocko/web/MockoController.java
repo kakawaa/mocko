@@ -2,13 +2,15 @@ package org.chobit.mocko.web;
 
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.chobit.commons.utils.JsonKit;
+import org.chobit.mocko.biz.MockoBiz;
 import org.chobit.mocko.model.MethodMeta;
 import org.chobit.mocko.spring.ResponseWrapper;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 
 /**
@@ -22,13 +24,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class MockoController {
 
 
-    @PostMapping("")
-    public JsonNode mock(@RequestBody MethodMeta info) {
+    @Resource
+    private MockoBiz mockoBiz;
 
 
-
-
-        return JsonKit.parse("{}");
+    @PostMapping("/mock")
+    public JsonNode mock(@RequestBody MethodMeta meta) {
+        return mockoBiz.queryMockResponse(meta);
     }
 
 

@@ -1,7 +1,5 @@
 package org.chobit.mocko.simple;
 
-import org.chobit.commons.codec.MD5;
-import org.chobit.commons.constans.Symbol;
 import org.chobit.mocko.OperationInvoker;
 import org.chobit.mocko.annotations.Mocko;
 import org.chobit.mocko.annotations.MockoClient;
@@ -54,15 +52,13 @@ class MockoAspectSupport {
         Class<?> returnType = method.getReturnType();
 
 
-        String methodId = computeMethodId(className, methodName, argList);
-
         MethodMeta methodMeta = new MethodMeta();
-        methodMeta.setMethodId(methodId);
         methodMeta.setClassName(className);
         methodMeta.setClassAlias(classAlias);
         methodMeta.setMethodName(methodName);
         methodMeta.setMethodAlias(methodAlias);
         methodMeta.setArgs(argList);
+        methodMeta.setReturnType(returnType);
 
         return methodMeta;
     }

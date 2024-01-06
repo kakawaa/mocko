@@ -17,7 +17,7 @@ public class Method extends AbstractEntity {
     /**
      * 组件ID
      */
-    private String classId;
+    private String typeId;
 
 
     /**

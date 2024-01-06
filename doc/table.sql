@@ -45,15 +45,15 @@ create table mocko.m_app
 --
 -- 组件信息表
 --
-create table mocko.m_class
+create table mocko.m_type
 (
     id          int unsigned not null default 0 auto_increment comment 'id',
 
     app_id      varchar(32)  not null default '' comment '应用ID',
 
-    class_id      varchar(32)  not null default '' comment '类ID',
-    class_alias   varchar(32)  not null default '' comment '类别名',
-    class_name  varchar(64)  not null default '' comment '全限定类名',
+    type_id      varchar(32)  not null default '' comment '类ID',
+    type_alias   varchar(32)  not null default '' comment '类别名',
+   type_name  varchar(64)  not null default '' comment '全限定类名',
 
     operator_code varchar(32)          not null default 0 comment '操作人ID',
     deleted     tinyint          not null default 0 comment '删除标记',
@@ -62,7 +62,7 @@ create table mocko.m_class
     primary key (id)
 ) engine = myisam
   character set = utf8mb4
-  collate = utf8mb4_bin comment = '组件信息表';
+  collate = utf8mb4_bin comment = '类信息表';
 
 
 --
@@ -72,7 +72,7 @@ create table mocko.m_method
 (
     id           int unsigned not null default 0 auto_increment comment 'id',
 
-    cmp_id       varchar(32)  not null default '' comment '组件ID',
+    type_id       varchar(32)  not null default '' comment '类ID',
     method_id    varchar(32)  not null default '' comment '方法ID',
     method_alias varchar(32)  not null default '' comment '方法别名',
     method_name  varchar(64)  not null default '' comment '方法名称: 全限定类名#方法名',

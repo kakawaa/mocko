@@ -8,13 +8,7 @@ import org.chobit.commons.contract.CodeDescEnum;
  * @author rui.zhang
  */
 
-public enum MockoServerCode implements CodeDescEnum {
-
-
-    /**
-     * 正常
-     */
-    NORMAL(0, "正常"),
+public enum ResponseCode implements CodeDescEnum {
 
     /**
      * 暂停
@@ -30,6 +24,18 @@ public enum MockoServerCode implements CodeDescEnum {
      * 方法不存在
      */
     METHOD_NOT_EXISTS(20000, "方法不存在"),
+
+    /**
+     * 方法响应信息为空
+     */
+    EMPTY_MOCK_RESPONSE(20001, "方法响应信息为空"),
+
+    /**
+     * 方法响应信息无效
+     */
+    ILLEGAL_MOCK_RESPONSE(20001, "方法响应信息无效"),
+
+
     ;
 
 
@@ -38,7 +44,7 @@ public enum MockoServerCode implements CodeDescEnum {
     public final String msg;
 
 
-    MockoServerCode(int code, String msg) {
+    ResponseCode(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }
