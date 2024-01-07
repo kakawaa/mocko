@@ -42,6 +42,28 @@ create table mocko.m_app
   collate = utf8mb4_bin comment = '应用信息表';
 
 
+
+--
+-- 包信息表
+--
+create table mocko.m_package
+(
+    id          int unsigned not null default 0 auto_increment comment 'id',
+
+    app_id      varchar(32)  not null default '' comment '应用ID',
+    pkg_name    varchar(32)  not null default '' comment '包名',
+    parent_name    varchar(32)  not null default '' comment '父级包名',
+
+    operator_code varchar(32)          not null default 0 comment '操作人ID',
+    deleted     tinyint          not null default 0 comment '删除标记',
+    create_time datetime     not null default now() comment '创建时间',
+    update_time timestamp    not null default current_timestamp on update current_timestamp comment '更新时间',
+    primary key (id)
+) engine = myisam
+  character set = utf8mb4
+  collate = utf8mb4_bin comment = '包信息表';
+
+
 --
 -- 组件信息表
 --
@@ -53,7 +75,8 @@ create table mocko.m_type
 
     type_id      varchar(32)  not null default '' comment '类ID',
     type_alias   varchar(32)  not null default '' comment '类别名',
-   type_name  varchar(64)  not null default '' comment '全限定类名',
+   type_name  varchar(32)  not null default '' comment '类名',
+   full_name  varchar(64)  not null default '' comment '全限定类名',
 
     operator_code varchar(32)          not null default 0 comment '操作人ID',
     deleted     tinyint          not null default 0 comment '删除标记',

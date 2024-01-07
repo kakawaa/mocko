@@ -10,14 +10,17 @@ import org.chobit.mocko.except.MockoServerException;
 import org.chobit.mocko.model.ArgInfo;
 import org.chobit.mocko.model.MethodMeta;
 import org.chobit.mocko.model.entity.App;
-import org.chobit.mocko.model.entity.Type;
 import org.chobit.mocko.model.entity.Method;
+import org.chobit.mocko.model.entity.Package;
+import org.chobit.mocko.model.entity.Type;
 import org.chobit.mocko.service.AppService;
-import org.chobit.mocko.service.TypeService;
 import org.chobit.mocko.service.MethodService;
+import org.chobit.mocko.service.PackageService;
+import org.chobit.mocko.service.TypeService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 import static org.chobit.commons.utils.StrKit.isBlank;
 
@@ -34,11 +37,19 @@ public class MockoBiz {
     @Resource
     private AppService appService;
     @Resource
+    private PackageService pkgService;
+    @Resource
     private TypeService typeService;
     @Resource
     private MethodService methodService;
 
 
+    /**
+     * 查询Mock的结果
+     *
+     * @param meta 方法元数据
+     * @return mock的结果
+     */
     public JsonNode queryMockResponse(MethodMeta meta) {
         String methodId = this.computeMethodId(meta);
         Method method = methodService.getByMethodId(methodId);
@@ -67,22 +78,25 @@ public class MockoBiz {
      */
     private void checkAndSave(MethodMeta meta, Method method, String methodId) {
 
-        if (null == method) {
-            String classId = computeClassId(meta);
-            Type type = typeService.getByTypeId(classId);
-
-            if (null == type) {
-                App app = appService.getByAppId(meta.getAppId());
-                if (null == app) {
-                    this.addApp(meta);
-                }
-                this.addClass(meta, classId);
-            }
-
-            this.addMethod(meta, classId, methodId);
-
-            throw new MockoServerException(ResponseCode.METHOD_NOT_EXISTS);
+        if (null != method) {
+            return;
         }
+
+        String classId = computeClassId(meta);
+        Type type = typeService.getByTypeId(classId);
+
+        if (null == type) {
+            App app = appService.getByAppId(meta.getAppId());
+            if (null == app) {
+                this.addApp(meta);
+            }
+            this.savePackage(meta.getAppId(), meta.getClassName());
+            this.addClass(meta, classId);
+        }
+
+        this.addMethod(meta, classId, methodId);
+
+        throw new MockoServerException(ResponseCode.EMPTY_MOCK_RESPONSE);
     }
 
 
@@ -100,19 +114,62 @@ public class MockoBiz {
 
 
     /**
+     * 保存包信息
+     *
+     * @param appId         应用ID
+     * @param classFullName 全限定类名
+     */
+    private void savePackage(String appId, String classFullName) {
+        String[] arr = classFullName.split(Symbol.COMMA);
+        if (arr.length == 1) {
+            return;
+        }
+
+        List<String> pkgNames = pkgService.findByAppId(appId);
+
+        for (int i = 0; i < arr.length - 1; i++) {
+            String pkgName = arr[i];
+            String pkgParentName = "";
+            if (i > 0) {
+                pkgParentName = arr[i - 1];
+            }
+            if (pkgNames.contains(pkgName)) {
+                continue;
+            }
+
+            Package pkg = new Package();
+            pkg.setPkgName(pkgName);
+            pkg.setParentName(pkgParentName);
+            pkg.setAppId(appId);
+            pkg.setOperatorCode(Constants.SYSTEM);
+
+            pkgService.save(pkg);
+        }
+    }
+
+
+    /**
      * 保存类信息
      *
      * @param meta    方法元数据
      * @param classId 类ID
      */
     private void addClass(MethodMeta meta, String classId) {
-        Type typeInfo = new Type();
-        typeInfo.setAppId(meta.getAppId());
-        typeInfo.setTypeId(classId);
-        typeInfo.setTypeName(meta.getClassName());
-        typeInfo.setTypeAlias(meta.getClassAlias());
-        typeInfo.setOperatorCode(Constants.SYSTEM);
-        typeService.save(typeInfo);
+        String fullName = meta.getClassName();
+        int idx = fullName.lastIndexOf(Symbol.POINT);
+        String typeName = fullName;
+        if (idx > 0) {
+            typeName = fullName.substring(idx);
+        }
+
+        Type type = new Type();
+        type.setAppId(meta.getAppId());
+        type.setTypeId(classId);
+        type.setTypeName(typeName);
+        type.setTypeAlias(meta.getClassAlias());
+        type.setFullName(fullName);
+        type.setOperatorCode(Constants.SYSTEM);
+        typeService.save(type);
     }
 
 
