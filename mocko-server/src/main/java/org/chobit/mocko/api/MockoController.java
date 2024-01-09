@@ -1,4 +1,4 @@
-package org.chobit.mocko.web;
+package org.chobit.mocko.api;
 
 
 import com.fasterxml.jackson.databind.JsonNode;

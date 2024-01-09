@@ -1,4 +1,4 @@
-package org.chobit.mocko.web;
+package org.chobit.mocko.api;
 
 import org.chobit.mocko.biz.MyBiz;
 import org.chobit.mocko.spring.ResponseWrapper;

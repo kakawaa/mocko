@@ -1,6 +1,5 @@
 package org.chobit.mocko.biz;
 
-import org.chobit.mocko.annotations.MockoClient;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Component;
  *
  * @author robin
  */
-@MockoClient
 @Component
 public class MyBiz {
 

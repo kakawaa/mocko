@@ -54,11 +54,11 @@ public class MockoMethodMatcher extends StaticMethodMatcher {
 
 
     private boolean matchesClass(Class<?> targetClass) {
-        return (
-                this.checkInherited ?
-                        AnnotatedElementUtils.hasAnnotation(targetClass, MockoClient.class) || AnnotatedElementUtils.hasAnnotation(targetClass, Mocko.class)
-                        : targetClass.isAnnotationPresent(MockoClient.class) || targetClass.isAnnotationPresent(Mocko.class)
-        );
+        if(this.checkInherited){
+            return AnnotatedElementUtils.hasAnnotation(targetClass, MockoClient.class) || AnnotatedElementUtils.hasAnnotation(targetClass, Mocko.class);
+        }else {
+            return targetClass.isAnnotationPresent(MockoClient.class) || targetClass.isAnnotationPresent(Mocko.class);
+        }
     }
 
 
