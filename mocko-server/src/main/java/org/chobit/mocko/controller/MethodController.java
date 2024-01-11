@@ -5,12 +5,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author rui.zhang
+ * 方法相关接口
+ *
+ * @author robin
  */
 @ResponseWrapper
 @RestController
-@RequestMapping("")
-public class HomeController {
+@RequestMapping("/admin/method")
+public class MethodController {
+
 
 
 
