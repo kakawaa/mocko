@@ -1,4 +1,4 @@
-package org.chobit.mocko.biz;
+package org.chobit.mocko.biz.action;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.chobit.commons.codec.MD5;
@@ -31,7 +31,7 @@ import static org.chobit.commons.utils.StrKit.isBlank;
  * @author robin
  */
 @Component
-public class MockoBiz {
+public class MockAction {
 
 
     @Resource

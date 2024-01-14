@@ -2,7 +2,7 @@ package org.chobit.mocko.api;
 
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.chobit.mocko.biz.MockoBiz;
+import org.chobit.mocko.biz.action.MockAction;
 import org.chobit.mocko.model.MethodMeta;
 import org.chobit.mocko.spring.ResponseWrapper;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,12 +25,12 @@ public class MockoController {
 
 
     @Resource
-    private MockoBiz mockoBiz;
+    private MockAction mockAction;
 
 
     @PostMapping("/mock")
     public JsonNode mock(@RequestBody MethodMeta meta) {
-        return mockoBiz.queryMockResponse(meta);
+        return mockAction.queryMockResponse(meta);
     }
 
 
