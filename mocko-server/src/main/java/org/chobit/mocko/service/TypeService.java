@@ -32,4 +32,15 @@ public class TypeService extends ServiceImpl<TypeMapper, Type> {
     }
 
 
+    /**
+     * 更新类信息
+     *
+     * @param type 类信息
+     * @return 更新结果
+     */
+    public Boolean updateType(Type type) {
+        return false;
+    }
+
+
 }

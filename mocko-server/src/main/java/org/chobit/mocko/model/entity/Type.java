@@ -42,4 +42,10 @@ public class Type extends AbstractEntity {
      */
     private String fullName;
 
+
+    /**
+     * 类描述信息
+     */
+    private String remark;
+
 }

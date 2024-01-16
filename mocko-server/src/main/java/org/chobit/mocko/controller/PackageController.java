@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 方法相关接口
+ * 包相关接口
  *
  * @author robin
  */
@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/admin/pkg")
 public class PackageController {
-
-
 
 
 }

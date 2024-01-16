@@ -5,14 +5,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 用户信息相关接口
+ * 类相关接口
  *
  * @author robin
  */
 @ResponseWrapper
 @RestController
-@RequestMapping("/admin/user")
-public class UserController {
+@RequestMapping("/admin/type")
+public class TypeController {
 
 
 }
