@@ -24,6 +24,7 @@
         <spring.version>2.7.18</spring.version>
         <slf4j.version>1.7.36</slf4j.version>
         <logback.version>1.4.14</logback.version>
+        <zhy.version>0.1.2</zhy.version>
     </properties>
 
     <dependencies>
@@ -67,7 +68,7 @@
             <dependency>
                 <groupId>org.chobit.commons</groupId>
                 <artifactId>common-utils</artifactId>
-                <version>[0.1, )</version>
+                <version>${zhy.version}</version>
             </dependency>
 
             <dependency>
