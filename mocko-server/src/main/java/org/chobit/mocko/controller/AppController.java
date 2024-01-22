@@ -2,7 +2,7 @@ package org.chobit.mocko.controller;
 
 import org.chobit.mocko.model.request.AppModifyRequest;
 import org.chobit.mocko.service.AppService;
-import org.chobit.mocko.spring.ResponseWrapper;
+import org.chobit.mocko.config.response.ResponseWrapper;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,7 +1,7 @@
 package org.chobit.mocko.api;
 
 import org.chobit.mocko.biz.MyBiz;
-import org.chobit.mocko.spring.ResponseWrapper;
+import org.chobit.mocko.config.response.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

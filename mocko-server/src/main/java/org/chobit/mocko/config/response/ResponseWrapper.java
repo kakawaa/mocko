@@ -1,4 +1,4 @@
-package org.chobit.mocko.spring;
+package org.chobit.mocko.config.response;
 
 
 import org.springframework.web.bind.annotation.ResponseBody;

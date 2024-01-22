@@ -1,4 +1,4 @@
-package org.chobit.mocko.spring;
+package org.chobit.mocko.config.response;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,8 +31,7 @@ public class ApiExceptionAdvisor {
     @ResponseStatus(HttpStatus.OK)
     public Result<?> exceptionHandler(Exception e) {
 
-        Result<?> r = new Result<>(null);
-        r.setCode(CommonStatusCode.FAIL.code);
+        Result<?> r = new Result<>(CommonStatusCode.FAIL);
         r.setMsg("内部异常");
 
         if (e instanceof MissingServletRequestParameterException) {

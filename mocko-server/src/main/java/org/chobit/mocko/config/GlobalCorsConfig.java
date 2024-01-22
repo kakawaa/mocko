@@ -1,4 +1,4 @@
-package org.chobit.mocko.spring;
+package org.chobit.mocko.config;
 
 
 import org.springframework.context.annotation.Bean;

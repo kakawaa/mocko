@@ -1,4 +1,4 @@
-package org.chobit.mocko.spring;
+package org.chobit.mocko.config.response;
 
 import org.chobit.commons.model.response.Result;
 import org.chobit.commons.utils.JsonKit;
@@ -17,6 +17,8 @@ import java.lang.annotation.Annotation;
 
 
 /**
+ * 接口异常处理
+ *
  * @author robin
  */
 @RestControllerAdvice

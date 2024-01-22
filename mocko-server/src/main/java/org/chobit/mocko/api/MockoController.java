@@ -4,7 +4,7 @@ package org.chobit.mocko.api;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.chobit.mocko.biz.action.MockAction;
 import org.chobit.mocko.model.MethodMeta;
-import org.chobit.mocko.spring.ResponseWrapper;
+import org.chobit.mocko.config.response.ResponseWrapper;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
