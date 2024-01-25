@@ -2,8 +2,12 @@ package org.chobit.mocko.api;
 
 import org.chobit.mocko.biz.MyBiz;
 import org.chobit.mocko.config.response.ResponseWrapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * Hello World!
@@ -11,18 +15,24 @@ import org.springframework.web.bind.annotation.*;
  * @author rui.zhang
  */
 @ResponseWrapper
-@RestController
-@RequestMapping("")
+@Controller
+@RequestMapping("/api")
 public class PingController {
 
 
-    @Autowired
+    @Resource
     private MyBiz myBiz;
 
 
     @GetMapping("/ping")
     public String ping() {
         return myBiz.ping();
+    }
+
+
+    @GetMapping("/pong")
+    public Map<String, Integer> pong() {
+        return myBiz.pong();
     }
 
 }

@@ -3,7 +3,7 @@ package org.chobit.mocko.annotations;
 import java.lang.annotation.*;
 
 /**
- * Mocko客户端注解
+ * 用来标识Mocko动态代理类
  *
  * @author rui.zhang
  */
