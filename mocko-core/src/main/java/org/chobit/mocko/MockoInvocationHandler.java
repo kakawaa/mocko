@@ -1,5 +1,6 @@
 package org.chobit.mocko;
 
+import org.chobit.commons.utils.JsonKit;
 import org.chobit.mocko.InvocationHandlerFactory.MethodHandler;
 
 import java.lang.reflect.InvocationHandler;
@@ -8,7 +9,7 @@ import java.util.Map;
 
 
 /**
- * 用来创建mocko实例
+ * 通过动态代理
  *
  * @author rui.zhang
  */
@@ -27,6 +28,7 @@ public class MockoInvocationHandler implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        return null;
+
+        return JsonKit.fromJson("{}", method.getReturnType());
     }
 }
