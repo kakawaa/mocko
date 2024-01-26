@@ -2,6 +2,7 @@ package org.chobit.mocko.simple;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
+import org.chobit.mocko.MockoAspectSupport;
 import org.chobit.mocko.OperationInvoker;
 
 import java.io.Serializable;

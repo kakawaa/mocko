@@ -1,9 +1,14 @@
 package org.chobit.mocko.client;
 
 import org.chobit.mocko.annotations.MockoClient;
+import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.beans.factory.support.AbstractBeanDefinition;
+import org.springframework.beans.factory.support.BeanDefinitionBuilder;
+import org.springframework.beans.factory.support.BeanDefinitionReaderUtils;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.ResourceLoaderAware;
@@ -14,6 +19,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.util.ClassUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -64,24 +70,59 @@ class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, ResourceLo
             Map<String, Object> attributes = annotationMetadata.getAnnotationAttributes(MockoClient.class.getName());
             String clientName = "$mocko." + comp.getBeanClassName();
 
+            this.registerClientConfiguration(registry, clientName, attributes.get("configuration"));
+            this.registerMockoClient(registry, annotationMetadata, attributes);
         }
     }
 
 
-    private void registerMockoClient(BeanDefinitionRegistry registry, AnnotationMetadata annotationMetadata, Map<String, Object> attributes) {
-        String className = annotationMetadata.getClassName();
+    private void registerMockoClient(BeanDefinitionRegistry registry, AnnotationMetadata metadata, Map<String, Object> attributes) {
+        String className = metadata.getClassName();
         Class<?> clazz = ClassUtils.resolveClassName(className, null);
-        ConfigurableBeanFactory beanFactory = registry instanceof ConfigurableBeanFactory
-                ? (ConfigurableBeanFactory) registry : null;
+        ConfigurableBeanFactory beanFactory = (registry instanceof ConfigurableBeanFactory ? (ConfigurableBeanFactory) registry : null);
+
+        BeanDefinitionBuilder definition = BeanDefinitionBuilder.genericBeanDefinition(MockoClientFactoryBean.class);
 
 
+        definition.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
+
+        String alias = className + "-MockoClient";
+        AbstractBeanDefinition beanDefinition = definition.getBeanDefinition();
+        beanDefinition.setAttribute(FactoryBean.OBJECT_TYPE_ATTRIBUTE, className);
+
+        // has a default, won't be null
+        boolean primary = (Boolean) attributes.get("primary");
+
+        beanDefinition.setPrimary(primary);
+
+        String qualifier = this.getQualifier(attributes);
+        if (StringUtils.hasText(qualifier)) {
+            alias = qualifier;
+        }
+
+        BeanDefinitionHolder holder = new BeanDefinitionHolder(beanDefinition, className, new String[]{alias});
+        BeanDefinitionReaderUtils.registerBeanDefinition(holder, registry);
     }
 
 
-    private String getContextId(ConfigurableBeanFactory beanFactory, Map<String, Object> attributes) {
+    private String getQualifier(Map<String, Object> client) {
+        if (client == null) {
+            return null;
+        }
+        String qualifier = (String) client.get("qualifier");
+        if (StringUtils.hasText(qualifier)) {
+            return qualifier;
+        }
         return null;
     }
 
+    private void registerClientConfiguration(BeanDefinitionRegistry registry, Object name, Object configuration) {
+        BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(MockoClientSpecification.class);
+        builder.addConstructorArgValue(name);
+        builder.addConstructorArgValue(configuration);
+        String beanName = name + "." + MockoClientSpecification.class.getSimpleName();
+        registry.registerBeanDefinition(beanName, builder.getBeanDefinition());
+    }
 
     /**
      * 获取组件扫描器

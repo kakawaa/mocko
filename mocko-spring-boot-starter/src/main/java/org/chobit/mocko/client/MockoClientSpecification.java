@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * @author rui.zhang
  */
-public class MockoClientSpecification  {
+public class MockoClientSpecification {
 
 
     private String name;
@@ -59,5 +59,13 @@ public class MockoClientSpecification  {
         int result = Objects.hash(name);
         result = 31 * result + Arrays.hashCode(configuration);
         return result;
+    }
+
+
+    @Override
+    public String toString() {
+        return "MockoClientSpecification{" + "name='" +
+                this.name + "', " + "configuration=" +
+                Arrays.toString(this.configuration) + "}";
     }
 }

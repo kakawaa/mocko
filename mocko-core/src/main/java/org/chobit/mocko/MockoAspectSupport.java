@@ -1,6 +1,5 @@
-package org.chobit.mocko.simple;
+package org.chobit.mocko;
 
-import org.chobit.mocko.OperationInvoker;
 import org.chobit.mocko.annotations.Mocko;
 import org.chobit.mocko.annotations.MockoClient;
 import org.chobit.mocko.model.ArgInfo;
@@ -15,7 +14,7 @@ import java.util.List;
  *
  * @author rui.zhang
  */
-class MockoAspectSupport {
+public class MockoAspectSupport {
 
 
     protected Object execute(OperationInvoker invoker, Object target, Method method, Object[] args) {
@@ -62,8 +61,6 @@ class MockoAspectSupport {
 
         return methodMeta;
     }
-
-
 
 
     /**
