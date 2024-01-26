@@ -29,7 +29,7 @@ import java.util.Map;
  *
  * @author rui.zhang
  */
-class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, ResourceLoaderAware, EnvironmentAware {
+public class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, ResourceLoaderAware, EnvironmentAware {
 
 
     /**
@@ -43,7 +43,7 @@ class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, ResourceLo
     private Environment environment;
 
 
-    MockoClientsRegistrar() {
+    public MockoClientsRegistrar() {
     }
 
 

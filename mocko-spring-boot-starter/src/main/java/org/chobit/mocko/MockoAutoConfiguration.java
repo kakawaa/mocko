@@ -2,6 +2,7 @@ package org.chobit.mocko;
 
 
 import org.chobit.mocko.annotations.Mocko;
+import org.chobit.mocko.client.MockoClientsRegistrar;
 import org.chobit.mocko.client.MockoProperties;
 import org.chobit.mocko.simple.MockoInterceptor;
 import org.chobit.mocko.simple.MockoPointcutSourceAdvisor;
@@ -38,6 +39,11 @@ public class MockoAutoConfiguration {
         advisor.setAdvice(quickLogInterceptor);
         advisor.setOrder(Ordered.HIGHEST_PRECEDENCE + 1);
         return advisor;
+    }
+
+
+    public MockoClientsRegistrar mockoClientsRegistrar(){
+        return new MockoClientsRegistrar();
     }
 
 
