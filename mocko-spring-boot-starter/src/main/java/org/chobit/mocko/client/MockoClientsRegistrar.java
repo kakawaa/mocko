@@ -47,6 +47,15 @@ public class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, Res
     }
 
 
+
+    @Override
+    public void registerBeanDefinitions(AnnotationMetadata metadata,
+                                        BeanDefinitionRegistry registry) {
+        registerMockoClients(metadata, registry);
+    }
+
+
+
     /**
      * 将MockoClient相关实例注入到容器
      */

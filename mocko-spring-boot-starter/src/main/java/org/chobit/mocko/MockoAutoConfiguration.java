@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.Ordered;
 
@@ -19,6 +20,7 @@ import org.springframework.core.Ordered;
  *
  * @author rui.zhang
  */
+@Import(MockoClientsRegistrar.class)
 @Configuration
 @ConditionalOnClass({Mocko.class})
 @EnableConfigurationProperties(MockoProperties.class)
@@ -39,11 +41,6 @@ public class MockoAutoConfiguration {
         advisor.setAdvice(quickLogInterceptor);
         advisor.setOrder(Ordered.HIGHEST_PRECEDENCE + 1);
         return advisor;
-    }
-
-
-    public MockoClientsRegistrar mockoClientsRegistrar(){
-        return new MockoClientsRegistrar();
     }
 
 
