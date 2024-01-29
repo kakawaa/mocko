@@ -60,7 +60,7 @@ public class MockoClientFactoryBean implements FactoryBean<Object>, Initializing
     @Override
     public Object getObject() throws Exception {
 
-        return null;
+        return getTarget();
     }
 
 
