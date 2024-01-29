@@ -9,7 +9,6 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.util.Assert;
 
 /**
  * @author rui.zhang
@@ -34,7 +33,7 @@ public class MockoClientFactoryBean implements FactoryBean<Object>, Initializing
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        Assert.hasText(this.contextId, "contextId不能为空");
+        //Assert.hasText(this.contextId, "contextId不能为空");
     }
 
     @Override

@@ -5,6 +5,7 @@ import org.chobit.mocko.config.response.ResponseWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -33,6 +34,12 @@ public class PingController {
     @GetMapping("/pong")
     public Map<String, Integer> pong() {
         return myBiz.pong();
+    }
+
+
+    @GetMapping("/foo")
+    public String foo(@RequestParam("n") String name) {
+        return myBiz.foo(name);
     }
 
 }

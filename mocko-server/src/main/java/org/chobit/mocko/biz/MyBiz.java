@@ -1,7 +1,9 @@
 package org.chobit.mocko.biz;
 
+import org.chobit.mocko.service.IFooService;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +16,10 @@ import java.util.Map;
 public class MyBiz {
 
 
+    @Resource
+    private IFooService fooService;
+
+
     public String ping() {
         return "pong";
     }
@@ -24,5 +30,10 @@ public class MyBiz {
         result.put("A", 1);
         result.put("B", 2);
         return result;
+    }
+
+
+    public String foo(String foo) {
+        return fooService.bar(foo);
     }
 }

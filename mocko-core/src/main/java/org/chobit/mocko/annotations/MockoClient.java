@@ -14,7 +14,28 @@ import java.lang.annotation.*;
 public @interface MockoClient {
 
 
+    /**
+     * Mock实现的组件名称
+     *
+     * @return 组件名称
+     */
     String value() default "";
+
+
+    /**
+     * 组件的Qualifier值
+     *
+     * @return Qualifier值
+     */
+    String qualifier() default "";
+
+
+    /**
+     * 标识组件是否是primary bean
+     *
+     * @return true 是， false 否
+     */
+    boolean primary() default true;
 
 
 }
