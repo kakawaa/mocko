@@ -48,8 +48,9 @@ public class MockoClientFactoryBean implements FactoryBean<Object>, Initializing
     }
 
 
+    @SuppressWarnings("unchecked")
     private <T> T get(MockoContext context, Class<T> type) {
-        T instance = context.getInstance(contextId, type);
+        T instance = (T) context.getInstance(contextId, type);
         if (null == instance) {
             throw new IllegalStateException("No bean found of type " + type + " for " + contextId);
         }
@@ -65,10 +66,10 @@ public class MockoClientFactoryBean implements FactoryBean<Object>, Initializing
 
 
     <T> T getTarget() {
-        MockoContext context = (null != beanFactory ? beanFactory.getBean(MockoContext.class) : applicationContext.getBean(MockoContext.class));
+        MockoContext context =  beanFactory.getBean(MockoContext.class);
 
 
-        return null;
+        return (T)new Object();
     }
 
 

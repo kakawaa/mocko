@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.env.MapPropertySource;
+import org.springframework.lang.Nullable;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -18,14 +19,13 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Creates a set of child contexts that allows a set of Specifications to define the beans
  * in each child context.
- *
+ * <p>
  * Ported from spring-cloud-netflix FeignClientFactory and SpringClientFactory
  *
  * @param <C> specification
  * @author Spencer Gibb
  * @author Dave Syer
  */
-// TODO: add javadoc
 public abstract class NamedContextFactory<C extends NamedContextFactory.Specification>
         implements DisposableBean, ApplicationContextAware {
 
@@ -33,16 +33,16 @@ public abstract class NamedContextFactory<C extends NamedContextFactory.Specific
 
     private final String propertyName;
 
-    private Map<String, AnnotationConfigApplicationContext> contexts = new ConcurrentHashMap<>();
+    private final Map<String, AnnotationConfigApplicationContext> contexts = new ConcurrentHashMap<>();
 
-    private Map<String, C> configurations = new ConcurrentHashMap<>();
+    private final Map<String, C> configurations = new ConcurrentHashMap<>();
 
+    @Nullable
     private ApplicationContext parent;
 
-    private Class<?> defaultConfigType;
+    private final Class<?> defaultConfigType;
 
-    public NamedContextFactory(Class<?> defaultConfigType, String propertySourceName,
-                               String propertyName) {
+    public NamedContextFactory(Class<?> defaultConfigType, String propertySourceName, String propertyName) {
         this.defaultConfigType = defaultConfigType;
         this.propertySourceName = propertySourceName;
         this.propertyName = propertyName;
@@ -67,8 +67,7 @@ public abstract class NamedContextFactory<C extends NamedContextFactory.Specific
     public void destroy() {
         Collection<AnnotationConfigApplicationContext> values = this.contexts.values();
         for (AnnotationConfigApplicationContext context : values) {
-            // This can fail, but it never throws an exception (you see stack traces
-            // logged as WARN).
+            // This can fail, but it never throws an exception (you see stack traces logged as WARN).
             context.close();
         }
         this.contexts.clear();
@@ -88,8 +87,7 @@ public abstract class NamedContextFactory<C extends NamedContextFactory.Specific
     protected AnnotationConfigApplicationContext createContext(String name) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         if (this.configurations.containsKey(name)) {
-            for (Class<?> configuration : this.configurations.get(name)
-                    .getConfiguration()) {
+            for (Class<?> configuration : this.configurations.get(name).getConfiguration()) {
                 context.register(configuration);
             }
         }
@@ -121,12 +119,12 @@ public abstract class NamedContextFactory<C extends NamedContextFactory.Specific
         return this.getClass().getSimpleName() + "-" + name;
     }
 
+    @Nullable
     public <T> T getInstance(String name, Class<T> type) {
         AnnotationConfigApplicationContext context = getContext(name);
         try {
             return context.getBean(type);
-        }
-        catch (NoSuchBeanDefinitionException e) {
+        } catch (NoSuchBeanDefinitionException e) {
             // ignore
         }
         return null;

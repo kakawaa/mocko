@@ -16,7 +16,7 @@ public class MockoContext extends NamedContextFactory {
 
 
     public MockoContext() {
-        super(MockoClientsConfiguration.class, "feign", "feign.client.name");
+        super(MockoClientsConfiguration.class, "mocko", "mocko.client.name");
     }
 
 
@@ -24,8 +24,7 @@ public class MockoContext extends NamedContextFactory {
     public <T> T getInstanceWithoutAncestors(String name, Class<T> type) {
         try {
             return BeanFactoryUtils.beanOfType(getContext(name), type);
-        }
-        catch (BeansException ex) {
+        } catch (BeansException ex) {
             return null;
         }
     }
