@@ -8,7 +8,7 @@ import static org.chobit.mocko.tools.Args.checkNotNull;
 /**
  * @author rui.zhang
  */
-interface Target<T> {
+public interface Target<T> {
 
 
     /**
@@ -35,7 +35,7 @@ interface Target<T> {
     String url();
 
 
-    class DefaultTarget<T> implements Target<T> {
+    public static class DefaultTarget<T> implements Target<T> {
 
 
         private final Class<T> type;

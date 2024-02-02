@@ -1,37 +1,31 @@
 package org.chobit.mocko.client;
 
-import org.chobit.mocko.MockoClientsConfiguration;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanFactoryUtils;
-import org.springframework.lang.Nullable;
-
-import java.util.Map;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 /**
  * 用来维护mocko相关的Bean
  *
  * @author rui.zhang
  */
-public class MockoContext extends NamedContextFactory {
+public class MockoContext implements ApplicationContextAware {
 
 
     public MockoContext() {
-        super(MockoClientsConfiguration.class, "mocko", "mocko.client.name");
+    }
+
+    private ApplicationContext parent;
+
+
+    public <T> T getInstance(Class<T> clazz) {
+
+        return parent.getBean(clazz);
     }
 
 
-    @Nullable
-    public <T> T getInstanceWithoutAncestors(String name, Class<T> type) {
-        try {
-            return BeanFactoryUtils.beanOfType(getContext(name), type);
-        } catch (BeansException ex) {
-            return null;
-        }
+    @Override
+    public void setApplicationContext(ApplicationContext context) throws BeansException {
+        parent = context;
     }
-
-    @Nullable
-    public <T> Map<String, T> getInstancesWithoutAncestors(String name, Class<T> type) {
-        return getContext(name).getBeansOfType(type);
-    }
-
 }

@@ -1,10 +1,10 @@
 package org.chobit.mocko.client;
 
+import org.chobit.mocko.Mocko;
+import org.chobit.mocko.Target;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
@@ -13,7 +13,7 @@ import org.springframework.context.ApplicationContextAware;
 /**
  * @author rui.zhang
  */
-public class MockoClientFactoryBean implements FactoryBean<Object>, InitializingBean, ApplicationContextAware, BeanFactoryAware {
+public class MockoClientFactoryBean implements FactoryBean<Object>, InitializingBean, ApplicationContextAware {
 
 
     private static final Logger logger = LoggerFactory.getLogger(MockoClientFactoryBean.class);
@@ -24,11 +24,7 @@ public class MockoClientFactoryBean implements FactoryBean<Object>, Initializing
 
     private String url;
 
-    private String contextId;
-
     private ApplicationContext applicationContext;
-
-    private BeanFactory beanFactory;
 
 
     @Override
@@ -37,22 +33,15 @@ public class MockoClientFactoryBean implements FactoryBean<Object>, Initializing
     }
 
     @Override
-    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-        this.beanFactory = beanFactory;
-    }
-
-    @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
-        this.beanFactory = applicationContext;
     }
 
 
-    @SuppressWarnings("unchecked")
     private <T> T get(MockoContext context, Class<T> type) {
-        T instance = (T) context.getInstance(contextId, type);
+        T instance = context.getInstance(type);
         if (null == instance) {
-            throw new IllegalStateException("No bean found of type " + type + " for " + contextId);
+            throw new IllegalStateException("No bean found of type " + type + " for " + type);
         }
         return instance;
     }
@@ -66,10 +55,13 @@ public class MockoClientFactoryBean implements FactoryBean<Object>, Initializing
 
 
     <T> T getTarget() {
-        MockoContext context =  beanFactory.getBean(MockoContext.class);
+        MockoContext context =  applicationContext.getBean(MockoContext.class);
+        Targeter targeter = this.get(context, Targeter.class);
 
+        Mocko.Builder mocko = this.get(context, Mocko.Builder.class);
+        Target.DefaultTarget<T> target = new Target.DefaultTarget(this.type, this.name, this.url);
 
-        return (T)new Object();
+        return targeter.target(this, mocko, context, target);
     }
 
 

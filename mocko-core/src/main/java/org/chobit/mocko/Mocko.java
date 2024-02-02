@@ -69,4 +69,31 @@ public class Mocko {
         }
     }
 
+
+    public static class Builder {
+
+        private Contract contract = new Contract.Default();
+
+        private InvocationHandlerFactory invocationHandlerFactory = new InvocationHandlerFactory.Default();
+
+
+        public Builder contract(Contract contract) {
+            this.contract = contract;
+            return this;
+        }
+
+
+        public Builder invocationHandlerFactory(InvocationHandlerFactory invocationHandlerFactory) {
+            this.invocationHandlerFactory = invocationHandlerFactory;
+            return this;
+        }
+
+
+        public Mocko build() {
+            return new Mocko(contract, invocationHandlerFactory);
+        }
+
+
+    }
+
 }

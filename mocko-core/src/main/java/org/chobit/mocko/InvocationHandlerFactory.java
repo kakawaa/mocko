@@ -35,4 +35,12 @@ public interface InvocationHandlerFactory {
     }
 
 
+     final class Default implements InvocationHandlerFactory {
+
+        @Override
+        public InvocationHandler create(Target<?> target, Map<Method, MethodHandler> dispatch) {
+            return new MockoInvocationHandler(target, dispatch);
+        }
+    }
+
 }
