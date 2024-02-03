@@ -5,7 +5,6 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionReaderUtils;
@@ -87,9 +86,6 @@ public class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, Res
                                      Map<String, Object> attributes) {
 
         final String className = metadata.getClassName();
-        Class<?> clazz = ClassUtils.resolveClassName(className, null);
-        ConfigurableBeanFactory beanFactory = (registry instanceof ConfigurableBeanFactory ? (ConfigurableBeanFactory) registry : null);
-
 
         BeanDefinitionBuilder definition = BeanDefinitionBuilder.genericBeanDefinition(MockoClientFactoryBean.class);
         definition.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
