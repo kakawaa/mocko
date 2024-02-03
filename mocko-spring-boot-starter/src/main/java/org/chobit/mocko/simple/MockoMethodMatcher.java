@@ -1,6 +1,6 @@
 package org.chobit.mocko.simple;
 
-import org.chobit.mocko.annotations.Mocko;
+import org.chobit.mocko.annotations.MockOf;
 import org.chobit.mocko.annotations.MockoClient;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.aop.support.StaticMethodMatcher;
@@ -48,16 +48,16 @@ public class MockoMethodMatcher extends StaticMethodMatcher {
 
 
     private boolean matchesMethod(Method method) {
-        return (this.checkInherited ? AnnotatedElementUtils.hasAnnotation(method, Mocko.class) :
-                method.isAnnotationPresent(Mocko.class));
+        return (this.checkInherited ? AnnotatedElementUtils.hasAnnotation(method, MockOf.class) :
+                method.isAnnotationPresent(MockOf.class));
     }
 
 
     private boolean matchesClass(Class<?> targetClass) {
         if(this.checkInherited){
-            return AnnotatedElementUtils.hasAnnotation(targetClass, MockoClient.class) || AnnotatedElementUtils.hasAnnotation(targetClass, Mocko.class);
+            return AnnotatedElementUtils.hasAnnotation(targetClass, MockoClient.class) || AnnotatedElementUtils.hasAnnotation(targetClass, MockOf.class);
         }else {
-            return targetClass.isAnnotationPresent(MockoClient.class) || targetClass.isAnnotationPresent(Mocko.class);
+            return targetClass.isAnnotationPresent(MockoClient.class) || targetClass.isAnnotationPresent(MockOf.class);
         }
     }
 

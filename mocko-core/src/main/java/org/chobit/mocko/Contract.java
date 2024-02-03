@@ -1,6 +1,6 @@
 package org.chobit.mocko;
 
-import org.chobit.mocko.annotations.Mocko;
+import org.chobit.mocko.annotations.MockOf;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public interface Contract {
             Method[] methods = targetType.getMethods();
             for (final Method method : methods) {
                 // 没有@Mocko注解的方法，静态方法，Object的方法，default方法都不会被处理
-                if (!method.isAnnotationPresent(Mocko.class)) {
+                if (!method.isAnnotationPresent(MockOf.class)) {
                     continue;
                 }
                 if (method.getDeclaringClass() == Object.class) {

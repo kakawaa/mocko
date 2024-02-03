@@ -89,6 +89,9 @@ public class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, Res
 
         BeanDefinitionBuilder definition = BeanDefinitionBuilder.genericBeanDefinition(MockoClientFactoryBean.class);
         definition.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
+        definition.addPropertyValue("name", className);
+        definition.addPropertyValue("type", className);
+        definition.addPropertyValue("url", "1111");
 
         String alias = className + "MockoClient";
         AbstractBeanDefinition beanDefinition = definition.getBeanDefinition();

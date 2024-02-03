@@ -17,6 +17,10 @@ import java.util.Map;
 public class Mocko {
 
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     private final Contract contract;
 
     private final InvocationHandlerFactory factory;
