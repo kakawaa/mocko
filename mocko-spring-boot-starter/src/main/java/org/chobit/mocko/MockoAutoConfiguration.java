@@ -21,7 +21,7 @@ import org.springframework.core.Ordered;
  * @author rui.zhang
  */
 @Import(MockoClientsRegistrar.class)
-@Configuration
+@Configuration( proxyBeanMethods = false)
 @ConditionalOnClass({MockOf.class})
 @EnableConfigurationProperties(MockoProperties.class)
 public class MockoAutoConfiguration {
@@ -40,7 +40,7 @@ public class MockoAutoConfiguration {
     public Targeter mockoTargeter() {
         return new Targeter.DefaultTargeter();
     }
-    
+
 
     @Bean
     @ConditionalOnMissingBean
