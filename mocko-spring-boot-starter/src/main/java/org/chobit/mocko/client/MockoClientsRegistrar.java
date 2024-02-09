@@ -1,6 +1,9 @@
 package org.chobit.mocko.client;
 
 import org.chobit.mocko.annotations.MockoClient;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -10,11 +13,9 @@ import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionReaderUtils;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.EnvironmentAware;
-import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.util.ClassUtils;
@@ -27,13 +28,12 @@ import java.util.Map;
  *
  * @author rui.zhang
  */
-public class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, ResourceLoaderAware, EnvironmentAware {
+public class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, BeanFactoryAware, EnvironmentAware {
 
 
-    /**
-     * 资源加载
-     */
-    private ResourceLoader resourceLoader;
+
+
+    private BeanFactory beanFactory;
 
     /**
      * 环境上下文
@@ -59,7 +59,6 @@ public class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, Res
                                      BeanDefinitionRegistry registry) {
 
         ClassPathScanningCandidateComponentProvider scanner = this.getScanner();
-        scanner.setResourceLoader(this.resourceLoader);
         scanner.addIncludeFilter(new AnnotationTypeFilter(MockoClient.class));
 
         LinkedHashSet<BeanDefinition> candidateComponents = new LinkedHashSet<>(8);
@@ -87,21 +86,24 @@ public class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, Res
 
         final String className = metadata.getClassName();
 
-        BeanDefinitionBuilder definition = BeanDefinitionBuilder.genericBeanDefinition(MockoClientFactoryBean.class);
-        definition.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
-        definition.addPropertyValue("name", className);
-        definition.addPropertyValue("type", className);
-        definition.addPropertyValue("url", "1111");
-        definition.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
+        BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(MockoClientFactoryBean.class);
+        builder.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
+        builder.addPropertyValue("name", className);
+        builder.addPropertyValue("type", className);
+        builder.addPropertyValue("url", "1111");
+        builder.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
 
         String alias = className + "MockoClient";
-        AbstractBeanDefinition beanDefinition = definition.getBeanDefinition();
+        AbstractBeanDefinition beanDefinition = builder.getBeanDefinition();
         beanDefinition.setAttribute(FactoryBean.OBJECT_TYPE_ATTRIBUTE, className);
 
         // has a default, won't be null
         boolean primary = (Boolean) attributes.get("primary");
 
         beanDefinition.setPrimary(primary);
+
+        builder.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
+
 
         BeanDefinitionHolder holder = new BeanDefinitionHolder(beanDefinition, className, new String[]{alias});
         BeanDefinitionReaderUtils.registerBeanDefinition(holder, registry);
@@ -136,7 +138,7 @@ public class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, Res
     }
 
     @Override
-    public void setResourceLoader(ResourceLoader resourceLoader) {
-        this.resourceLoader = resourceLoader;
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        this.beanFactory = beanFactory;
     }
 }

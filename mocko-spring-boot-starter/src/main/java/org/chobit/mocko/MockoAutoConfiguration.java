@@ -2,14 +2,15 @@ package org.chobit.mocko;
 
 
 import org.chobit.mocko.annotations.MockOf;
-import org.chobit.mocko.client.*;
+import org.chobit.mocko.client.MockoProperties;
 import org.chobit.mocko.simple.MockoInterceptor;
 import org.chobit.mocko.simple.MockoPointcutSourceAdvisor;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.springframework.core.Ordered;
 
 /**
@@ -17,34 +18,12 @@ import org.springframework.core.Ordered;
  *
  * @author rui.zhang
  */
-@Import(MockoClientsRegistrar.class)
 @Configuration( proxyBeanMethods = false)
 @ConditionalOnClass({MockOf.class})
 @EnableConfigurationProperties(MockoProperties.class)
 public class MockoAutoConfiguration {
 
 
-    @Bean
-    @ConditionalOnMissingBean
-    public MockoContext mockoContext() {
-        MockoContext context = new MockoContext();
-        return context;
-    }
-
-
-    @Bean
-    @ConditionalOnMissingBean
-    public Targeter mockoTargeter() {
-        return new Targeter.DefaultTargeter();
-    }
-
-
-    @Bean
-    @Scope("prototype")
-    @ConditionalOnMissingBean
-    public Mocko.Builder mockoBuilder() {
-        return Mocko.builder();
-    }
 
 
     @Bean

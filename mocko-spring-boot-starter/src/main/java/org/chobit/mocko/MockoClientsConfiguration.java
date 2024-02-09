@@ -1,0 +1,53 @@
+package org.chobit.mocko;
+
+import org.chobit.mocko.client.MockoClientsRegistrar;
+import org.chobit.mocko.client.MockoContext;
+import org.chobit.mocko.client.Targeter;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Scope;
+
+/**
+ * @author rui.zhang
+ */
+@Import(MockoClientsRegistrar.class)
+@Configuration(proxyBeanMethods = false)
+public class MockoClientsConfiguration {
+
+
+    @Bean
+    @ConditionalOnMissingBean
+    public MockoContext mockoContext() {
+        return new MockoContext();
+    }
+
+
+    @Bean
+    @ConditionalOnMissingBean
+    public Targeter mockoTargeter() {
+        return new Targeter.DefaultTargeter();
+    }
+
+
+    @Bean
+    @Scope("prototype")
+    @ConditionalOnMissingBean
+    public Mocko.Builder mockoBuilder() {
+        return Mocko.builder();
+    }
+
+
+    @Configuration(proxyBeanMethods = false)
+    @Import(MockoClientsRegistrar.class)
+    public static class MockoRegistrarNotFoundConfiguration implements InitializingBean {
+
+        @Override
+        public void afterPropertiesSet() {
+            //logger.debug(
+              //      "Not found configuration for registering mapper bean using @MapperScan, MapperFactoryBean and MapperScannerConfigurer.");
+        }
+    }
+}
