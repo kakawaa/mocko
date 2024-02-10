@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Scope;
 /**
  * @author rui.zhang
  */
-@Import(MockoClientsRegistrar.class)
 @Configuration(proxyBeanMethods = false)
 public class MockoClientsConfiguration {
 
@@ -46,6 +45,7 @@ public class MockoClientsConfiguration {
 
         @Override
         public void afterPropertiesSet() {
+            System.out.println(1);
             //logger.debug(
               //      "Not found configuration for registering mapper bean using @MapperScan, MapperFactoryBean and MapperScannerConfigurer.");
         }
