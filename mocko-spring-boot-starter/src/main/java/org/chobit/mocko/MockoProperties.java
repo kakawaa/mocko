@@ -1,4 +1,4 @@
-package org.chobit.mocko.client;
+package org.chobit.mocko;
 
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -11,11 +11,21 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "mocko")
 public class MockoProperties {
 
+    private boolean enabled = false;
+
     private String serverHost = "127.0.0.1";
 
     private int serverPort = 8190;
 
     private boolean useSsl = false;
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public String getServerHost() {
         return serverHost;

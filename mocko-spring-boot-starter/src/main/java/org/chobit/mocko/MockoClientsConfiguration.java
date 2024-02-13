@@ -5,6 +5,8 @@ import org.chobit.mocko.client.MockoContext;
 import org.chobit.mocko.client.Targeter;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -13,6 +15,8 @@ import org.springframework.context.annotation.Scope;
 /**
  * @author rui.zhang
  */
+@EnableConfigurationProperties(MockoProperties.class)
+@ConditionalOnProperty("#mocko.enabled")
 @Configuration(proxyBeanMethods = false)
 public class MockoClientsConfiguration {
 
