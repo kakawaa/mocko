@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Scope;
  * @author rui.zhang
  */
 @EnableConfigurationProperties(MockoProperties.class)
-@ConditionalOnProperty("#mocko.enabled")
+@ConditionalOnProperty(name = "mocko.enabled", matchIfMissing = true)
 @Configuration(proxyBeanMethods = false)
 public class MockoClientsConfiguration {
 
@@ -45,13 +45,14 @@ public class MockoClientsConfiguration {
 
     @Configuration(proxyBeanMethods = false)
     @Import(MockoClientsRegistrar.class)
+    @ConditionalOnProperty(name = "mocko.enabled", matchIfMissing = true)
     public static class MockoRegistrarNotFoundConfiguration implements InitializingBean {
 
         @Override
         public void afterPropertiesSet() {
             System.out.println(1);
             //logger.debug(
-              //      "Not found configuration for registering mapper bean using @MapperScan, MapperFactoryBean and MapperScannerConfigurer.");
+            //      "Not found configuration for registering mapper bean using @MapperScan, MapperFactoryBean and MapperScannerConfigurer.");
         }
     }
 }

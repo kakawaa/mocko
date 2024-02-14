@@ -17,7 +17,7 @@ import org.springframework.core.Ordered;
  * @author rui.zhang
  */
 @EnableConfigurationProperties(MockoProperties.class)
-@ConditionalOnProperty("#mocko.enabled")
+@ConditionalOnProperty(name = "mocko.enabled", matchIfMissing = true)
 @Configuration(proxyBeanMethods = false)
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 public class MockoAutoConfiguration {
@@ -28,7 +28,7 @@ public class MockoAutoConfiguration {
     public MockoPointcutSourceAdvisor mockoPointAdvisor() {
         MockoPointcutSourceAdvisor advisor = new MockoPointcutSourceAdvisor();
         advisor.setAdvice(new MockoInterceptor());
-        advisor.setOrder(Ordered.HIGHEST_PRECEDENCE + 1);
+        advisor.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return advisor;
     }
 }

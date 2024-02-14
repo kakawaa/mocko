@@ -2,8 +2,6 @@ package org.chobit.mocko.client;
 
 import org.chobit.mocko.Mocko;
 import org.chobit.mocko.Target;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
@@ -17,8 +15,6 @@ import java.util.Objects;
  */
 public class MockoClientFactoryBean implements FactoryBean<Object>, InitializingBean, ApplicationContextAware {
 
-
-    private static final Logger logger = LoggerFactory.getLogger(MockoClientFactoryBean.class);
 
     private Class<?> type;
 

@@ -15,7 +15,7 @@
         </encoder>
     </appender>
 
-    <logger name="org.chobit.mocko" level="INFO" additivity="false">
+    <logger name="org.chobit.mocko" level="INFO" additivity="true">
         <appender-ref ref="ROLLING_FILE"/>
     </logger>
 

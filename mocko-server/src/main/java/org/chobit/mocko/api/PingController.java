@@ -42,10 +42,4 @@ public class PingController {
         return myBiz.foo(name);
     }
 
-
-    @GetMapping("/bar")
-    public String bar(@RequestParam("n") String name) {
-        return myBiz.bar(name);
-    }
-
 }

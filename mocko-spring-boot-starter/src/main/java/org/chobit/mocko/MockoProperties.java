@@ -11,7 +11,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "mocko")
 public class MockoProperties {
 
-    private boolean enabled = false;
+    private boolean enabled = true;
 
     private String serverHost = "127.0.0.1";
 
