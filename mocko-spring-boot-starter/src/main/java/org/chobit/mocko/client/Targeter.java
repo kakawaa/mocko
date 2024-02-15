@@ -1,13 +1,13 @@
 package org.chobit.mocko.client;
 
-import org.chobit.mocko.Mocko;
+import org.chobit.mocko.MockoProvider;
 import org.chobit.mocko.Target;
 
 public interface Targeter {
 
 
     <T> T target(MockoClientFactoryBean factory,
-                 Mocko.Builder mocko,
+                 MockoProvider.Builder mocko,
                  MockoContext context,
                  Target.DefaultTarget<T> target);
 
@@ -16,7 +16,7 @@ public interface Targeter {
 
         @Override
         public <T> T target(MockoClientFactoryBean factory,
-                            Mocko.Builder mocko,
+                            MockoProvider.Builder mocko,
                             MockoContext context,
                             Target.DefaultTarget<T> target) {
 

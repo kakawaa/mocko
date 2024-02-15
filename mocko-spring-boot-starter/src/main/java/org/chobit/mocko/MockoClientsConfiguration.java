@@ -38,8 +38,8 @@ public class MockoClientsConfiguration {
     @Bean
     @Scope("prototype")
     @ConditionalOnMissingBean
-    public Mocko.Builder mockoBuilder() {
-        return Mocko.builder();
+    public MockoProvider.Builder mockoBuilder() {
+        return MockoProvider.builder();
     }
 
 

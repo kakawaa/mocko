@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author rui.zhang
  */
-public class Mocko {
+public class MockoProvider {
 
 
     public static Builder builder() {
@@ -26,7 +26,7 @@ public class Mocko {
     private final InvocationHandlerFactory factory;
 
 
-    public Mocko(Contract contract, InvocationHandlerFactory factory) {
+    public MockoProvider(Contract contract, InvocationHandlerFactory factory) {
         this.contract = contract;
         this.factory = factory;
     }
@@ -93,8 +93,8 @@ public class Mocko {
         }
 
 
-        public Mocko build() {
-            return new Mocko(contract, invocationHandlerFactory);
+        public MockoProvider build() {
+            return new MockoProvider(contract, invocationHandlerFactory);
         }
 
 

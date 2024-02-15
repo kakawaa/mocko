@@ -1,6 +1,6 @@
 package org.chobit.mocko.client;
 
-import org.chobit.mocko.Mocko;
+import org.chobit.mocko.MockoProvider;
 import org.chobit.mocko.Target;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
@@ -55,7 +55,7 @@ public class MockoClientFactoryBean implements FactoryBean<Object>, Initializing
         MockoContext context = applicationContext.getBean(MockoContext.class);
         Targeter targeter = this.get(context, Targeter.class);
 
-        Mocko.Builder mocko = this.get(context, Mocko.Builder.class);
+        MockoProvider.Builder mocko = this.get(context, MockoProvider.Builder.class);
         Target.DefaultTarget<T> target = new Target.DefaultTarget(this.type, this.name, this.url);
 
         return targeter.target(this, mocko, context, target);

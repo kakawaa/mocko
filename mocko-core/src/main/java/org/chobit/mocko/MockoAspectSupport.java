@@ -1,6 +1,6 @@
 package org.chobit.mocko;
 
-import org.chobit.mocko.annotations.MockOf;
+import org.chobit.mocko.annotations.Mocko;
 import org.chobit.mocko.annotations.MockoClient;
 import org.chobit.mocko.model.ArgInfo;
 import org.chobit.mocko.model.MethodMeta;
@@ -40,7 +40,7 @@ public class MockoAspectSupport {
         }
 
         String methodName = method.getName();
-        MockOf mocko = method.getAnnotation(MockOf.class);
+        Mocko mocko = method.getAnnotation(Mocko.class);
         String methodAlias = "";
         if (null != mocko) {
             methodAlias = mocko.value();
