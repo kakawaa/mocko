@@ -13,6 +13,10 @@ spring:
 server:
   port: 8190
 
-mybatis:
+mybatis-plus:
   configuration:
     mapUnderscoreToCamelCase: true
+
+mocko:
+  server:
+    salt: MayTheForceBeWithYou!

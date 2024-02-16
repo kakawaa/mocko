@@ -1,5 +1,6 @@
 package org.chobit.mocko.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.chobit.mocko.model.entity.User;
@@ -14,5 +15,22 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class UserService extends ServiceImpl<UserMapper, User> {
+
+
+    /**
+     * 根据登录信息查询用户
+     *
+     * @param username 用户名
+     * @param password 密码
+     * @return 用户信息
+     */
+    public User getByUserPwd(String username, String password) {
+
+        LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(User::getUsername, username)
+                .eq(User::getPassword, password);
+
+        return this.getOne(lqw);
+    }
 
 }

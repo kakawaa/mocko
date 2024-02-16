@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @TableName("m_package")
 @Data
-public class Package extends AbstractEntity {
+public final class Package extends AbstractEntity {
 
 
     /**

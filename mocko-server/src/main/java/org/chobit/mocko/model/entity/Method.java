@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @TableName("m_method")
 @Data
-public class Method extends AbstractEntity {
+public final class Method extends AbstractEntity {
 
 
     /**
