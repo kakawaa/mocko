@@ -3,6 +3,7 @@ package org.chobit.mocko.model.request;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 /**
  * 用户登录请求
@@ -10,7 +11,10 @@ import javax.validation.constraints.NotBlank;
  * @author rui.zhang
  */
 @Data
-public class UserLoginRequest {
+public class UserLoginRequest implements Serializable {
+
+
+    private static final long serialVersionUID = -5351030703447170573L;
 
 
     /**

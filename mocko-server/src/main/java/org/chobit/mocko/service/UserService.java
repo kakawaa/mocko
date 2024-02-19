@@ -33,4 +33,23 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         return this.getOne(lqw);
     }
 
+
+    /**
+     * 新增用户信息
+     *
+     * @param username 用户名
+     * @param password 密码
+     * @param nickname 昵称
+     * @return 用户记录ID
+     */
+    public Integer addUser(String username, String password, String nickname) {
+
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setNickName(nickname);
+
+        return this.getBaseMapper().insert(user);
+    }
+
 }

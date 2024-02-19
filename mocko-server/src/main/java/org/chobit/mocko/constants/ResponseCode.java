@@ -33,10 +33,13 @@ public enum ResponseCode implements CodeDescEnum {
     /**
      * 方法响应信息无效
      */
-    ILLEGAL_MOCK_RESPONSE(20001, "方法响应信息无效"),
+    ILLEGAL_MOCK_RESPONSE(20002, "方法响应信息无效"),
 
 
-    ;
+    /**
+     * 确认密码与密码不一致
+     */
+    CONFIRM_PASSWORD_NOT_MATCH(30001, "确认密码与密码不一致");
 
 
     public final int code;
