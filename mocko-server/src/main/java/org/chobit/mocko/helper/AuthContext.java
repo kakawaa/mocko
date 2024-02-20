@@ -17,7 +17,7 @@ public final class AuthContext {
 
 
     /**
-     * username线程缓存
+     * user信息线程缓存
      */
     private static final ThreadLocal<User> T_LOCAL_USER = new InheritableThreadLocal<>();
 
