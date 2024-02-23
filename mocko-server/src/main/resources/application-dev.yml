@@ -1,6 +1,9 @@
 debug: false
 
 spring:
+  sql:
+    init:
+      mode: never
   datasource:
     type: org.apache.commons.dbcp2.BasicDataSource
     driver-class-name: org.h2.Driver
