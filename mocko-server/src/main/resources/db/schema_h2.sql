@@ -1,5 +1,5 @@
 --
--- mocko数据库管理
+-- mocko数据库schema
 --
 
 --
@@ -7,7 +7,7 @@
 --
 create table if not exists m_user
 (
-    id            int unsigned not null default 0 auto_increment comment 'id',
+    id            int not null default 0 auto_increment comment 'id',
 
     nick_name     varchar(32)  not null default '' comment '昵称',
     username      varchar(32)  not null default '' comment '用户名',
@@ -18,14 +18,14 @@ create table if not exists m_user
     create_time   datetime     not null default now() comment '创建时间',
     update_time   timestamp    not null default current_timestamp on update current_timestamp comment '更新时间',
     primary key (id)
-) comment = '用户信息表';
+);
 
 --
 -- 应用信息表
 --
 create table if not exists m_app
 (
-    id            int unsigned not null default 0 auto_increment comment 'id',
+    id            int not null default 0 auto_increment comment 'id',
 
     app_id        varchar(32)  not null default '' comment '应用ID',
     app_name      varchar(32)  not null default '' comment '应用名称',
@@ -35,7 +35,7 @@ create table if not exists m_app
     create_time   datetime     not null default now() comment '创建时间',
     update_time   timestamp    not null default current_timestamp on update current_timestamp comment '更新时间',
     primary key (id)
-) comment = '应用信息表';
+);
 
 
 
@@ -44,7 +44,7 @@ create table if not exists m_app
 --
 create table if not exists m_package
 (
-    id            int unsigned not null default 0 auto_increment comment 'id',
+    id            int not null default 0 auto_increment comment 'id',
 
     app_id        varchar(32)  not null default '' comment '应用ID',
     pkg_name      varchar(32)  not null default '' comment '包名',
@@ -55,7 +55,7 @@ create table if not exists m_package
     create_time   datetime     not null default now() comment '创建时间',
     update_time   timestamp    not null default current_timestamp on update current_timestamp comment '更新时间',
     primary key (id)
-) comment = '包信息表';
+);
 
 
 --
@@ -63,7 +63,7 @@ create table if not exists m_package
 --
 create table if not exists m_type
 (
-    id            int unsigned not null default 0 auto_increment comment 'id',
+    id            int not null default 0 auto_increment comment 'id',
 
     app_id        varchar(32)  not null default '' comment '应用ID',
 
@@ -77,7 +77,7 @@ create table if not exists m_type
     create_time   datetime     not null default now() comment '创建时间',
     update_time   timestamp    not null default current_timestamp on update current_timestamp comment '更新时间',
     primary key (id)
-) comment = '类信息表';
+);
 
 
 --
@@ -85,7 +85,7 @@ create table if not exists m_type
 --
 create table if not exists m_method
 (
-    id            int unsigned not null default 0 auto_increment comment 'id',
+    id            int not null default 0 auto_increment comment 'id',
 
     type_id       varchar(32)  not null default '' comment '类ID',
     method_id     varchar(32)  not null default '' comment '方法ID',
@@ -99,6 +99,6 @@ create table if not exists m_method
     create_time   datetime     not null default now() comment '创建时间',
     update_time   timestamp    not null default current_timestamp on update current_timestamp comment '更新时间',
     primary key (id)
-) comment = '方法信息表';
+);
 
 
