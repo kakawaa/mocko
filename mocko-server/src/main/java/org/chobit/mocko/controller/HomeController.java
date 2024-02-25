@@ -16,7 +16,7 @@ import javax.validation.Valid;
  */
 @ResponseWrapper
 @RestController
-@RequestMapping("")
+@RequestMapping("/admin")
 public class HomeController {
 
 
