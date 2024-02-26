@@ -18,5 +18,5 @@ mybatis-plus:
     mapUnderscoreToCamelCase: true
 
 mocko:
-  server:
+  password:
     salt: MayTheForceBeWithYou!

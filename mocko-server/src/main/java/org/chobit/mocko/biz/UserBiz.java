@@ -25,7 +25,7 @@ public class UserBiz {
     @Resource
     private UserService userService;
 
-    @Value("${mocko.server.salt}")
+    @Value("${mocko.password.salt}")
     private String pwdSalt;
 
 
@@ -36,7 +36,7 @@ public class UserBiz {
      * @param password 密码
      * @return true 登陆成功， false 登录失败
      */
-    public boolean queryAndCheck(String username, String password) {
+    public boolean checkPassword(String username, String password) {
 
         password = MD5.encode(password + pwdSalt);
         User user = userService.getByUserPwd(username, password);

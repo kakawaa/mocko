@@ -26,7 +26,7 @@ public class HomeController {
 
     @PostMapping("/login")
     public boolean login(@Valid @RequestBody UserLoginRequest request) {
-        return userBiz.queryAndCheck(request.getUsername(), request.getPassword());
+        return userBiz.checkPassword(request.getUsername(), request.getPassword());
     }
 
 

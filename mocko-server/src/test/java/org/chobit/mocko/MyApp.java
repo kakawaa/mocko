@@ -1,25 +1,17 @@
 package org.chobit.mocko;
 
 
-import org.apache.ibatis.jdbc.SQL;
+import org.chobit.commons.codec.MD5;
 
 public class MyApp {
 
     public static void main(String[] args) {
+        String salt = "MayTheForceBeWithYou!";
+        String pwd = "admin";
+        String result = MD5.encode(pwd + salt);
 
-        new SQL() {
-        };
-
-        new MyApp() {
-            {
-                f();
-            }
-        };
+        System.out.println(result);
     }
 
-
-    public int f() {
-        return 1;
-    }
 
 }

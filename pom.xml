@@ -24,7 +24,7 @@
         <spring.version>2.7.18</spring.version>
         <slf4j.version>1.7.36</slf4j.version>
         <logback.version>1.4.14</logback.version>
-        <zhy.version>0.1.2</zhy.version>
+        <zhy.version>0.1.3</zhy.version>
         <jackson.version>2.16.1</jackson.version>
     </properties>
 
