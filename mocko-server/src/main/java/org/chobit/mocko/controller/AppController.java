@@ -1,15 +1,15 @@
 package org.chobit.mocko.controller;
 
-import org.chobit.mocko.model.request.AppModifyRequest;
-import org.chobit.mocko.service.AppService;
+import org.chobit.mocko.biz.AppBiz;
 import org.chobit.mocko.config.response.ResponseWrapper;
+import org.chobit.mocko.model.entity.App;
+import org.chobit.mocko.model.request.AppIdRequest;
+import org.chobit.mocko.model.request.AppModifyRequest;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 应用相关接口
@@ -23,12 +23,24 @@ public class AppController {
 
 
     @Resource
-    private AppService appService;
+    private AppBiz appBiz;
+
 
     @PostMapping("/update")
-    public Boolean update(@Validated @RequestBody AppModifyRequest request) {
-        return appService.updateAppName(request.getAppId(), request.getAppName());
+    public boolean update(@Validated @RequestBody AppModifyRequest request) {
+        return appBiz.update(request);
     }
 
+
+    @GetMapping("/list")
+    public List<App> findApps() {
+        return appBiz.findAll();
+    }
+
+
+    @PostMapping("/get")
+    public App getApp(@Validated @RequestBody AppIdRequest request) {
+        return appBiz.getApp(request.getAppId());
+    }
 
 }

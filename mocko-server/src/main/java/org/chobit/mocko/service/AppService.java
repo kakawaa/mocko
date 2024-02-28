@@ -4,9 +4,12 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.chobit.mocko.helper.AuthContext;
 import org.chobit.mocko.model.entity.App;
 import org.chobit.mocko.service.mapper.AppMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 /**
@@ -43,6 +46,16 @@ public class AppService extends ServiceImpl<AppMapper, App> {
         luw.set(App::getAppName, appName)
                 .eq(App::getAppId, appId);
         return this.update(luw);
+    }
+
+
+    /**
+     * 获取全部的应用
+     *
+     * @return 应用集合
+     */
+    public List<App> findByUser(String username) {
+        return this.list();
     }
 
 }
