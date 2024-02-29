@@ -13,17 +13,13 @@
     </parent>
 
 
-    <artifactId>mocko-core</artifactId>
+    <artifactId>mocko-annotations</artifactId>
     <packaging>jar</packaging>
 
     <properties>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.chobit.mocko</groupId>
-            <artifactId>mocko-annotations</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>fluent-hc</artifactId>

@@ -13,8 +13,8 @@
 
     <groupId>org.chobit.mocko</groupId>
     <artifactId>mocko</artifactId>
-    <packaging>pom</packaging>
     <version>0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <properties>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
@@ -33,6 +33,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.chobit.mocko</groupId>
+                <artifactId>mocko-annotations</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.chobit.mocko</groupId>
                 <artifactId>mocko-core</artifactId>
@@ -138,6 +143,7 @@
     </build>
 
     <modules>
+        <module>mocko-annotations</module>
         <module>mocko-core</module>
         <module>mocko-server</module>
         <module>mocko-spring-boot-starter</module>
