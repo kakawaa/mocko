@@ -6,17 +6,19 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * model属性描述注解
+ * 应用方法相关信息
  *
  * @author rui.zhang
  */
-@Target({ElementType.METHOD, ElementType.FIELD})
+@Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface AppModelProperty {
+public @interface MethodInfo {
 
 
     /**
-     * property描述信息
+     * 方法描述信息
+     *
+     * @return 方法描述信息
      */
     String value();
 

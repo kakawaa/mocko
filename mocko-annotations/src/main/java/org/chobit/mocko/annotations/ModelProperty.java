@@ -6,20 +6,18 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 应用模块注解
+ * model属性描述注解
  *
  * @author rui.zhang
  */
-@Target({ElementType.TYPE, ElementType.PACKAGE})
+@Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface AppModule {
+public @interface ModelProperty {
+
 
     /**
-     * 模块相关信息
-     *
-     * @return 模块信息
+     * property描述信息
      */
     String value();
-
 
 }
