@@ -1,21 +1,20 @@
 package org.chobit.mocko;
 
 import org.chobit.commons.utils.JsonKit;
-import org.chobit.mocko.annotations.ClassInfo;
 import org.chobit.mocko.annotations.Mocko;
 import org.chobit.mocko.annotations.MockoClient;
-import org.chobit.mocko.annotations.Operation;
+import org.chobit.mocko.contants.ResponseCode;
 import org.chobit.mocko.exception.MockoException;
 import org.chobit.mocko.model.ArgInfo;
 import org.chobit.mocko.model.MethodMeta;
+import org.chobit.mocko.annotations.ClassInfo;
+import org.chobit.mocko.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
-
-import static org.chobit.mocko.contants.ResponseCode.REQUEST_MOCKO_SERVER_ERROR;
 
 /**
  * Mocko切面支持
@@ -31,11 +30,11 @@ public class MockoAspectSupport {
 
         MethodMeta methodMeta = null;
         try {
-            methodMeta = parseMethodMetaData(target, method, args);
+            methodMeta = parseMethodMetadata(target, method, args);
             return requestMockoServer(methodMeta);
         } catch (Exception e) {
             logger.error("request mocko server error, method info:{}", JsonKit.toJson(method));
-            throw new MockoException(REQUEST_MOCKO_SERVER_ERROR);
+            throw new MockoException(ResponseCode.REQUEST_MOCKO_SERVER_ERROR);
         }
     }
 
@@ -54,7 +53,7 @@ public class MockoAspectSupport {
      * @param args   参数
      * @return 方法信息
      */
-    private MethodMeta parseMethodMetaData(Object target, Method method, Object[] args) {
+    private MethodMeta parseMethodMetadata(Object target, Method method, Object[] args) {
 
         String className = target.getClass().getCanonicalName();
         String classAlias = this.parseClassAlias(target.getClass());
