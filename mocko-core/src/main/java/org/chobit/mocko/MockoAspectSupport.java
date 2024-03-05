@@ -1,13 +1,21 @@
 package org.chobit.mocko;
 
+import org.chobit.commons.utils.JsonKit;
+import org.chobit.mocko.annotations.ClassInfo;
 import org.chobit.mocko.annotations.Mocko;
 import org.chobit.mocko.annotations.MockoClient;
+import org.chobit.mocko.annotations.Operation;
+import org.chobit.mocko.exception.MockoException;
 import org.chobit.mocko.model.ArgInfo;
 import org.chobit.mocko.model.MethodMeta;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
+
+import static org.chobit.mocko.contants.ResponseCode.REQUEST_MOCKO_SERVER_ERROR;
 
 /**
  * Mocko切面支持
@@ -17,8 +25,24 @@ import java.util.List;
 public class MockoAspectSupport {
 
 
+    private static final Logger logger = LoggerFactory.getLogger(MockoAspectSupport.class);
+
     protected Object execute(OperationInvoker invoker, Object target, Method method, Object[] args) {
-        return invoker.invoke();
+
+        MethodMeta methodMeta = null;
+        try {
+            methodMeta = parseMethodMetaData(target, method, args);
+            return requestMockoServer(methodMeta);
+        } catch (Exception e) {
+            logger.error("request mocko server error, method info:{}", JsonKit.toJson(method));
+            throw new MockoException(REQUEST_MOCKO_SERVER_ERROR);
+        }
+    }
+
+
+    private Object requestMockoServer(MethodMeta methodMeta) {
+
+        return JsonKit.fromJson("{}", methodMeta.getReturnType());
     }
 
 
@@ -30,26 +54,17 @@ public class MockoAspectSupport {
      * @param args   参数
      * @return 方法信息
      */
-    private MethodMeta parseMethodInfo(Object target, Method method, Object[] args) {
+    private MethodMeta parseMethodMetaData(Object target, Method method, Object[] args) {
 
         String className = target.getClass().getCanonicalName();
-        MockoClient mockoClient = target.getClass().getAnnotation(MockoClient.class);
-        String classAlias = "";
-        if (null != mockoClient) {
-            classAlias = mockoClient.value();
-        }
+        String classAlias = this.parseClassAlias(target.getClass());
 
         String methodName = method.getName();
-        Mocko mocko = method.getAnnotation(Mocko.class);
-        String methodAlias = "";
-        if (null != mocko) {
-            methodAlias = mocko.value();
-        }
+        String methodAlias = this.parseMethodAlias(method);
 
         List<ArgInfo> argList = takeArgList(args);
 
         Class<?> returnType = method.getReturnType();
-
 
         MethodMeta methodMeta = new MethodMeta();
         methodMeta.setClassName(className);
@@ -60,6 +75,55 @@ public class MockoAspectSupport {
         methodMeta.setReturnType(returnType);
 
         return methodMeta;
+    }
+
+
+    /**
+     * 解析Class别名
+     *
+     * @param clazz Class实例
+     * @return Class别名
+     */
+    private String parseClassAlias(Class<?> clazz) {
+
+        MockoClient mockoClient = clazz.getAnnotation(MockoClient.class);
+        if (null != mockoClient) {
+            return mockoClient.value();
+        }
+
+        Mocko mockoClass = clazz.getAnnotation(Mocko.class);
+        if (null != mockoClass) {
+            return mockoClass.value();
+        }
+
+        ClassInfo classInfo = clazz.getAnnotation(ClassInfo.class);
+        if (null != classInfo) {
+            return classInfo.value();
+        }
+
+        return "";
+    }
+
+
+    /**
+     * 解析方法别名
+     *
+     * @param method Method 实例
+     * @return 方法别名
+     */
+    private String parseMethodAlias(Method method) {
+
+        Mocko mocko = method.getAnnotation(Mocko.class);
+        if (null != mocko) {
+            return mocko.value();
+        }
+
+        Operation opr = method.getAnnotation(Operation.class);
+        if (null != opr) {
+            return opr.value();
+        }
+
+        return "";
     }
 
 

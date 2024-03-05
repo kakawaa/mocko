@@ -1,24 +1,25 @@
 package org.chobit.mocko.annotations;
 
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 应用方法相关信息
+ * 应用model
  *
  * @author rui.zhang
  */
-@Target({ElementType.METHOD})
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MethodInfo {
+public @interface Model {
 
 
     /**
-     * 方法描述信息
+     * model信息
      *
-     * @return 方法描述信息
+     * @return model信息
      */
     String value();
 

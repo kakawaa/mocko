@@ -1,5 +1,7 @@
 package org.chobit.mocko.exception;
 
+import org.chobit.commons.contract.CodeDescEnum;
+
 /**
  * Mocko相关异常定义
  *
@@ -7,11 +9,13 @@ package org.chobit.mocko.exception;
  */
 public class MockoException extends RuntimeException {
 
+    private static final long serialVersionUID = -7220237856322209094L;
+    
     private final int status;
 
-    public MockoException(int status, String message) {
-        super(message);
-        this.status = status;
+    public MockoException(CodeDescEnum codeDesc) {
+        super(codeDesc.getDesc());
+        this.status = codeDesc.getCode();
     }
 
 
