@@ -3,6 +3,8 @@ package org.chobit.mocko;
 import org.chobit.mocko.client.MockoClientsRegistrar;
 import org.chobit.mocko.client.MockoContext;
 import org.chobit.mocko.client.Targeter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -48,11 +50,11 @@ public class MockoClientsConfiguration {
     @ConditionalOnProperty(name = "mocko.enabled", matchIfMissing = true)
     public static class MockoRegistrarNotFoundConfiguration implements InitializingBean {
 
+        private static final Logger logger = LoggerFactory.getLogger(MockoRegistrarNotFoundConfiguration.class);
+
         @Override
         public void afterPropertiesSet() {
-            System.out.println(1);
-            //logger.debug(
-            //      "Not found configuration for registering mapper bean using @MapperScan, MapperFactoryBean and MapperScannerConfigurer.");
+            logger.debug( "Not found configuration for registering mocko bean using MockoClientFactoryBean.");
         }
     }
 }
