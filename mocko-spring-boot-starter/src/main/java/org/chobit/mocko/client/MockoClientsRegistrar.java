@@ -31,8 +31,9 @@ import java.util.Map;
 public class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, BeanFactoryAware, EnvironmentAware {
 
 
-
-
+    /**
+     * 容器
+     */
     private BeanFactory beanFactory;
 
     /**
