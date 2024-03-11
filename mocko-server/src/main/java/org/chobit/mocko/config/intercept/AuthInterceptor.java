@@ -21,8 +21,11 @@ public class AuthInterceptor implements HandlerInterceptor {
                              HttpServletResponse response,
                              Object handler) throws Exception {
 
+        String path = request.getRequestURI();
+        String url = request.getRequestURL().toString();
+
         if (null == AuthContext.getUser()) {
-            logger.error("用户需要登录后才可以访问当前服务");
+            logger.error("用户需要登录后才可以访问当前服务, path:{}", path);
             return false;
         }
 
