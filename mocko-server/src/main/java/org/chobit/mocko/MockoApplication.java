@@ -14,11 +14,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableCaching
 @SpringBootApplication
-public class MockoServerApplication {
+public class MockoApplication {
 
 
     public static void main(String[] args) {
-        SpringApplication.run(MockoServerApplication.class, args);
+        SpringApplication.run(MockoApplication.class, args);
     }
 
 }
