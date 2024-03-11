@@ -37,9 +37,17 @@ public enum ResponseCode implements CodeDescEnum {
 
 
     /**
+     * 用户登录信息错误
+     */
+    USER_LOGIN_INFO_ERROR(30000, "用户登录信息错误"),
+
+    /**
      * 确认密码与密码不一致
      */
-    CONFIRM_PASSWORD_NOT_MATCH(30001, "确认密码与密码不一致");
+    CONFIRM_PASSWORD_NOT_MATCH(30001, "确认密码与密码不一致"),
+
+
+    ;
 
 
     public final int code;

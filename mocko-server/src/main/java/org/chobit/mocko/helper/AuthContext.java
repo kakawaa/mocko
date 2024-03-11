@@ -17,6 +17,12 @@ public final class AuthContext {
 
 
     /**
+     * token线程缓存
+     */
+    private static final ThreadLocal<String> T_LOCAL_TOKEN = new InheritableThreadLocal<>();
+
+
+    /**
      * user信息线程缓存
      */
     private static final ThreadLocal<User> T_LOCAL_USER = new InheritableThreadLocal<>();
@@ -31,6 +37,7 @@ public final class AuthContext {
         T_LOCAL_USERNAME.set(username);
     }
 
+
     /**
      * 将用户信息保存到线程缓存
      *
@@ -38,6 +45,16 @@ public final class AuthContext {
      */
     public static void addUser(User user) {
         T_LOCAL_USER.set(user);
+    }
+
+
+    /**
+     * 将token信息保存到线程缓存
+     *
+     * @param token token信息
+     */
+    public static void addToken(String token) {
+        T_LOCAL_TOKEN.set(token);
     }
 
 
@@ -62,11 +79,22 @@ public final class AuthContext {
 
 
     /**
+     * 获取当前的token信息
+     *
+     * @return token信息
+     */
+    public static String getToken() {
+        return T_LOCAL_TOKEN.get();
+    }
+
+
+    /**
      * 清理当前线程的缓存
      */
     public static void clear() {
         T_LOCAL_USERNAME.remove();
         T_LOCAL_USER.remove();
+        T_LOCAL_TOKEN.remove();
     }
 
 

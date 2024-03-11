@@ -1,6 +1,8 @@
 package org.chobit.mocko.biz;
 
 import org.chobit.commons.codec.MD5;
+import org.chobit.commons.utils.StrKit;
+import org.chobit.mocko.except.MockoServerException;
 import org.chobit.mocko.helper.Args;
 import org.chobit.mocko.helper.AuthContext;
 import org.chobit.mocko.model.entity.User;
@@ -11,7 +13,9 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
+import static org.chobit.commons.constans.Symbol.COMMA;
 import static org.chobit.mocko.constants.ResponseCode.CONFIRM_PASSWORD_NOT_MATCH;
+import static org.chobit.mocko.constants.ResponseCode.USER_LOGIN_INFO_ERROR;
 
 /**
  * 用户相关业务处理
@@ -36,19 +40,23 @@ public class UserBiz {
      * @param password 密码
      * @return true 登陆成功， false 登录失败
      */
-    public boolean checkPassword(String username, String password) {
+    public String checkPassword(String username, String password) {
 
         password = MD5.encode(password + pwdSalt);
         User user = userService.getByUserPwd(username, password);
 
         if (null == user) {
-            return false;
+            throw new MockoServerException(USER_LOGIN_INFO_ERROR);
         }
+
+        String authInfo = StrKit.join(COMMA, username, password, System.currentTimeMillis());
+        String token = MD5.encode(authInfo);
 
         AuthContext.addUsername(username);
         AuthContext.addUser(user);
+        AuthContext.addToken(token);
 
-        return true;
+        return token;
     }
 
 

@@ -1,6 +1,7 @@
 package org.chobit.mocko.config.intercept;
 
 import lombok.extern.slf4j.Slf4j;
+import org.chobit.mocko.helper.AuthContext;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,12 @@ public class AuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object handler) throws Exception {
+
+        if (null == AuthContext.getUser()) {
+            logger.error("用户需要登录后才可以访问当前服务");
+            return false;
+        }
+
         return true;
     }
 
