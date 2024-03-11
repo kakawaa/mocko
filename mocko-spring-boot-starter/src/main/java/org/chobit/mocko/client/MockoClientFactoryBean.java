@@ -30,8 +30,8 @@ public class MockoClientFactoryBean implements FactoryBean<Object>, Initializing
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
+    public void setApplicationContext(ApplicationContext context) throws BeansException {
+        this.applicationContext = context;
     }
 
 
