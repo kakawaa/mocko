@@ -16,6 +16,8 @@ server:
 mybatis-plus:
   configuration:
     mapUnderscoreToCamelCase: true
+  global-config:
+    banner: off
 
 mocko:
   password:
