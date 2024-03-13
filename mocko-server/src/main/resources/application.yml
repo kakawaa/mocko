@@ -5,6 +5,8 @@ spring:
     name: mocko-server
   profiles:
     active: dev
+  main:
+    banner-mode: on
   cache:
     type: CAFFEINE
     caffeine:
