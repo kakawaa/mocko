@@ -29,36 +29,24 @@ public class MockoClientFactoryBean implements FactoryBean<Object>, Initializing
     public void afterPropertiesSet() throws Exception {
     }
 
+
     @Override
     public void setApplicationContext(ApplicationContext context) throws BeansException {
         this.applicationContext = context;
     }
 
 
-    private <T> T get(MockoContext context, Class<T> type) {
-        T instance = context.getInstance(type);
-        if (null == instance) {
-            throw new IllegalStateException("No bean found of type " + type + " for " + type);
-        }
-        return instance;
-    }
-
-
     @Override
     public Object getObject() throws Exception {
-
         return getTarget();
     }
 
 
     <T> T getTarget() {
-        MockoContext context = applicationContext.getBean(MockoContext.class);
-        Targeter targeter = this.get(context, Targeter.class);
-
-        MockoProvider.Builder mocko = this.get(context, MockoProvider.Builder.class);
+        MockoProvider.Builder mocko = applicationContext.getBean(MockoProvider.Builder.class);
         Target.DefaultTarget<T> target = new Target.DefaultTarget(this.type, this.name, this.url);
 
-        return targeter.target(this, mocko, context, target);
+        return mocko.build().newInstance(target);
     }
 
 

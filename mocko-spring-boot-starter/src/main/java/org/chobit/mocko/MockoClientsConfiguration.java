@@ -1,8 +1,6 @@
 package org.chobit.mocko;
 
 import org.chobit.mocko.client.MockoClientsRegistrar;
-import org.chobit.mocko.client.MockoContext;
-import org.chobit.mocko.client.Targeter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -21,20 +19,6 @@ import org.springframework.context.annotation.Scope;
 @ConditionalOnProperty(name = "mocko.enabled", matchIfMissing = true)
 @Configuration(proxyBeanMethods = false)
 public class MockoClientsConfiguration {
-
-
-    @Bean
-    @ConditionalOnMissingBean
-    public MockoContext mockoContext() {
-        return new MockoContext();
-    }
-
-
-    @Bean
-    @ConditionalOnMissingBean
-    public Targeter mockoTargeter() {
-        return new Targeter.DefaultTargeter();
-    }
 
 
     @Bean
