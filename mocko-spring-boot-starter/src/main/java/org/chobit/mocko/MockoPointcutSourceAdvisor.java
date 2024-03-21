@@ -1,4 +1,4 @@
-package org.chobit.mocko.simple;
+package org.chobit.mocko;
 
 import org.springframework.aop.ClassFilter;
 import org.springframework.aop.MethodMatcher;

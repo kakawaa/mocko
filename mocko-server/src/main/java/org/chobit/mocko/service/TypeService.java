@@ -7,6 +7,8 @@ import org.chobit.mocko.model.entity.Type;
 import org.chobit.mocko.service.mapper.TypeMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 /**
  * 类信息Service
@@ -25,10 +27,22 @@ public class TypeService extends ServiceImpl<TypeMapper, Type> {
      * @return 组件信息
      */
     public Type getByTypeId(String cmpId) {
-
         LambdaQueryWrapper<Type> lqw = new LambdaQueryWrapper<>();
         lqw.eq(Type::getTypeId, cmpId);
         return this.getOne(lqw);
+    }
+
+
+    /**
+     * 获取应用下的所有类信息
+     *
+     * @param appId 应用ID
+     * @return 类信息
+     */
+    public List<Type> findByAppId(String appId) {
+        LambdaQueryWrapper<Type> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(Type::getAppId, appId);
+        return this.list(lqw);
     }
 
 

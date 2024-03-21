@@ -1,7 +1,5 @@
-package org.chobit.mocko.client;
+package org.chobit.mocko;
 
-import org.chobit.mocko.MockoProvider;
-import org.chobit.mocko.Target;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;

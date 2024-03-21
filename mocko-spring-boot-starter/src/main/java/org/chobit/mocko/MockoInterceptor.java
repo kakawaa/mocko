@@ -1,4 +1,4 @@
-package org.chobit.mocko.simple;
+package org.chobit.mocko;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;

@@ -1,4 +1,4 @@
-package org.chobit.mocko.client;
+package org.chobit.mocko;
 
 import org.chobit.mocko.annotations.MockoClient;
 import org.springframework.beans.BeansException;

@@ -1,4 +1,4 @@
-package org.chobit.mocko.simple;
+package org.chobit.mocko;
 
 import org.chobit.mocko.annotations.Mocko;
 import org.springframework.aop.support.AopUtils;

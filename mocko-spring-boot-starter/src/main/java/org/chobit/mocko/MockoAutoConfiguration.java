@@ -1,8 +1,6 @@
 package org.chobit.mocko;
 
 
-import org.chobit.mocko.simple.MockoInterceptor;
-import org.chobit.mocko.simple.MockoPointcutSourceAdvisor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
