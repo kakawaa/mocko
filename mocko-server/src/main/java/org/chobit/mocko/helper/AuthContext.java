@@ -1,6 +1,6 @@
 package org.chobit.mocko.helper;
 
-import org.chobit.mocko.model.entity.User;
+import org.chobit.mocko.model.entity.UserEntity;
 
 /**
  * 用户登录信息及权限信息上下文
@@ -25,7 +25,7 @@ public final class AuthContext {
     /**
      * user信息线程缓存
      */
-    private static final ThreadLocal<User> T_LOCAL_USER = new InheritableThreadLocal<>();
+    private static final ThreadLocal<UserEntity> T_LOCAL_USER = new InheritableThreadLocal<>();
 
 
     /**
@@ -43,7 +43,7 @@ public final class AuthContext {
      *
      * @param user 用户信息
      */
-    public static void addUser(User user) {
+    public static void addUser(UserEntity user) {
         T_LOCAL_USER.set(user);
     }
 
@@ -73,7 +73,7 @@ public final class AuthContext {
      *
      * @return 用户信息
      */
-    public static User getUser() {
+    public static UserEntity getUser() {
         return T_LOCAL_USER.get();
     }
 

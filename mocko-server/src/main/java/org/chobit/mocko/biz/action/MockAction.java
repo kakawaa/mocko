@@ -9,10 +9,10 @@ import org.chobit.mocko.constants.ResponseCode;
 import org.chobit.mocko.except.MockoServerException;
 import org.chobit.mocko.model.ArgInfo;
 import org.chobit.mocko.model.MethodMeta;
-import org.chobit.mocko.model.entity.App;
-import org.chobit.mocko.model.entity.Method;
-import org.chobit.mocko.model.entity.Package;
-import org.chobit.mocko.model.entity.Type;
+import org.chobit.mocko.model.entity.AppEntity;
+import org.chobit.mocko.model.entity.MethodEntity;
+import org.chobit.mocko.model.entity.PackageEntity;
+import org.chobit.mocko.model.entity.TypeEntity;
 import org.chobit.mocko.service.AppService;
 import org.chobit.mocko.service.MethodService;
 import org.chobit.mocko.service.PackageService;
@@ -52,7 +52,7 @@ public class MockAction {
      */
     public JsonNode queryMockResponse(MethodMeta meta) {
         String methodId = this.computeMethodId(meta);
-        Method method = methodService.getByMethodId(methodId);
+        MethodEntity method = methodService.getByMethodId(methodId);
 
         checkAndSave(meta, method, methodId);
 
@@ -76,17 +76,17 @@ public class MockAction {
      * @param method   方法信息
      * @param methodId 方法ID
      */
-    private void checkAndSave(MethodMeta meta, Method method, String methodId) {
+    private void checkAndSave(MethodMeta meta, MethodEntity method, String methodId) {
 
         if (null != method) {
             return;
         }
 
         String classId = computeClassId(meta);
-        Type type = typeService.getByTypeId(classId);
+        TypeEntity type = typeService.getByTypeId(classId);
 
         if (null == type) {
-            App app = appService.getByAppId(meta.getAppId());
+            AppEntity app = appService.getByAppId(meta.getAppId());
             if (null == app) {
                 this.addApp(meta);
             }
@@ -106,7 +106,7 @@ public class MockAction {
      * @param meta 方法元数据
      */
     private void addApp(MethodMeta meta) {
-        App app = new App();
+        AppEntity app = new AppEntity();
         app.setAppId(meta.getAppId());
         app.setOperatorCode(Constants.SYSTEM);
         appService.save(app);
@@ -137,7 +137,7 @@ public class MockAction {
                 continue;
             }
 
-            Package pkg = new Package();
+            PackageEntity pkg = new PackageEntity();
             pkg.setPkgName(pkgName);
             pkg.setParentName(pkgParentName);
             pkg.setAppId(appId);
@@ -162,7 +162,7 @@ public class MockAction {
             typeName = fullName.substring(idx);
         }
 
-        Type type = new Type();
+        TypeEntity type = new TypeEntity();
         type.setAppId(meta.getAppId());
         type.setTypeId(classId);
         type.setTypeName(typeName);
@@ -181,7 +181,7 @@ public class MockAction {
      * @param methodId 方法ID
      */
     private void addMethod(MethodMeta meta, String classId, String methodId) {
-        Method method = new Method();
+        MethodEntity method = new MethodEntity();
         method.setTypeId(classId);
         method.setMethodId(methodId);
         method.setMethodAlias(meta.getMethodAlias());

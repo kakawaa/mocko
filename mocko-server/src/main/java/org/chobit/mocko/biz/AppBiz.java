@@ -1,7 +1,7 @@
 package org.chobit.mocko.biz;
 
 import org.chobit.mocko.helper.AuthContext;
-import org.chobit.mocko.model.entity.App;
+import org.chobit.mocko.model.entity.AppEntity;
 import org.chobit.mocko.model.request.AppModifyRequest;
 import org.chobit.mocko.service.AppService;
 import org.springframework.stereotype.Component;
@@ -38,7 +38,7 @@ public class AppBiz {
      *
      * @return 用户应用集合
      */
-    public List<App> findAll() {
+    public List<AppEntity> findAll() {
         return appService.findByUser(AuthContext.getUsername());
     }
 
@@ -49,7 +49,7 @@ public class AppBiz {
      * @param appId 应用ID
      * @return 应用信息
      */
-    public App getApp(String appId) {
+    public AppEntity getApp(String appId) {
         return appService.getByAppId(appId);
     }
 

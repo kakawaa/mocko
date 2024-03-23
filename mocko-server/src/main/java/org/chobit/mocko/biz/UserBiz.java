@@ -5,7 +5,7 @@ import org.chobit.commons.utils.StrKit;
 import org.chobit.mocko.except.MockoServerException;
 import org.chobit.mocko.helper.Args;
 import org.chobit.mocko.helper.AuthContext;
-import org.chobit.mocko.model.entity.User;
+import org.chobit.mocko.model.entity.UserEntity;
 import org.chobit.mocko.model.request.UserAddRequest;
 import org.chobit.mocko.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,7 +43,7 @@ public class UserBiz {
     public String checkPassword(String username, String password) {
 
         password = MD5.encode(password + pwdSalt);
-        User user = userService.getByUserPwd(username, password);
+        UserEntity user = userService.getByUserPwd(username, password);
 
         if (null == user) {
             throw new MockoServerException(USER_LOGIN_INFO_ERROR);

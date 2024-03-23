@@ -2,7 +2,7 @@ package org.chobit.mocko.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.chobit.mocko.model.entity.Package;
+import org.chobit.mocko.model.entity.PackageEntity;
 import org.chobit.mocko.service.mapper.PackageMapper;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * @author robin
  */
 @Service
-public class PackageService extends ServiceImpl<PackageMapper, Package> {
+public class PackageService extends ServiceImpl<PackageMapper, PackageEntity> {
 
 
     /**
@@ -25,9 +25,9 @@ public class PackageService extends ServiceImpl<PackageMapper, Package> {
      * @return 包名集合
      */
     public List<String> findByAppId(String appId) {
-        LambdaQueryWrapper<Package> lqw = new LambdaQueryWrapper<>();
-        lqw.select(Package::getPkgName)
-                .eq(Package::getAppId, appId);
+        LambdaQueryWrapper<PackageEntity> lqw = new LambdaQueryWrapper<>();
+        lqw.select(PackageEntity::getPkgName)
+                .eq(PackageEntity::getAppId, appId);
         return this.listObjs(lqw);
     }
 

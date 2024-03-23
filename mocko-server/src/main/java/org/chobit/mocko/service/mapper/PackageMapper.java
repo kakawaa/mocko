@@ -2,7 +2,7 @@ package org.chobit.mocko.service.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import org.chobit.mocko.model.entity.Package;
+import org.chobit.mocko.model.entity.PackageEntity;
 
 
 /**
@@ -11,7 +11,7 @@ import org.chobit.mocko.model.entity.Package;
  * @author rui.zhang
  */
 @Mapper
-public interface PackageMapper extends BaseMapper<Package> {
+public interface PackageMapper extends BaseMapper<PackageEntity> {
 
 
 }

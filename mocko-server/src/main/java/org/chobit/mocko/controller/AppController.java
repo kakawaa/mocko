@@ -2,7 +2,7 @@ package org.chobit.mocko.controller;
 
 import org.chobit.mocko.biz.AppBiz;
 import org.chobit.mocko.config.response.ResponseWrapper;
-import org.chobit.mocko.model.entity.App;
+import org.chobit.mocko.model.entity.AppEntity;
 import org.chobit.mocko.model.request.AppIdRequest;
 import org.chobit.mocko.model.request.AppModifyRequest;
 import org.springframework.validation.annotation.Validated;
@@ -33,13 +33,13 @@ public class AppController {
 
 
     @GetMapping("/list")
-    public List<App> findApps() {
+    public List<AppEntity> findApps() {
         return appBiz.findAll();
     }
 
 
     @PostMapping("/get")
-    public App getApp(@Validated @RequestBody AppIdRequest request) {
+    public AppEntity getApp(@Validated @RequestBody AppIdRequest request) {
         return appBiz.getApp(request.getAppId());
     }
 
