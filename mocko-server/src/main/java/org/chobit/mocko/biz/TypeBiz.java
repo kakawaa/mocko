@@ -14,7 +14,9 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static org.chobit.commons.constans.Symbol.EMPTY;
@@ -71,25 +73,56 @@ public class TypeBiz {
     }
 
 
+    private List<String> findParentPkg(List<Tuple2<String, String>> classList, final String parent) {
 
-    private String findParentPkg(List<Tuple2<String, String>> classList, final String parent){
+        List<String> result = new LinkedList<>();
 
-        for(Tuple2<String, String> t : classList){
+        String line = parent;
+
+        Iterator<Tuple2<String, String>> itr = classList.iterator();
+        while (itr.hasNext()) {
+            Tuple2<String, String> t = itr.next();
+
             String pkg = t._1;
 
             // 空包类已做处理
-            if(isBlank(pkg)){
+            if (isBlank(pkg)) {
+                continue;
+            }
+            // 只处理当前目录下的内容
+            if (isNotBlank(parent) && !pkg.startsWith(parent)) {
                 continue;
             }
 
-            // 只处理当前目录下的内容
-            if(isNotBlank(parent) && !pkg.startsWith(parent)){
+            String tmp = pkg;
+            if (isNotBlank(parent)) {
+                tmp = pkg.replace(parent, EMPTY);
+            }
+
+            if (isBlank(tmp) || Objects.equals(tmp, POINT)) {
+                result.add(t._2);
+                itr.remove();
                 continue;
+            }
+
+            tmp = tmp.substring(1);
+
+            String subPkg = tmp;
+            int idx = tmp.indexOf(POINT);
+            if (idx > 0) {
+                subPkg = tmp.substring(0, idx);
+            }
+
+            if(result.isEmpty() || result.contains(line)){
+                line = line + POINT + subPkg;
+            }else{
+                result.add(subPkg);
             }
 
 
         }
 
+        return result;
     }
 
 
