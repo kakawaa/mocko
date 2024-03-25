@@ -1,4 +1,4 @@
 
-org.chobit.mocko.MockoClientsConfiguration
-org.chobit.mocko.MockoAutoConfiguration
+org.chobit.mocko.autoconfigure.MockoClientsConfiguration
+org.chobit.mocko.autoconfigure.MockoAutoConfiguration
 
