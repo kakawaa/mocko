@@ -22,6 +22,4 @@ public class ClassTreeBuilderTest {
 
         System.out.println(JsonKit.toJson(root));
     }
-
-
 }
