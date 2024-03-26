@@ -3,13 +3,10 @@ package org.chobit.mocko.server.tools;
 import org.chobit.commons.model.TreeNode;
 import org.chobit.commons.model.Tuple2;
 import org.chobit.commons.utils.Collections2;
-import org.chobit.commons.utils.ObjKit;
 import org.chobit.commons.utils.StrKit;
+import org.chobit.mocko.server.constants.NodeType;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.chobit.commons.constans.Symbol.EMPTY;
@@ -61,17 +58,17 @@ public final class ClassTreeBuilder {
     private static void build(List<Tuple2<String, String>> classList, TreeNode<String> parentNode) {
         String parent = buildParentPackage(parentNode);
 
-        Set<String> subSet = analyzeSubNode(classList, parent);
+        Set<NodeInfo> subSet = analyzeSubNode(classList, parent);
 
         while (subSet.size() == 1) {
-            String sub = subSet.iterator().next();
+            NodeInfo sub = subSet.iterator().next();
 
             if (isBlank(parent)) {
-                parent = sub;
-                parentNode.setValue(sub);
-            } else {
-                parent = parent + POINT + sub;
-                parentNode.setValue(parentNode.getValue() + POINT + sub);
+                parent = sub.value;
+                parentNode.setValue(sub.value);
+            } else if (NodeType.PACKAGE == sub.type) {
+                parent = parent + POINT + sub.value;
+                parentNode.setValue(parentNode.getValue() + POINT + sub.value);
             }
 
             subSet = analyzeSubNode(classList, parent);
@@ -81,8 +78,8 @@ public final class ClassTreeBuilder {
             return;
         }
 
-        for (String sub : subSet) {
-            TreeNode<String> childNode = new TreeNode<>(parentNode, sub);
+        for (NodeInfo sub : subSet) {
+            TreeNode<String> childNode = new TreeNode<>(parentNode, sub.value);
             parentNode.addChild(childNode);
             build(classList, childNode);
         }
@@ -96,9 +93,9 @@ public final class ClassTreeBuilder {
      * @param parent    上级节点
      * @return 子节点集合
      */
-    private static Set<String> analyzeSubNode(List<Tuple2<String, String>> classList, final String parent) {
+    private static Set<NodeInfo> analyzeSubNode(List<Tuple2<String, String>> classList, final String parent) {
 
-        Set<String> result = new HashSet<>(2);
+        Set<NodeInfo> result = new HashSet<>(2);
 
         Iterator<Tuple2<String, String>> itr = classList.iterator();
         while (itr.hasNext()) {
@@ -117,14 +114,18 @@ public final class ClassTreeBuilder {
 
             // 处理包名
             String tmp = pkg;
-            if (isNotBlank(parent) || ObjKit.nonEquals(POINT, parent)) {
-                // 去掉parent相关的部分（parent为空时是第一次匹配）
-                tmp = pkg.substring(parent.length());
+            if (isNotBlank(parent)) {
+                if (Objects.equals(tmp, parent)) {
+                    tmp = EMPTY;
+                } else {
+                    // 去掉parent相关的部分（parent为空时是第一次匹配）
+                    tmp = pkg.substring(parent.length() + 1);
+                }
             }
 
             if (isBlank(tmp)) {
                 // 处理后子包为空，只剩下类，新增子节点
-                result.add(t._2);
+                result.add(new NodeInfo(t._2, NodeType.CLASS));
                 itr.remove();
                 continue;
             }
@@ -136,7 +137,7 @@ public final class ClassTreeBuilder {
                 subPkg = tmp.substring(0, idx);
             }
 
-            result.add(subPkg);
+            result.add(new NodeInfo(subPkg));
         }
 
         return result;
@@ -158,7 +159,7 @@ public final class ClassTreeBuilder {
             if (isNotBlank(tmp.getValue())) {
                 builder.insert(0, tmp.getValue() + POINT);
             }
-            tmp = tmp.getParent();
+            tmp = tmp.parent();
         }
 
         return builder.toString();
@@ -176,9 +177,55 @@ public final class ClassTreeBuilder {
         if (idx < 0) {
             return new Tuple2<>(EMPTY, classFullName);
         }
-        String pkg = classFullName.substring(0, idx);
-        String clazz = classFullName.substring(idx);
+        String pkg = classFullName.substring(0, idx + 1);
+        String clazz = classFullName.substring(idx + 1);
         return new Tuple2<>(pkg, clazz);
+    }
+
+
+    /**
+     * 节点信息
+     */
+    private static class NodeInfo {
+
+        /**
+         * 路径
+         */
+        public final String value;
+
+        /**
+         * 类型
+         */
+        public final NodeType type;
+
+
+        public NodeInfo(String value, NodeType type) {
+            this.value = value;
+            this.type = type;
+        }
+
+
+        public NodeInfo(String value) {
+            this(value, NodeType.PACKAGE);
+        }
+
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            NodeInfo nodeInfo = (NodeInfo) o;
+            return Objects.equals(value, nodeInfo.value) && type == nodeInfo.type;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(value, type);
+        }
     }
 
 
