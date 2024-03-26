@@ -58,10 +58,10 @@ public final class ClassTreeBuilder {
     private static void build(List<Tuple2<String, String>> classList, TreeNode<String> parentNode) {
         String parent = buildParentPackage(parentNode);
 
-        Set<NodeInfo> subSet = analyzeSubNode(classList, parent);
+        Set<Node> subSet = analyzeSubNode(classList, parent);
 
         while (subSet.size() == 1) {
-            NodeInfo sub = subSet.iterator().next();
+            Node sub = subSet.iterator().next();
 
             if (isBlank(parent)) {
                 parent = sub.value;
@@ -69,6 +69,9 @@ public final class ClassTreeBuilder {
             } else if (NodeType.PACKAGE == sub.type) {
                 parent = parent + POINT + sub.value;
                 parentNode.setValue(parentNode.getValue() + POINT + sub.value);
+            } else if (NodeType.CLASS == sub.type) {
+                TreeNode<String> childNode = new TreeNode<>(parentNode, sub.value);
+                parentNode.addChild(childNode);
             }
 
             subSet = analyzeSubNode(classList, parent);
@@ -78,7 +81,7 @@ public final class ClassTreeBuilder {
             return;
         }
 
-        for (NodeInfo sub : subSet) {
+        for (Node sub : subSet) {
             TreeNode<String> childNode = new TreeNode<>(parentNode, sub.value);
             parentNode.addChild(childNode);
             build(classList, childNode);
@@ -93,9 +96,9 @@ public final class ClassTreeBuilder {
      * @param parent    上级节点
      * @return 子节点集合
      */
-    private static Set<NodeInfo> analyzeSubNode(List<Tuple2<String, String>> classList, final String parent) {
+    private static Set<Node> analyzeSubNode(List<Tuple2<String, String>> classList, final String parent) {
 
-        Set<NodeInfo> result = new HashSet<>(2);
+        Set<Node> result = new HashSet<>(2);
 
         Iterator<Tuple2<String, String>> itr = classList.iterator();
         while (itr.hasNext()) {
@@ -125,7 +128,7 @@ public final class ClassTreeBuilder {
 
             if (isBlank(tmp)) {
                 // 处理后子包为空，只剩下类，新增子节点
-                result.add(new NodeInfo(t._2, NodeType.CLASS));
+                result.add(new Node(t._2, NodeType.CLASS));
                 itr.remove();
                 continue;
             }
@@ -137,7 +140,7 @@ public final class ClassTreeBuilder {
                 subPkg = tmp.substring(0, idx);
             }
 
-            result.add(new NodeInfo(subPkg));
+            result.add(new Node(subPkg));
         }
 
         return result;
@@ -186,7 +189,7 @@ public final class ClassTreeBuilder {
     /**
      * 节点信息
      */
-    private static class NodeInfo {
+    private static class Node {
 
         /**
          * 路径
@@ -199,13 +202,13 @@ public final class ClassTreeBuilder {
         public final NodeType type;
 
 
-        public NodeInfo(String value, NodeType type) {
+        public Node(String value, NodeType type) {
             this.value = value;
             this.type = type;
         }
 
 
-        public NodeInfo(String value) {
+        public Node(String value) {
             this(value, NodeType.PACKAGE);
         }
 
@@ -218,7 +221,7 @@ public final class ClassTreeBuilder {
             if (o == null || getClass() != o.getClass()) {
                 return false;
             }
-            NodeInfo nodeInfo = (NodeInfo) o;
+            Node nodeInfo = (Node) o;
             return Objects.equals(value, nodeInfo.value) && type == nodeInfo.type;
         }
 
