@@ -1,9 +1,6 @@
 package org.chobit.mocko.autoconfigure;
 
 import org.chobit.mocko.core.annotations.MockoClient;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -13,9 +10,11 @@ import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionReaderUtils;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.EnvironmentAware;
+import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.util.ClassUtils;
@@ -28,13 +27,8 @@ import java.util.Map;
  *
  * @author rui.zhang
  */
-public class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, BeanFactoryAware, EnvironmentAware {
+public class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, ResourceLoaderAware, EnvironmentAware {
 
-
-    /**
-     * 容器
-     */
-    private BeanFactory beanFactory;
 
     /**
      * 环境上下文
@@ -138,8 +132,10 @@ public class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, Bea
         this.environment = environment;
     }
 
+
+    @Deprecated
     @Override
-    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-        this.beanFactory = beanFactory;
+    public void setResourceLoader(ResourceLoader resourceLoader) {
+        //NOP
     }
 }
