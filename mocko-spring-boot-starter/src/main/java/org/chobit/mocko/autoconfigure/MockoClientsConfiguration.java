@@ -21,6 +21,9 @@ import org.springframework.context.annotation.Scope;
 public class MockoClientsConfiguration {
 
 
+    private static final Logger logger = LoggerFactory.getLogger(MockoClientsConfiguration.class);
+
+
     @Bean
     @Scope("prototype")
     @ConditionalOnMissingBean
@@ -33,8 +36,6 @@ public class MockoClientsConfiguration {
     @Import(MockoClientsRegistrar.class)
     @ConditionalOnProperty(name = "mocko.enabled", matchIfMissing = true)
     public static class MockoRegistrarNotFoundConfiguration implements InitializingBean {
-
-        private static final Logger logger = LoggerFactory.getLogger(MockoRegistrarNotFoundConfiguration.class);
 
         @Override
         public void afterPropertiesSet() {

@@ -9,11 +9,9 @@ import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionReaderUtils;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.context.EnvironmentAware;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
-import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
@@ -27,13 +25,9 @@ import java.util.Map;
  *
  * @author rui.zhang
  */
-public class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, ResourceLoaderAware, EnvironmentAware {
+public class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, ResourceLoaderAware {
 
 
-    /**
-     * 环境上下文
-     */
-    private Environment environment;
 
 
     public MockoClientsRegistrar() {
@@ -112,7 +106,7 @@ public class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, Res
      */
     ClassPathScanningCandidateComponentProvider getScanner() {
         // 不使用默认的过滤器，改用有指定注解的过滤器
-        return new ClassPathScanningCandidateComponentProvider(false, this.environment) {
+        return new ClassPathScanningCandidateComponentProvider(false) {
             @Override
             protected boolean isCandidateComponent(AnnotatedBeanDefinition beanDefinition) {
                 boolean isCandidate = false;
@@ -126,11 +120,6 @@ public class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, Res
         };
     }
 
-
-    @Override
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
-    }
 
 
     @Deprecated
