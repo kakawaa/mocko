@@ -33,7 +33,7 @@ public class MockoClientsConfiguration {
 
 
     @Configuration(proxyBeanMethods = false)
-    @Import(MockoClientsRegistrar.class)
+    @Import(MockoClientsAutoConfiguredRegistrar.class)
     @ConditionalOnProperty(name = "mocko.enabled", matchIfMissing = true)
     public static class MockoRegistrarNotFoundConfiguration implements InitializingBean {
 

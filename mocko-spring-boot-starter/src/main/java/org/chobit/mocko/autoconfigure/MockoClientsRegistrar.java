@@ -9,50 +9,40 @@ import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionReaderUtils;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
-import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
-import org.springframework.util.ClassUtils;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Map;
 
 /**
- * 执行MockoClient相关类注入
+ * MockoClient实例注入抽象类
  *
  * @author rui.zhang
  */
-public class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, ResourceLoaderAware {
-
-
-
-
-    public MockoClientsRegistrar() {
-    }
-
-
-    @Override
-    public void registerBeanDefinitions(AnnotationMetadata metadata,
-                                        BeanDefinitionRegistry registry) {
-        registerMockoClients(metadata, registry);
-    }
+public abstract class MockoClientsRegistrar {
 
 
     /**
      * 将MockoClient相关实例注入到容器
      */
-    public void registerMockoClients(AnnotationMetadata metadata,
-                                     BeanDefinitionRegistry registry) {
+    protected void registerMockoClients(Collection<String> basePackages, BeanDefinitionRegistry registry) {
+        basePackages.forEach(e -> this.registerMockoClients(e, registry));
+    }
+
+    /**
+     * 将MockoClient相关实例注入到容器
+     */
+    protected void registerMockoClients(String basePackage, BeanDefinitionRegistry registry) {
+
 
         ClassPathScanningCandidateComponentProvider scanner = this.getScanner();
         scanner.addIncludeFilter(new AnnotationTypeFilter(MockoClient.class));
 
         LinkedHashSet<BeanDefinition> candidateComponents = new LinkedHashSet<>(8);
 
-        String basePackage = ClassUtils.getPackageName(metadata.getClassName());
         candidateComponents.addAll(scanner.findCandidateComponents(basePackage));
 
         for (BeanDefinition comp : candidateComponents) {
@@ -104,7 +94,7 @@ public class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, Res
      *
      * @return 组件扫描器
      */
-    ClassPathScanningCandidateComponentProvider getScanner() {
+    private ClassPathScanningCandidateComponentProvider getScanner() {
         // 不使用默认的过滤器，改用有指定注解的过滤器
         return new ClassPathScanningCandidateComponentProvider(false) {
             @Override
@@ -118,13 +108,5 @@ public class MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, Res
                 return isCandidate;
             }
         };
-    }
-
-
-
-    @Deprecated
-    @Override
-    public void setResourceLoader(ResourceLoader resourceLoader) {
-        //NOP
     }
 }
