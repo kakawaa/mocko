@@ -19,6 +19,12 @@ public class MockoInterceptor extends MockoAspectSupport implements MethodInterc
     private static final long serialVersionUID = -2894283504201230353L;
 
 
+    private final MockoProperties mockoProperties;
+
+    public MockoInterceptor(MockoProperties mockoProperties) {
+        this.mockoProperties = mockoProperties;
+    }
+
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
         OperationInvoker invoker = () -> {
@@ -29,9 +35,10 @@ public class MockoInterceptor extends MockoAspectSupport implements MethodInterc
             }
         };
 
+        String mockUrl = mockoProperties.getMockUrl();
 
         try {
-            return execute(invoker, invocation.getThis(), invocation.getMethod(), invocation.getArguments());
+            return execute(invoker, mockUrl, invocation.getThis(), invocation.getMethod(), invocation.getArguments());
         } catch (OperationInvoker.WrappedThrowableException wte) {
             throw wte.getOriginal();
         }

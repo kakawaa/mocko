@@ -27,7 +27,7 @@ public class TypeController {
     private TypeBiz typeBiz;
 
 
-    @PostMapping("/all")
+    @PostMapping("/tree")
     public TreeNode<String> findClasses(@Validated @RequestBody AppIdRequest request) {
         return typeBiz.obtainTree(request.getAppId());
     }

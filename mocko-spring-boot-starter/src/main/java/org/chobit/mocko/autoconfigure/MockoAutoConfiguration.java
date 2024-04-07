@@ -28,9 +28,9 @@ public class MockoAutoConfiguration {
 
     @Bean
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-    public MockoPointcutSourceAdvisor mockoPointAdvisor() {
+    public MockoPointcutSourceAdvisor mockoPointAdvisor(MockoProperties mockoProperties) {
         MockoPointcutSourceAdvisor advisor = new MockoPointcutSourceAdvisor();
-        advisor.setAdvice(new MockoInterceptor());
+        advisor.setAdvice(new MockoInterceptor(mockoProperties));
         advisor.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return advisor;
     }

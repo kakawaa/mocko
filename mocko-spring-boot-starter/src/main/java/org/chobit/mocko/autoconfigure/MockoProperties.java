@@ -13,11 +13,7 @@ public class MockoProperties {
 
     private boolean enabled = true;
 
-    private String serverHost = "127.0.0.1";
-
-    private int serverPort = 8190;
-
-    private boolean useSsl = false;
+    private String mockUrl = "http://127.0.0.1:1024/api/mock";
 
     public boolean isEnabled() {
         return enabled;
@@ -27,27 +23,11 @@ public class MockoProperties {
         this.enabled = enabled;
     }
 
-    public String getServerHost() {
-        return serverHost;
+    public String getMockUrl() {
+        return mockUrl;
     }
 
-    public void setServerHost(String serverHost) {
-        this.serverHost = serverHost;
-    }
-
-    public int getServerPort() {
-        return serverPort;
-    }
-
-    public void setServerPort(int serverPort) {
-        this.serverPort = serverPort;
-    }
-
-    public boolean isUseSsl() {
-        return useSsl;
-    }
-
-    public void setUseSsl(boolean useSsl) {
-        this.useSsl = useSsl;
+    public void setMockUrl(String mockUrl) {
+        this.mockUrl = mockUrl;
     }
 }

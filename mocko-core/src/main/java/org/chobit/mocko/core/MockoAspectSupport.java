@@ -1,5 +1,7 @@
 package org.chobit.mocko.core;
 
+import org.chobit.commons.http.HttpClient;
+import org.chobit.commons.http.HttpResult;
 import org.chobit.commons.utils.JsonKit;
 import org.chobit.mocko.core.annotations.Mocko;
 import org.chobit.mocko.core.annotations.MockoClient;
@@ -26,12 +28,12 @@ public class MockoAspectSupport {
 
     private static final Logger logger = LoggerFactory.getLogger(MockoAspectSupport.class);
 
-    protected Object execute(OperationInvoker invoker, Object target, Method method, Object[] args) {
+    protected Object execute(OperationInvoker invoker, String mockUrl, Object target, Method method, Object[] args) {
 
-        MethodMeta methodMeta = null;
+        MethodMeta methodMeta;
         try {
             methodMeta = parseMethodMetadata(target, method, args);
-            return requestMockoServer(methodMeta);
+            return requestMockoServer(mockUrl, methodMeta);
         } catch (Exception e) {
             logger.error("request mocko server error, method info:{}", JsonKit.toJson(method));
             throw new MockoException(ResponseCode.REQUEST_MOCKO_SERVER_ERROR);
@@ -39,9 +41,12 @@ public class MockoAspectSupport {
     }
 
 
-    private Object requestMockoServer(MethodMeta methodMeta) {
-
-        return JsonKit.fromJson("{}", methodMeta.getReturnType());
+    private Object requestMockoServer(String mockUrl, MethodMeta methodMeta) {
+        HttpResult result = HttpClient.postBody(mockUrl, JsonKit.toJson(methodMeta));
+        if (!result.isSuccess()) {
+            throw new MockoException(ResponseCode.REQUEST_MOCKO_SERVER_ERROR);
+        }
+        return JsonKit.fromJson(result.getContent(), methodMeta.getReturnType());
     }
 
 
