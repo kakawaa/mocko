@@ -40,7 +40,7 @@ public class TypeBiz {
             return null;
         }
 
-        List<String> typeNameList = typeList.stream().map(TypeEntity::getTypeName).collect(Collectors.toList());
+        List<String> typeNameList = typeList.stream().map(TypeEntity::getFullName).collect(Collectors.toList());
 
         return ClassTreeBuilder.build(typeNameList);
     }

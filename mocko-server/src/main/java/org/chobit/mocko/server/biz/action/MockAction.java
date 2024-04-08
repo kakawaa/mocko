@@ -157,8 +157,8 @@ public class MockAction {
         String fullName = meta.getClassName();
         int idx = fullName.lastIndexOf(Symbol.POINT);
         String typeName = fullName;
-        if (idx > 0) {
-            typeName = fullName.substring(idx);
+        if (idx > 0 && idx < fullName.length() - 1) {
+            typeName = fullName.substring(idx + 1);
         }
 
         TypeEntity type = new TypeEntity();

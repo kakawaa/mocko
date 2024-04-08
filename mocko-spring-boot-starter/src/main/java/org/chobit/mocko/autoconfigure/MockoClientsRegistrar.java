@@ -37,7 +37,6 @@ public abstract class MockoClientsRegistrar {
      */
     protected void registerMockoClients(String basePackage, BeanDefinitionRegistry registry) {
 
-
         ClassPathScanningCandidateComponentProvider scanner = this.getScanner();
         scanner.addIncludeFilter(new AnnotationTypeFilter(MockoClient.class));
 
