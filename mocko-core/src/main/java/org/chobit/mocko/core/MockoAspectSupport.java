@@ -28,25 +28,28 @@ public class MockoAspectSupport {
 
     private static final Logger logger = LoggerFactory.getLogger(MockoAspectSupport.class);
 
-    protected Object execute(OperationInvoker invoker, String mockUrl, Object target, Method method, Object[] args) {
+
+    protected Object execute(OperationInvoker invoker, String appId, String mockUrl, Object target, Method method, Object[] args) {
 
         MethodMeta methodMeta;
         try {
             methodMeta = parseMethodMetadata(target, method, args);
-            return requestMockoServer(mockUrl, methodMeta);
+            methodMeta.setAppId(appId);
+
+            String methodInfo = JsonKit.toJson(methodMeta);
+
+            HttpResult result = HttpClient.postBody(mockUrl, methodInfo);
+
+            if (!result.isSuccess()) {
+                logger.error("Send request to mocko server error. method info:{}, response:{}", methodInfo, result);
+                return invoker.invoke();
+            }
+
+            return JsonKit.fromJson(result.getContent(), methodMeta.getReturnType());
         } catch (Exception e) {
-            logger.error("request mocko server error, method info:{}", JsonKit.toJson(method));
+            logger.error("request mocko server error, method info:{}", JsonKit.toJson(method), e);
             throw new MockoException(ResponseCode.REQUEST_MOCKO_SERVER_ERROR);
         }
-    }
-
-
-    private Object requestMockoServer(String mockUrl, MethodMeta methodMeta) {
-        HttpResult result = HttpClient.postBody(mockUrl, JsonKit.toJson(methodMeta));
-        if (!result.isSuccess()) {
-            throw new MockoException(ResponseCode.REQUEST_MOCKO_SERVER_ERROR);
-        }
-        return JsonKit.fromJson(result.getContent(), methodMeta.getReturnType());
     }
 
 

@@ -23,12 +23,13 @@ public class MockoAutoConfiguration {
 
 
     @Value("${spring.application.name}")
-    private String appName;
+    private String appId;
 
 
     @Bean
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
     public MockoPointcutSourceAdvisor mockoPointAdvisor(MockoProperties mockoProperties) {
+        mockoProperties.setAppId(appId);
         MockoPointcutSourceAdvisor advisor = new MockoPointcutSourceAdvisor();
         advisor.setAdvice(new MockoInterceptor(mockoProperties));
         advisor.setOrder(Ordered.HIGHEST_PRECEDENCE);

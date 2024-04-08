@@ -1,5 +1,6 @@
 package org.chobit.mocko.server.biz;
 
+import org.chobit.mocko.core.annotations.Mocko;
 import org.chobit.mocko.server.service.IFooService;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +21,7 @@ public class MyBiz {
     private IFooService fooService;
 
 
+    @Mocko
     public String ping() {
         return "pong";
     }

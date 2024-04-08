@@ -35,10 +35,11 @@ public class MockoInterceptor extends MockoAspectSupport implements MethodInterc
             }
         };
 
+        String appId = mockoProperties.getAppId();
         String mockUrl = mockoProperties.getMockUrl();
 
         try {
-            return execute(invoker, mockUrl, invocation.getThis(), invocation.getMethod(), invocation.getArguments());
+            return execute(invoker, appId, mockUrl, invocation.getThis(), invocation.getMethod(), invocation.getArguments());
         } catch (OperationInvoker.WrappedThrowableException wte) {
             throw wte.getOriginal();
         }

@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * @author rui.zhang
  */
-public class MockoInvocationHandler implements InvocationHandler {
+public class MockoInvocationHandler extends MockoAspectSupport implements InvocationHandler {
 
 
     private final Target<?> target;

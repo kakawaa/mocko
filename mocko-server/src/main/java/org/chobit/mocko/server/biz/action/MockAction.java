@@ -3,6 +3,7 @@ package org.chobit.mocko.server.biz.action;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.chobit.commons.codec.MD5;
 import org.chobit.commons.constans.Symbol;
+import org.chobit.commons.utils.Collections2;
 import org.chobit.commons.utils.JsonKit;
 import org.chobit.mocko.server.constants.Constants;
 import org.chobit.mocko.server.constants.ResponseCode;
@@ -54,7 +55,10 @@ public class MockAction {
         String methodId = this.computeMethodId(meta);
         MethodEntity method = methodService.getByMethodId(methodId);
 
-        checkAndSave(meta, method, methodId);
+        if (null == method) {
+            checkAndSave(meta, methodId);
+            throw new MockoServerException(ResponseCode.EMPTY_MOCK_RESPONSE);
+        }
 
         if (isBlank(method.getResponse())) {
             throw new MockoServerException(ResponseCode.EMPTY_MOCK_RESPONSE);
@@ -73,14 +77,9 @@ public class MockAction {
      * 检查并保存方法元数据等信息
      *
      * @param meta     方法元数据
-     * @param method   方法信息
      * @param methodId 方法ID
      */
-    private void checkAndSave(MethodMeta meta, MethodEntity method, String methodId) {
-
-        if (null != method) {
-            return;
-        }
+    private void checkAndSave(MethodMeta meta, String methodId) {
 
         String classId = computeClassId(meta);
         TypeEntity type = typeService.getByTypeId(classId);
@@ -218,9 +217,11 @@ public class MockAction {
                 .append(meta.getMethodName())
                 .append(Symbol.SHARP);
 
-        for (ArgInfo arg : meta.getArgs()) {
-            builder.append(arg.getArgClass())
-                    .append(Symbol.COMMA);
+        if (Collections2.isNotEmpty(meta.getArgs())) {
+            for (ArgInfo arg : meta.getArgs()) {
+                builder.append(arg.getArgClass())
+                        .append(Symbol.COMMA);
+            }
         }
 
         return MD5.encode(builder.toString());

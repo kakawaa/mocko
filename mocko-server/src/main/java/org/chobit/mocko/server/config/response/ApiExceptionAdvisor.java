@@ -28,7 +28,7 @@ public class ApiExceptionAdvisor {
      */
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result<?> exceptionHandler(Exception e) {
 
         Result<?> r = new Result<>(CommonStatusCode.FAIL);
