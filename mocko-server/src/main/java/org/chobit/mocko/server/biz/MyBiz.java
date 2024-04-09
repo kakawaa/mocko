@@ -13,6 +13,7 @@ import java.util.Map;
  *
  * @author robin
  */
+@Mocko
 @Component
 public class MyBiz {
 
@@ -21,7 +22,6 @@ public class MyBiz {
     private IFooService fooService;
 
 
-    @Mocko
     public String ping() {
         return "pong";
     }

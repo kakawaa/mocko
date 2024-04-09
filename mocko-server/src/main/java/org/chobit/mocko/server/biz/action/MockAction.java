@@ -5,6 +5,7 @@ import org.chobit.commons.codec.MD5;
 import org.chobit.commons.constans.Symbol;
 import org.chobit.commons.utils.Collections2;
 import org.chobit.commons.utils.JsonKit;
+import org.chobit.mocko.core.annotations.Mocko;
 import org.chobit.mocko.server.constants.Constants;
 import org.chobit.mocko.server.constants.ResponseCode;
 import org.chobit.mocko.server.except.MockoServerException;
@@ -31,6 +32,7 @@ import static org.chobit.commons.utils.StrKit.isBlank;
  *
  * @author robin
  */
+@Mocko
 @Component
 public class MockAction {
 
