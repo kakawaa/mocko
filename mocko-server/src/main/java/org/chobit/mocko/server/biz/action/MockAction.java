@@ -107,6 +107,7 @@ public class MockAction {
     private void addApp(MethodMeta meta) {
         AppEntity app = new AppEntity();
         app.setAppId(meta.getAppId());
+        app.setAppName(meta.getAppId());
         app.setOperatorCode(Constants.SYSTEM);
         appService.save(app);
     }
