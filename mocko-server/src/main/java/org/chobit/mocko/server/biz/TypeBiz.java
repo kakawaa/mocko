@@ -3,6 +3,7 @@ package org.chobit.mocko.server.biz;
 import lombok.extern.slf4j.Slf4j;
 import org.chobit.commons.model.TreeNode;
 import org.chobit.commons.utils.Collections2;
+import org.chobit.mocko.core.annotations.Mocko;
 import org.chobit.mocko.server.model.entity.TypeEntity;
 import org.chobit.mocko.server.service.TypeService;
 import org.chobit.mocko.server.tools.ClassTreeBuilder;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
  *
  * @author robin
  */
+@Mocko
 @Slf4j
 @Component
 public class TypeBiz {
@@ -33,7 +35,7 @@ public class TypeBiz {
      * @param appId 应用ID
      * @return 类树
      */
-    public TreeNode<String> obtainTree(String appId) {
+    public TreeNode<String> obtainAppClassTree(String appId) {
 
         List<TypeEntity> typeList = typeService.findByAppId(appId);
         if (Collections2.isEmpty(typeList)) {
