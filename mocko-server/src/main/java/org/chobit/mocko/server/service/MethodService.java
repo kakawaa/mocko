@@ -26,7 +26,8 @@ public class MethodService extends ServiceImpl<MethodMapper, MethodEntity> {
      */
     public MethodEntity getByMethodId(String methodId) {
         LambdaQueryWrapper<MethodEntity> lqw = new LambdaQueryWrapper<>();
-        lqw.eq(MethodEntity::getMethodId, methodId);
+        lqw.eq(MethodEntity::getMethodId, methodId)
+                .last("limit 1");
         return this.getOne(lqw);
     }
 

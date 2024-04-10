@@ -32,7 +32,6 @@ import static org.chobit.commons.utils.StrKit.isBlank;
  *
  * @author robin
  */
-@Mocko
 @Component
 public class MockAction {
 

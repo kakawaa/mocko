@@ -147,7 +147,7 @@ public class MockoAspectSupport {
         }
 
         for (int i = 1; i <= args.length; i++) {
-            Object o = args[i];
+            Object o = args[i - 1];
 
             ArgInfo a = new ArgInfo();
             a.setArgClass(o.getClass().getCanonicalName());
