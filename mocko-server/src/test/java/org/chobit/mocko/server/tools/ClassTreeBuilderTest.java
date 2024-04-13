@@ -1,7 +1,5 @@
 package org.chobit.mocko.server.tools;
 
-import org.chobit.commons.model.TreeNode;
-import org.chobit.commons.utils.JsonKit;
 import org.chobit.mocko.server.api.PingController;
 import org.junit.jupiter.api.Test;
 
@@ -18,8 +16,5 @@ public class ClassTreeBuilderTest {
         classTypeList.add(AuthContext.class.getName());
         classTypeList.add(PingController.class.getName());
 
-        TreeNode<String> root = ClassTreeGenerator.generate(classTypeList);
-
-        System.out.println(JsonKit.toJson(root));
     }
 }

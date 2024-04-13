@@ -5,6 +5,7 @@ import org.chobit.commons.model.Tuple2;
 import org.chobit.commons.utils.Collections2;
 import org.chobit.commons.utils.StrKit;
 import org.chobit.mocko.server.constants.NodeType;
+import org.chobit.mocko.server.model.entity.MethodEntity;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -23,14 +24,23 @@ public final class ClassTreeGenerator {
 
 
     /**
+     * 全限定类名和类下方法名集合的映射
+     */
+    private final Map<String, List<MethodEntity>> typeMethodMap;
+
+
+    public ClassTreeGenerator(Map<String, List<MethodEntity>> typeMethodMap) {
+        this.typeMethodMap = typeMethodMap;
+    }
+
+    /**
      * 构建类信息树
      *
-     * @param typeNameList 全限定类名集合
      * @return 类信息树根节点
      */
-    public static TreeNode<String> generate(List<String> typeNameList) {
+    public  TreeNode<String> generate() {
 
-        List<Tuple2<String, String>> classList = typeNameList.stream()
+        List<Tuple2<String, String>> classList = this.typeMethodMap.keySet().stream()
                 .filter(StrKit::isNotBlank)
                 .map(ClassTreeGenerator::breakClassFullName)
                 .collect(Collectors.toList());
@@ -43,7 +53,7 @@ public final class ClassTreeGenerator {
 
         classList.stream().filter(e -> isBlank(e._1)).forEach(e -> root.addChild(e._2));
 
-        generate(classList, root);
+        this.generate(classList, root);
 
         return root;
     }
@@ -55,7 +65,7 @@ public final class ClassTreeGenerator {
      * @param classList  类集合
      * @param parentNode 上级节点
      */
-    private static void generate(List<Tuple2<String, String>> classList, TreeNode<String> parentNode) {
+    private  void generate(List<Tuple2<String, String>> classList, TreeNode<String> parentNode) {
         String parent = buildParentPackage(parentNode);
 
         Set<Node> subSet = analyzeSubNode(classList, parent);
@@ -232,6 +242,4 @@ public final class ClassTreeGenerator {
     }
 
 
-    private ClassTreeGenerator() {
-    }
 }

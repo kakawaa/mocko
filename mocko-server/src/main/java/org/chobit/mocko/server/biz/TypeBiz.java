@@ -58,18 +58,12 @@ public class TypeBiz {
         Map<String, List<MethodEntity>> typeMethodMap = new HashMap<>(16);
         methodMap.forEach((k, v)->{
             String typeFullName = typeIdMap.get(v);
-
-            List<MethodEntity> list = typeMethodMap.get(typeFullName);
-            if(null == list){
-                list = new LinkedList<>();
-                typeMethodMap.put(v, list);
-            }
-
+            List<MethodEntity> list = typeMethodMap.computeIfAbsent(typeFullName, (t)-> new LinkedList<>());
             list.add(k);
         });
 
 
-        TreeNode<String> root = ClassTreeGenerator.generate(typeNameList);
+        TreeNode<String> root = new ClassTreeGenerator(typeMethodMap).generate();
 
         return listOf(root);
     }
