@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 类相关接口
@@ -28,7 +29,7 @@ public class TypeController {
 
 
     @PostMapping("/tree")
-    public TreeNode<String> findClasses(@Validated @RequestBody AppIdRequest request) {
+    public List<TreeNode<String>> findClasses(@Validated @RequestBody AppIdRequest request) {
         return typeBiz.obtainAppClassTree(request.getAppId());
     }
 }

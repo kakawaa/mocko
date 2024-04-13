@@ -10,7 +10,7 @@ import lombok.Data;
  */
 @TableName("m_type")
 @Data
-public final class TypeEntity extends AbstractEntity {
+public class TypeEntity extends AbstractEntity {
 
 
     /**

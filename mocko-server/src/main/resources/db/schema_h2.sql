@@ -89,6 +89,7 @@ create table if not exists m_method
 (
     id            int          not null default 0 auto_increment comment 'id',
 
+    app_id        varchar(32)  not null default '' comment '应用ID',
     type_id       varchar(32)  not null default '' comment '类ID',
     method_id     varchar(32)  not null default '' comment '方法ID',
     method_alias  varchar(32)  not null default '' comment '方法别名',

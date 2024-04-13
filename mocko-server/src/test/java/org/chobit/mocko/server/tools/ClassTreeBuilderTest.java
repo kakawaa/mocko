@@ -18,7 +18,7 @@ public class ClassTreeBuilderTest {
         classTypeList.add(AuthContext.class.getName());
         classTypeList.add(PingController.class.getName());
 
-        TreeNode<String> root = ClassTreeBuilder.build(classTypeList);
+        TreeNode<String> root = ClassTreeGenerator.generate(classTypeList);
 
         System.out.println(JsonKit.toJson(root));
     }

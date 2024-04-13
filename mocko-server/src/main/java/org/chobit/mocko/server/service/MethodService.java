@@ -7,6 +7,8 @@ import org.chobit.mocko.server.model.entity.MethodEntity;
 import org.chobit.mocko.server.service.mapper.MethodMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 /**
  * 方法Service
@@ -29,6 +31,19 @@ public class MethodService extends ServiceImpl<MethodMapper, MethodEntity> {
         lqw.eq(MethodEntity::getMethodId, methodId)
                 .last("limit 1");
         return this.getOne(lqw);
+    }
+
+
+    /**
+     * 根据应用ID查找方法
+     *
+     * @param appId 应用ID
+     * @return 应用下的全部方法
+     */
+    public List<MethodEntity> findByAppId(String appId) {
+        LambdaQueryWrapper<MethodEntity> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(MethodEntity::getAppId, appId);
+        return this.list(lqw);
     }
 
 }

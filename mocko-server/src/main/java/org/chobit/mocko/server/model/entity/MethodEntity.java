@@ -15,6 +15,12 @@ public final class MethodEntity extends AbstractEntity {
 
 
     /**
+     * 应用ID
+     */
+    private String appId;
+
+
+    /**
      * 组件ID
      */
     private String typeId;

@@ -5,15 +5,13 @@ import org.chobit.commons.codec.MD5;
 import org.chobit.commons.constans.Symbol;
 import org.chobit.commons.utils.Collections2;
 import org.chobit.commons.utils.JsonKit;
-import org.chobit.mocko.core.annotations.Mocko;
+import org.chobit.mocko.core.model.ArgInfo;
+import org.chobit.mocko.core.model.MethodMeta;
 import org.chobit.mocko.server.constants.Constants;
 import org.chobit.mocko.server.constants.ResponseCode;
 import org.chobit.mocko.server.except.MockoServerException;
-import org.chobit.mocko.core.model.ArgInfo;
-import org.chobit.mocko.core.model.MethodMeta;
 import org.chobit.mocko.server.model.entity.AppEntity;
 import org.chobit.mocko.server.model.entity.MethodEntity;
-import org.chobit.mocko.server.model.entity.PackageEntity;
 import org.chobit.mocko.server.model.entity.TypeEntity;
 import org.chobit.mocko.server.service.AppService;
 import org.chobit.mocko.server.service.MethodService;
@@ -22,7 +20,6 @@ import org.chobit.mocko.server.service.TypeService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 import static org.chobit.commons.utils.StrKit.isBlank;
 
@@ -87,10 +84,7 @@ public class MockAction {
 
         if (null == type) {
             AppEntity app = appService.getByAppId(meta.getAppId());
-            if (null == app) {
-                this.addApp(meta);
-            }
-            this.savePackage(meta.getAppId(), meta.getClassName());
+            this.addApp(meta, app);
             this.addClass(meta, classId);
         }
 
@@ -105,47 +99,16 @@ public class MockAction {
      *
      * @param meta 方法元数据
      */
-    private void addApp(MethodMeta meta) {
-        AppEntity app = new AppEntity();
+    private void addApp(MethodMeta meta, AppEntity app) {
+        if (null != app) {
+            return;
+        }
+
+        app = new AppEntity();
         app.setAppId(meta.getAppId());
         app.setAppName(meta.getAppId());
         app.setOperatorCode(Constants.SYSTEM);
         appService.save(app);
-    }
-
-
-    /**
-     * 保存包信息
-     *
-     * @param appId         应用ID
-     * @param classFullName 全限定类名
-     */
-    private void savePackage(String appId, String classFullName) {
-        String[] arr = classFullName.split(Symbol.COMMA);
-        if (arr.length == 1) {
-            return;
-        }
-
-        List<String> pkgNames = pkgService.findByAppId(appId);
-
-        for (int i = 0; i < arr.length - 1; i++) {
-            String pkgName = arr[i];
-            String pkgParentName = "";
-            if (i > 0) {
-                pkgParentName = arr[i - 1];
-            }
-            if (pkgNames.contains(pkgName)) {
-                continue;
-            }
-
-            PackageEntity pkg = new PackageEntity();
-            pkg.setPkgName(pkgName);
-            pkg.setParentName(pkgParentName);
-            pkg.setAppId(appId);
-            pkg.setOperatorCode(Constants.SYSTEM);
-
-            pkgService.save(pkg);
-        }
     }
 
 
@@ -156,6 +119,13 @@ public class MockAction {
      * @param classId 类ID
      */
     private void addClass(MethodMeta meta, String classId) {
+        TypeEntity type = typeService.getByTypeId(classId);
+        if (null != type) {
+            return;
+        }
+
+        type = new TypeEntity();
+
         String fullName = meta.getClassName();
         int idx = fullName.lastIndexOf(Symbol.POINT);
         String typeName = fullName;
@@ -163,7 +133,6 @@ public class MockAction {
             typeName = fullName.substring(idx + 1);
         }
 
-        TypeEntity type = new TypeEntity();
         type.setAppId(meta.getAppId());
         type.setTypeId(classId);
         type.setTypeName(typeName);
@@ -183,6 +152,7 @@ public class MockAction {
      */
     private void addMethod(MethodMeta meta, String classId, String methodId) {
         MethodEntity method = new MethodEntity();
+        method.setAppId(meta.getAppId());
         method.setTypeId(classId);
         method.setMethodId(methodId);
         method.setMethodAlias(meta.getMethodAlias());

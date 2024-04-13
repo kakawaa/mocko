@@ -19,7 +19,7 @@ import static org.chobit.commons.utils.StrKit.isNotBlank;
  *
  * @author robin
  */
-public final class ClassTreeBuilder {
+public final class ClassTreeGenerator {
 
 
     /**
@@ -28,11 +28,11 @@ public final class ClassTreeBuilder {
      * @param typeNameList 全限定类名集合
      * @return 类信息树根节点
      */
-    public static TreeNode<String> build(List<String> typeNameList) {
+    public static TreeNode<String> generate(List<String> typeNameList) {
 
         List<Tuple2<String, String>> classList = typeNameList.stream()
                 .filter(StrKit::isNotBlank)
-                .map(ClassTreeBuilder::breakClassFullName)
+                .map(ClassTreeGenerator::breakClassFullName)
                 .collect(Collectors.toList());
 
         if (Collections2.isEmpty(classList)) {
@@ -43,7 +43,7 @@ public final class ClassTreeBuilder {
 
         classList.stream().filter(e -> isBlank(e._1)).forEach(e -> root.addChild(e._2));
 
-        build(classList, root);
+        generate(classList, root);
 
         return root;
     }
@@ -55,7 +55,7 @@ public final class ClassTreeBuilder {
      * @param classList  类集合
      * @param parentNode 上级节点
      */
-    private static void build(List<Tuple2<String, String>> classList, TreeNode<String> parentNode) {
+    private static void generate(List<Tuple2<String, String>> classList, TreeNode<String> parentNode) {
         String parent = buildParentPackage(parentNode);
 
         Set<Node> subSet = analyzeSubNode(classList, parent);
@@ -84,7 +84,7 @@ public final class ClassTreeBuilder {
         for (Node sub : subSet) {
             TreeNode<String> childNode = new TreeNode<>(parentNode, sub.value);
             parentNode.addChild(childNode);
-            build(classList, childNode);
+            generate(classList, childNode);
         }
     }
 
@@ -232,6 +232,6 @@ public final class ClassTreeBuilder {
     }
 
 
-    private ClassTreeBuilder() {
+    private ClassTreeGenerator() {
     }
 }
