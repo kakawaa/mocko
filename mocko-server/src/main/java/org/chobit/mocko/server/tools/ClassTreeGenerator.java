@@ -100,7 +100,13 @@ public final class ClassTreeGenerator {
 
         for (Node sub : subSet) {
             ClassTreeNode childNode = new ClassTreeNode(parentNode, sub.value);
-            childNode.setClassNode(NodeType.CLASS == sub.type);
+            boolean isClassNode = NodeType.CLASS == sub.type;
+            childNode.setClassNode(isClassNode);
+            if (isClassNode) {
+                String fullName = parent + POINT + sub.value;
+                String classId = typeIdMap.get(fullName);
+                childNode.setClassId(classId);
+            }
             parentNode.addChild(childNode);
             generate(classList, childNode);
         }
