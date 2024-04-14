@@ -12,16 +12,36 @@ import org.chobit.commons.model.TreeNode;
 public class ClassTreeNode extends TreeNode<String> {
 
 
+    public ClassTreeNode() {
+    }
+
+
+    public ClassTreeNode(String value) {
+        super(value);
+    }
+
+
+    public ClassTreeNode(TreeNode<String> parent, String value) {
+        super(parent, value);
+    }
+
+
     /**
      * 是否是类
      */
-    private boolean isClass;
+    private boolean isClassNode;
+
+
+    /**
+     * 类ID
+     */
+    private String classId;
 
 
     /**
      * 是否是方法
      */
-    private boolean isMethod;
+    private boolean isMethodNode;
 
 
     /**

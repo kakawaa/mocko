@@ -1,9 +1,10 @@
 package org.chobit.mocko.server.controller;
 
-import org.chobit.commons.model.TreeNode;
 import org.chobit.mocko.server.biz.TypeBiz;
 import org.chobit.mocko.server.config.response.ResponseWrapper;
 import org.chobit.mocko.server.model.request.AppIdRequest;
+import org.chobit.mocko.server.model.request.ClassIdRequest;
+import org.chobit.mocko.server.model.vo.ClassTreeNode;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +30,13 @@ public class TypeController {
 
 
     @PostMapping("/tree")
-    public List<TreeNode<String>> findClasses(@Validated @RequestBody AppIdRequest request) {
+    public List<ClassTreeNode> findClasses(@Validated @RequestBody AppIdRequest request) {
         return typeBiz.obtainAppClassTree(request.getAppId());
+    }
+
+
+    @PostMapping("/methods")
+    public List<ClassTreeNode> findMethods(@Validated @RequestBody ClassIdRequest request) {
+        return typeBiz.findMethods(request.getClassId());
     }
 }

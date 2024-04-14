@@ -48,7 +48,7 @@ public class MockoAspectSupport {
             return JsonKit.fromJson(result.getContent(), methodMeta.getReturnType());
         } catch (Exception e) {
             logger.error("request mocko server error, method info:{}", JsonKit.toJson(method), e);
-            throw new MockoException(ResponseCode.REQUEST_MOCKO_SERVER_ERROR);
+            throw new MockoException(ResponseCode.REQUEST_MOCKO_SERVER_ERROR, e);
         }
     }
 
@@ -69,7 +69,7 @@ public class MockoAspectSupport {
         String methodName = method.getName();
         String methodAlias = this.parseMethodAlias(method);
 
-        List<ArgInfo> argList = takeArgList(args);
+        List<ArgInfo> argList = takeArgList(method.getParameterTypes());
 
         Class<?> returnType = method.getReturnType();
 
@@ -140,18 +140,18 @@ public class MockoAspectSupport {
      * @param args 参数集合
      * @return 参数信息集合
      */
-    private List<ArgInfo> takeArgList(Object[] args) {
+    private List<ArgInfo> takeArgList(Class<?>[] args) {
         List<ArgInfo> result = new LinkedList<>();
         if (args.length == 0) {
             return result;
         }
 
-        for (int i = 1; i <= args.length; i++) {
-            Object o = args[i - 1];
+        for (int i = 0; i < args.length; i++) {
+            Class<?> clazz = args[i];
 
             ArgInfo a = new ArgInfo();
-            a.setArgClass(o.getClass().getCanonicalName());
-            a.setArgName("arg" + i);
+            a.setArgClass(clazz.getCanonicalName());
+            a.setArgName("arg-" + (i + 1));
 
             result.add(a);
         }

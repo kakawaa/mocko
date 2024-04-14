@@ -5,7 +5,7 @@ import org.chobit.commons.model.Tuple2;
 import org.chobit.commons.utils.Collections2;
 import org.chobit.commons.utils.StrKit;
 import org.chobit.mocko.server.constants.NodeType;
-import org.chobit.mocko.server.model.entity.MethodEntity;
+import org.chobit.mocko.server.model.vo.ClassTreeNode;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -26,11 +26,11 @@ public final class ClassTreeGenerator {
     /**
      * 全限定类名和类下方法名集合的映射
      */
-    private final Map<String, List<MethodEntity>> typeMethodMap;
+    private final Map<String, String> typeIdMap;
 
 
-    public ClassTreeGenerator(Map<String, List<MethodEntity>> typeMethodMap) {
-        this.typeMethodMap = typeMethodMap;
+    public ClassTreeGenerator(Map<String, String> typeIdMap) {
+        this.typeIdMap = typeIdMap;
     }
 
     /**
@@ -38,18 +38,18 @@ public final class ClassTreeGenerator {
      *
      * @return 类信息树根节点
      */
-    public  TreeNode<String> generate() {
+    public ClassTreeNode generate() {
 
-        List<Tuple2<String, String>> classList = this.typeMethodMap.keySet().stream()
+        List<Tuple2<String, String>> classList = this.typeIdMap.keySet().stream()
                 .filter(StrKit::isNotBlank)
                 .map(ClassTreeGenerator::breakClassFullName)
                 .collect(Collectors.toList());
 
         if (Collections2.isEmpty(classList)) {
-            return new TreeNode<>();
+            return new ClassTreeNode();
         }
 
-        TreeNode<String> root = new TreeNode<>(EMPTY);
+        ClassTreeNode root = new ClassTreeNode(EMPTY);
 
         classList.stream().filter(e -> isBlank(e._1)).forEach(e -> root.addChild(e._2));
 
@@ -65,7 +65,7 @@ public final class ClassTreeGenerator {
      * @param classList  类集合
      * @param parentNode 上级节点
      */
-    private  void generate(List<Tuple2<String, String>> classList, TreeNode<String> parentNode) {
+    private void generate(List<Tuple2<String, String>> classList, ClassTreeNode parentNode) {
         String parent = buildParentPackage(parentNode);
 
         Set<Node> subSet = analyzeSubNode(classList, parent);
@@ -76,11 +76,18 @@ public final class ClassTreeGenerator {
             if (isBlank(parent)) {
                 parent = sub.value;
                 parentNode.setValue(sub.value);
+                parentNode.setClassNode(NodeType.CLASS == sub.type);
             } else if (NodeType.PACKAGE == sub.type) {
                 parent = parent + POINT + sub.value;
                 parentNode.setValue(parentNode.getValue() + POINT + sub.value);
             } else if (NodeType.CLASS == sub.type) {
-                TreeNode<String> childNode = new TreeNode<>(parentNode, sub.value);
+                ClassTreeNode childNode = new ClassTreeNode(parentNode, sub.value);
+
+                String fullName = parent + POINT + sub.value;
+                String classId = typeIdMap.get(fullName);
+
+                childNode.setClassNode(true);
+                childNode.setClassId(classId);
                 parentNode.addChild(childNode);
             }
 
@@ -92,7 +99,8 @@ public final class ClassTreeGenerator {
         }
 
         for (Node sub : subSet) {
-            TreeNode<String> childNode = new TreeNode<>(parentNode, sub.value);
+            ClassTreeNode childNode = new ClassTreeNode(parentNode, sub.value);
+            childNode.setClassNode(NodeType.CLASS == sub.type);
             parentNode.addChild(childNode);
             generate(classList, childNode);
         }
