@@ -4,6 +4,7 @@ import org.chobit.commons.codec.MD5;
 import org.chobit.commons.constans.Symbol;
 import org.chobit.commons.utils.Collections2;
 import org.chobit.commons.utils.JsonKit;
+import org.chobit.commons.utils.ReflectKit;
 import org.chobit.mocko.core.model.ArgInfo;
 import org.chobit.mocko.core.model.MethodMeta;
 import org.chobit.mocko.server.constants.Constants;
@@ -66,9 +67,13 @@ public class MockAction {
         }
         Class<?> clazz = null;
         try {
-            clazz = Class.forName(method.getResponse());
+            clazz = Class.forName(method.getResponseType());
         } catch (ClassNotFoundException e) {
             throw new MockoServerException(ResponseCode.ILLEGAL_MOCK_RESPONSE, e);
+        }
+
+        if (String.class.equals(clazz) || clazz.isPrimitive() || ReflectKit.isWrapClass(clazz)) {
+            return method.getResponse();
         }
 
         return JsonKit.fromJson(method.getResponse(), clazz);
