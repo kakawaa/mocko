@@ -1,6 +1,5 @@
 package org.chobit.mocko.server.biz.action;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import org.chobit.commons.codec.MD5;
 import org.chobit.commons.constans.Symbol;
 import org.chobit.commons.utils.Collections2;
@@ -49,7 +48,7 @@ public class MockAction {
      * @param meta 方法元数据
      * @return mock的结果
      */
-    public JsonNode queryMockResponse(MethodMeta meta) {
+    public Object queryMockResponse(MethodMeta meta) {
         String methodId = this.computeMethodId(meta);
         MethodEntity method = methodService.getByMethodId(methodId);
 
@@ -62,12 +61,17 @@ public class MockAction {
             throw new MockoServerException(ResponseCode.EMPTY_MOCK_RESPONSE);
         }
 
-        JsonNode result = JsonKit.parse(method.getResponse());
-        if (null == result) {
-            throw new MockoServerException(ResponseCode.ILLEGAL_MOCK_RESPONSE);
+        if (isBlank(method.getResponseType())) {
+            return null;
+        }
+        Class<?> clazz = null;
+        try {
+            clazz = Class.forName(method.getResponse());
+        } catch (ClassNotFoundException e) {
+            throw new MockoServerException(ResponseCode.ILLEGAL_MOCK_RESPONSE, e);
         }
 
-        return result;
+        return JsonKit.fromJson(method.getResponse(), clazz);
     }
 
 
@@ -158,6 +162,7 @@ public class MockAction {
         method.setMethodAlias(meta.getMethodAlias());
         method.setMethodName(meta.getMethodName());
         method.setArgs(JsonKit.toJson(meta.getArgs()));
+        method.setResponseType(meta.getReturnType().getTypeName());
         methodService.save(method);
     }
 

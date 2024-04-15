@@ -51,6 +51,12 @@ public final class MethodEntity extends AbstractEntity {
 
 
     /**
+     * 返回值类型
+     */
+    private String responseType;
+
+
+    /**
      * 响应信息
      */
     private String response;

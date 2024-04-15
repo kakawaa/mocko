@@ -22,5 +22,10 @@ public class MockoServerException extends RuntimeException {
         this.code = code.code;
     }
 
+    public MockoServerException(ResponseCode code, Throwable t) {
+        super(code.msg, t);
+        this.code = code.code;
+    }
+
 
 }

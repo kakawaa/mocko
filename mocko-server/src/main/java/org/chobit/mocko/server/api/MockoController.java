@@ -1,9 +1,8 @@
 package org.chobit.mocko.server.api;
 
 
-import com.fasterxml.jackson.databind.JsonNode;
-import org.chobit.mocko.server.biz.action.MockAction;
 import org.chobit.mocko.core.model.MethodMeta;
+import org.chobit.mocko.server.biz.action.MockAction;
 import org.chobit.mocko.server.config.response.ResponseWrapper;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +28,7 @@ public class MockoController {
 
 
     @PostMapping("/mock")
-    public JsonNode mock(@RequestBody MethodMeta meta) {
+    public Object mock(@RequestBody MethodMeta meta) {
         return mockAction.queryMockResponse(meta);
     }
 

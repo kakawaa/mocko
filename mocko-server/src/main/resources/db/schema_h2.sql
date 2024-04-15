@@ -94,8 +94,9 @@ create table if not exists m_method
     method_id     varchar(32)  not null default '' comment '方法ID',
     method_alias  varchar(32)  not null default '' comment '方法别名',
     method_name   varchar(64)  not null default '' comment '方法名称: 全限定类名#方法名',
-    args          varchar(512) not null default '' comment '参数信息',
-    response      tinytext     not null default '' comment '响应信息',
+    response_type varchar(128) not null default '' comment '返回值类型',
+    args          tinytext     not null default '' comment '参数信息',
+    response      text         not null default '' comment '响应信息',
 
     operator_code int          not null default 0 comment '操作人ID',
     deleted       int          not null default 0 comment '删除标记',
