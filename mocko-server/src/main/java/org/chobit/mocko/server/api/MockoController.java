@@ -3,7 +3,6 @@ package org.chobit.mocko.server.api;
 
 import org.chobit.mocko.core.model.MethodMeta;
 import org.chobit.mocko.server.biz.action.MockAction;
-import org.chobit.mocko.server.config.response.ResponseWrapper;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,6 @@ import javax.annotation.Resource;
  *
  * @author robin
  */
-@ResponseWrapper
 @RestController
 @RequestMapping("/api")
 public class MockoController {
