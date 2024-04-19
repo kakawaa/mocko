@@ -1,5 +1,6 @@
 package org.chobit.mocko.autoconfigure;
 
+import org.chobit.mocko.autoconfigure.support.SpringDecoder;
 import org.chobit.mocko.core.MockoProvider;
 import org.chobit.mocko.core.Target;
 import org.springframework.beans.BeansException;
@@ -44,6 +45,7 @@ public class MockoClientFactoryBean implements FactoryBean<Object>, Initializing
 
     <T> T getTarget() {
         MockoProvider.Builder mocko = applicationContext.getBean(MockoProvider.Builder.class);
+        mocko.decoder(new SpringDecoder());
         Target.DefaultTarget<T> target = new Target.DefaultTarget(this.type, this.name, this.url);
 
         return mocko.build().newInstance(target);

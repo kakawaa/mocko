@@ -16,10 +16,11 @@ public interface InvocationHandlerFactory {
      * 创建InvocationHandler实例
      *
      * @param target   目标类
+     * @param decoder  响应解析器
      * @param dispatch 方法和Handler的映射
      * @return 方法对应的InvocationHandler
      */
-    InvocationHandler create(Target<?> target, Map<Method, MethodHandler> dispatch);
+    InvocationHandler create(Target<?> target, Decoder decoder, Map<Method, MethodHandler> dispatch);
 
 
     interface MethodHandler {
@@ -38,8 +39,8 @@ public interface InvocationHandlerFactory {
      final class Default implements InvocationHandlerFactory {
 
         @Override
-        public InvocationHandler create(Target<?> target, Map<Method, MethodHandler> dispatch) {
-            return new MockoInvocationHandler(target, dispatch);
+        public InvocationHandler create(Target<?> target, Decoder decoder,  Map<Method, MethodHandler> dispatch) {
+            return new MockoInvocationHandler(target,  decoder, dispatch);
         }
     }
 

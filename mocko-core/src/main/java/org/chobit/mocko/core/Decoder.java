@@ -2,6 +2,7 @@ package org.chobit.mocko.core;
 
 import org.apache.http.client.fluent.Response;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 
 /**
@@ -19,6 +20,6 @@ public interface Decoder {
      * @param type     返回值类型
      * @return 返回值对象
      */
-    Object decode(final Response response, Type type);
+    Object decode(final Response response, Type type) throws IOException;
 
 }

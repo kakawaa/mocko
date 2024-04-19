@@ -1,16 +1,14 @@
 package org.chobit.mocko.core;
 
+import org.apache.http.client.fluent.Response;
 import org.chobit.commons.http.HttpClient;
-import org.chobit.commons.http.HttpResult;
 import org.chobit.commons.utils.JsonKit;
-import org.chobit.mocko.core.annotations.Mocko;
-import org.chobit.mocko.core.annotations.MockoClient;
-import org.chobit.mocko.core.contants.ResponseCode;
-import org.chobit.mocko.core.exception.MockoException;
-import org.chobit.mocko.core.model.ArgInfo;
-import org.chobit.mocko.core.model.MethodMeta;
 import org.chobit.mocko.annotations.ClassInfo;
 import org.chobit.mocko.annotations.Operation;
+import org.chobit.mocko.core.annotations.Mocko;
+import org.chobit.mocko.core.annotations.MockoClient;
+import org.chobit.mocko.core.model.ArgInfo;
+import org.chobit.mocko.core.model.MethodMeta;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +27,13 @@ public class MockoAspectSupport {
     private static final Logger logger = LoggerFactory.getLogger(MockoAspectSupport.class);
 
 
+    private final Decoder decoder;
+
+
+    public MockoAspectSupport(Decoder decoder) {
+        this.decoder = decoder;
+    }
+
     protected Object execute(OperationInvoker invoker, String appId, String mockUrl, Object target, Method method, Object[] args) {
 
         MethodMeta methodMeta;
@@ -38,17 +43,12 @@ public class MockoAspectSupport {
 
             String methodInfo = JsonKit.toJson(methodMeta);
 
-            HttpResult result = HttpClient.postBody(mockUrl, methodInfo);
+            Response result = HttpClient.postForResponse(mockUrl, null, methodInfo);
 
-            if (!result.isSuccess()) {
-                logger.error("Send request to mocko server error. method info:{}, response:{}", methodInfo, result);
-                return invoker.invoke();
-            }
-
-            return JsonKit.fromJson(result.getContent(), methodMeta.getReturnType());
+            return decoder.decode(result, methodMeta.getReturnType());
         } catch (Exception e) {
             logger.error("request mocko server error, method info:{}", JsonKit.toJson(method), e);
-            throw new MockoException(ResponseCode.REQUEST_MOCKO_SERVER_ERROR, e);
+            return invoker.invoke();
         }
     }
 

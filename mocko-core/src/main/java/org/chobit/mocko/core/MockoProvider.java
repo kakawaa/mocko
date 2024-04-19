@@ -25,9 +25,12 @@ public class MockoProvider {
 
     private final InvocationHandlerFactory factory;
 
+    private final Decoder decoder;
 
-    public MockoProvider(Contract contract, InvocationHandlerFactory factory) {
+
+    public MockoProvider(Contract contract, Decoder decoder, InvocationHandlerFactory factory) {
         this.contract = contract;
+        this.decoder = decoder;
         this.factory = factory;
     }
 
@@ -49,7 +52,7 @@ public class MockoProvider {
             methodToHandler.put(metadata.method(), null);
         }
 
-        InvocationHandler handler = factory.create(target, methodToHandler);
+        InvocationHandler handler = factory.create(target, decoder, methodToHandler);
         return (T) Proxy.newProxyInstance(target.type().getClassLoader(), new Class<?>[]{target.type()}, handler);
     }
 
@@ -81,8 +84,17 @@ public class MockoProvider {
         private InvocationHandlerFactory invocationHandlerFactory = new InvocationHandlerFactory.Default();
 
 
+        private Decoder decoder;
+
+
         public Builder contract(Contract contract) {
             this.contract = contract;
+            return this;
+        }
+
+
+        public Builder decoder(Decoder decoder) {
+            this.decoder = decoder;
             return this;
         }
 
@@ -94,7 +106,7 @@ public class MockoProvider {
 
 
         public MockoProvider build() {
-            return new MockoProvider(contract, invocationHandlerFactory);
+            return new MockoProvider(contract, decoder, invocationHandlerFactory);
         }
 
 

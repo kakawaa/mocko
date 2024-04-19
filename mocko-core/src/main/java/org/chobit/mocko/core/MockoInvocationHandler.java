@@ -21,7 +21,8 @@ public class MockoInvocationHandler extends MockoAspectSupport implements Invoca
     private final Map<Method, MethodHandler> dispatch;
 
 
-    public MockoInvocationHandler(Target<?> target, Map<Method, MethodHandler> dispatch) {
+    public MockoInvocationHandler(Target<?> target, Decoder decoder, Map<Method, MethodHandler> dispatch) {
+        super(decoder);
         this.target = target;
         this.dispatch = dispatch;
     }
