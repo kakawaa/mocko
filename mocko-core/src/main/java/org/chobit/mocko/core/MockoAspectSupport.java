@@ -41,9 +41,7 @@ public class MockoAspectSupport {
             methodMeta = parseMethodMetadata(target, method, args);
             methodMeta.setAppId(appId);
 
-            String methodInfo = JsonKit.toJson(methodMeta);
-
-            Response result = HttpClient.postForResponse(mockUrl, null, methodInfo);
+            Response result = HttpClient.postForResponse(mockUrl, null, methodMeta);
 
             return decoder.decode(result, methodMeta.getReturnType());
         } catch (Exception e) {

@@ -1,9 +1,15 @@
 package org.chobit.mocko.autoconfigure;
 
 
+import org.chobit.mocko.autoconfigure.support.SpringDecoder;
+import org.chobit.mocko.core.Decoder;
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,12 +32,23 @@ public class MockoAutoConfiguration {
     private String appId;
 
 
+    @Autowired
+    private ObjectFactory<HttpMessageConverters> messageConverters;
+
+
+    @ConditionalOnMissingBean
+    @Bean
+    private Decoder mockoDecoder() {
+        return new SpringDecoder(messageConverters);
+    }
+
+
     @Bean
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-    public MockoPointcutSourceAdvisor mockoPointAdvisor(MockoProperties mockoProperties) {
+    public MockoPointcutSourceAdvisor mockoPointAdvisor(MockoProperties mockoProperties, Decoder decoder) {
         mockoProperties.setAppId(appId);
         MockoPointcutSourceAdvisor advisor = new MockoPointcutSourceAdvisor();
-        advisor.setAdvice(new MockoInterceptor(mockoProperties));
+        advisor.setAdvice(new MockoInterceptor(mockoProperties, decoder));
         advisor.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return advisor;
     }

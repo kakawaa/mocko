@@ -2,6 +2,7 @@ package org.chobit.mocko.autoconfigure;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
+import org.chobit.mocko.core.Decoder;
 import org.chobit.mocko.core.MockoAspectSupport;
 import org.chobit.mocko.core.OperationInvoker;
 
@@ -21,7 +22,8 @@ public class MockoInterceptor extends MockoAspectSupport implements MethodInterc
 
     private final MockoProperties mockoProperties;
 
-    public MockoInterceptor(MockoProperties mockoProperties) {
+    public MockoInterceptor(MockoProperties mockoProperties, Decoder decoder) {
+        super(decoder);
         this.mockoProperties = mockoProperties;
     }
 
