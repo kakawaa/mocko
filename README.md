@@ -95,6 +95,7 @@ mocko:
 
 # License
 
+[GNU GENERAL PUBLIC LICENSE](https://raw.githubusercontent.com/zhyea/mocko/main/LICENSE)
 
 # Credits
 
