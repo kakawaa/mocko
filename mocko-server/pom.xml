@@ -91,6 +91,6 @@
             </plugin>
         </plugins>
 
-        <finalName>mh-server</finalName>
+        <finalName>mocko-server</finalName>
     </build>
 </project>
