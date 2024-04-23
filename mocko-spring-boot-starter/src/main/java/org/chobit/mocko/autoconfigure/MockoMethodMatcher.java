@@ -1,6 +1,7 @@
 package org.chobit.mocko.autoconfigure;
 
 import org.chobit.mocko.core.annotations.Mocko;
+import org.chobit.mocko.core.annotations.MockoIgnore;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.aop.support.StaticMethodMatcher;
 import org.springframework.core.annotation.AnnotatedElementUtils;
@@ -31,6 +32,10 @@ public class MockoMethodMatcher extends StaticMethodMatcher {
             return true;
         }
 
+        if (isMethodIgnored(method)) {
+            return false;
+        }
+
         if (matchesClass(targetClass)) {
             return true;
         }
@@ -49,6 +54,12 @@ public class MockoMethodMatcher extends StaticMethodMatcher {
     private boolean matchesMethod(Method method) {
         return (this.checkInherited ? AnnotatedElementUtils.hasAnnotation(method, Mocko.class) :
                 method.isAnnotationPresent(Mocko.class));
+    }
+
+
+    private boolean isMethodIgnored(Method method) {
+        return (this.checkInherited ? AnnotatedElementUtils.hasAnnotation(method, MockoIgnore.class) :
+                method.isAnnotationPresent(MockoIgnore.class));
     }
 
 

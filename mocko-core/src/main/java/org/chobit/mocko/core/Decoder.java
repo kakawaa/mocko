@@ -19,6 +19,7 @@ public interface Decoder {
      * @param response 请求响应
      * @param type     返回值类型
      * @return 返回值对象
+     * @throws IOException 异常
      */
     Object decode(final Response response, Type type) throws IOException;
 

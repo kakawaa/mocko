@@ -4,6 +4,8 @@ import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Response;
 import org.chobit.mocko.core.Decoder;
+import org.chobit.mocko.core.contants.ResponseCode;
+import org.chobit.mocko.core.exception.MockoException;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.http.HttpHeaders;
@@ -16,11 +18,15 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 
 
+/**
+ * 默认的Spring反序列化实现
+ *
+ * @author robin
+ */
 public class SpringDecoder implements Decoder {
 
 
-    private ObjectFactory<HttpMessageConverters> messageConverters;
-
+    private final ObjectFactory<HttpMessageConverters> messageConverters;
 
 
     public SpringDecoder(ObjectFactory<HttpMessageConverters> messageConverters) {
@@ -30,13 +36,18 @@ public class SpringDecoder implements Decoder {
     @Override
     public Object decode(final Response response, Type type)
             throws IOException {
-        HttpMessageConverterExtractor<?> extractor = new HttpMessageConverterExtractor(
+        HttpMessageConverterExtractor<?> extractor = new HttpMessageConverterExtractor<>(
                 type, this.messageConverters.getObject().getConverters());
 
-        return extractor.extractData(new MockoResponseAdapter(response));
+        try (ClientHttpResponse resp = new MockoResponseAdapter(response)) {
+            if (HttpStatus.OK != resp.getStatusCode()) {
+                throw new MockoException(ResponseCode.REQUEST_MOCKO_SERVER_ERROR);
+            }
+            return extractor.extractData(resp);
+        }
     }
 
-    private final class MockoResponseAdapter implements ClientHttpResponse {
+    private static final class MockoResponseAdapter implements ClientHttpResponse {
 
         private final HttpResponse response;
 
@@ -81,7 +92,6 @@ public class SpringDecoder implements Decoder {
 
             return result;
         }
-
     }
 
 }

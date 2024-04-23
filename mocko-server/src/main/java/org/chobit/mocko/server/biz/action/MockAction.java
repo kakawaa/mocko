@@ -4,7 +4,6 @@ import org.chobit.commons.codec.MD5;
 import org.chobit.commons.constans.Symbol;
 import org.chobit.commons.utils.Collections2;
 import org.chobit.commons.utils.JsonKit;
-import org.chobit.commons.utils.ReflectKit;
 import org.chobit.mocko.core.model.ArgInfo;
 import org.chobit.mocko.core.model.MethodMeta;
 import org.chobit.mocko.server.constants.Constants;
@@ -15,7 +14,6 @@ import org.chobit.mocko.server.model.entity.MethodEntity;
 import org.chobit.mocko.server.model.entity.TypeEntity;
 import org.chobit.mocko.server.service.AppService;
 import org.chobit.mocko.server.service.MethodService;
-import org.chobit.mocko.server.service.PackageService;
 import org.chobit.mocko.server.service.TypeService;
 import org.springframework.stereotype.Component;
 
@@ -36,8 +34,6 @@ public class MockAction {
     @Resource
     private AppService appService;
     @Resource
-    private PackageService pkgService;
-    @Resource
     private TypeService typeService;
     @Resource
     private MethodService methodService;
@@ -49,7 +45,7 @@ public class MockAction {
      * @param meta 方法元数据
      * @return mock的结果
      */
-    public Object queryMockResponse(MethodMeta meta) {
+    public String queryMockResponse(MethodMeta meta) {
         String methodId = this.computeMethodId(meta);
         MethodEntity method = methodService.getByMethodId(methodId);
 
@@ -62,21 +58,7 @@ public class MockAction {
             throw new MockoServerException(ResponseCode.EMPTY_MOCK_RESPONSE);
         }
 
-        if (isBlank(method.getResponseType())) {
-            return null;
-        }
-        Class<?> clazz = null;
-        try {
-            clazz = Class.forName(method.getResponseType());
-        } catch (ClassNotFoundException e) {
-            throw new MockoServerException(ResponseCode.ILLEGAL_MOCK_RESPONSE, e);
-        }
-
-        if (String.class.equals(clazz) || clazz.isPrimitive() || ReflectKit.isWrapClass(clazz)) {
-            return method.getResponse();
-        }
-
-        return JsonKit.fromJson(method.getResponse(), clazz);
+        return method.getResponse();
     }
 
 

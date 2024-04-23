@@ -36,16 +36,15 @@ public class MockoAspectSupport {
 
     protected Object execute(OperationInvoker invoker, String appId, String mockUrl, Object target, Method method, Object[] args) {
 
-        MethodMeta methodMeta;
+        MethodMeta methodMeta = null;
         try {
             methodMeta = parseMethodMetadata(target, method, args);
             methodMeta.setAppId(appId);
 
-            Response result = HttpClient.postForResponse(mockUrl, null, methodMeta);
-
-            return decoder.decode(result, methodMeta.getReturnType());
+            Response response = HttpClient.postForResponse(mockUrl, null, methodMeta);
+            return decoder.decode(response, methodMeta.getReturnType());
         } catch (Exception e) {
-            logger.error("request mocko server error, method info:{}", JsonKit.toJson(method), e);
+            logger.warn("request mocko server error, method info:{}", JsonKit.toJson(methodMeta), e);
             return invoker.invoke();
         }
     }

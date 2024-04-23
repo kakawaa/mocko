@@ -1,8 +1,9 @@
 package org.chobit.mocko.server.config.intercept;
 
 import lombok.extern.slf4j.Slf4j;
-import org.chobit.mocko.server.tools.AuthContext;
+import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,13 +25,14 @@ public class AuthInterceptor implements HandlerInterceptor {
         String path = request.getRequestURI();
         String url = request.getRequestURL().toString();
 
-        if (null == AuthContext.getUser()) {
-            logger.error("用户需要登录后才可以访问当前服务, path:{}", path);
-            return false;
-        }
+        logger.info("Mocko Request: path:{}", url);
 
         return true;
     }
 
 
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView) throws Exception {
+
+    }
 }
