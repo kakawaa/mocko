@@ -36,7 +36,7 @@ java -jar mocko-server.jar
 
 启动后的页面如下：
 
-![Mocko Server](图片链接 "Mocko Server首页")
+![Mocko Server](https://raw.githubusercontent.com/zhyea/mocko/main/doc/imgs/01.png "Mocko Server首页")
 
 ## 引入依赖
 
@@ -77,18 +77,18 @@ mocko:
 
 调用存在`@Mocko`注解的类或方法后，相关的应用就会被注册到Mocko Server：
 
-![Mocko Projects](图片链接 "Mocko应用信息")
+![Mocko Projects](https://raw.githubusercontent.com/zhyea/mocko/main/doc/imgs/02.png "Mocko应用信息")
 
 点击应用图标，可以看到已注册的有`@Mocko`注解的类和方法以树结构呈现。
 
-![Mocko Types](图片链接 "Mocko类和方法信息")
+![Mocko Types](https://raw.githubusercontent.com/zhyea/mocko/main/doc/imgs/03.png "Mocko类和方法信息")
 
 
 ## mock方法返回值
 
 在Mocko Server的目标项目下展开类结构树，点击方法名可以在右侧打开方法返回值编辑页：
 
-![Mocko Types](图片链接 "Mocko类和方法信息")
+![Mocko Types](https://raw.githubusercontent.com/zhyea/mocko/main/doc/imgs/04.png "Mocko类和方法信息")
 
 在文本框中输入预期的mock值，点击保存，再调用方法就会返回预期中的值了。
 
