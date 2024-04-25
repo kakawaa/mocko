@@ -4,7 +4,6 @@ package org.chobit.mocko.autoconfigure;
 import org.chobit.mocko.autoconfigure.support.SpringDecoder;
 import org.chobit.mocko.core.Decoder;
 import org.springframework.beans.factory.ObjectFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -15,6 +14,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.Ordered;
+
+import javax.annotation.Resource;
 
 /**
  * 自启动配置
@@ -32,13 +33,13 @@ public class MockoAutoConfiguration {
     private String appId;
 
 
-    @Autowired
+    @Resource
     private ObjectFactory<HttpMessageConverters> messageConverters;
 
 
     @ConditionalOnMissingBean
     @Bean
-    private Decoder mockoDecoder() {
+    public Decoder mockoDecoder() {
         return new SpringDecoder(messageConverters);
     }
 

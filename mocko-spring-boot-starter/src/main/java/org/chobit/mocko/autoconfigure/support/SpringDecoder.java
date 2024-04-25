@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.lang.Nullable;
 import org.springframework.web.client.HttpMessageConverterExtractor;
 
 import java.io.IOException;
@@ -33,6 +34,7 @@ public class SpringDecoder implements Decoder {
         this.messageConverters = messageConverters;
     }
 
+    @Nullable
     @Override
     public Object decode(final Response response, Type type)
             throws IOException {
@@ -47,6 +49,10 @@ public class SpringDecoder implements Decoder {
         }
     }
 
+
+    /**
+     * MockoHttp请求适配器
+     */
     private static final class MockoResponseAdapter implements ClientHttpResponse {
 
         private final HttpResponse response;
