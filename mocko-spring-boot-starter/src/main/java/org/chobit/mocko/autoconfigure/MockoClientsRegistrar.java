@@ -68,10 +68,12 @@ public abstract class MockoClientsRegistrar {
         builder.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
         builder.addPropertyValue("name", className);
         builder.addPropertyValue("type", className);
-        builder.addPropertyValue("url", "1111");
         builder.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
 
         String alias = className + "MockoClient";
+
+
+
         AbstractBeanDefinition beanDefinition = builder.getBeanDefinition();
         beanDefinition.setAttribute(FactoryBean.OBJECT_TYPE_ATTRIBUTE, className);
 

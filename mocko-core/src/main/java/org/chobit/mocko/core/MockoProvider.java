@@ -42,7 +42,7 @@ public class MockoProvider {
      * @return 结果实例
      */
     @SuppressWarnings("unchecked")
-    public <T> T newInstance(Target<T> target) {
+    public <T> T newInstance(Target target) {
 
         List<MethodMetadata> metadataList = contract.parseAndValidMetadata(target.type());
 
@@ -60,12 +60,12 @@ public class MockoProvider {
     static class MockoInvocationHandler implements InvocationHandler {
 
 
-        private final Target<?> target;
+        private final Target target;
 
         private final Map<Method, MethodHandler> dispatch;
 
 
-        public MockoInvocationHandler(Target<?> target, Map<Method, MethodHandler> dispatch) {
+        public MockoInvocationHandler(Target target, Map<Method, MethodHandler> dispatch) {
             this.target = target;
             this.dispatch = dispatch;
         }

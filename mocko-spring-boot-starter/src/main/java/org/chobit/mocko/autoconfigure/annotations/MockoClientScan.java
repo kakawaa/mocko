@@ -16,5 +16,6 @@ import java.lang.annotation.*;
 @Import(MockoClientsScannerRegistrar.class)
 public @interface MockoClientScan {
 
+
     String[] value() default {};
 }

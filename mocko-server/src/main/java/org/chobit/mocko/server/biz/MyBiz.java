@@ -36,6 +36,7 @@ public class MyBiz {
 
 
     public String foo(String foo) {
-        return fooService.bar(foo);
+        String r = fooService.bar(foo);
+        return r;
     }
 }

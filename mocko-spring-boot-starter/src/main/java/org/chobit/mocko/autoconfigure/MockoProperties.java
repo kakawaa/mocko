@@ -2,6 +2,7 @@ package org.chobit.mocko.autoconfigure;
 
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.lang.Nullable;
 
 /**
  * 配置映射类
@@ -19,12 +20,15 @@ public class MockoProperties {
     /**
      * 应用ID
      */
+    @Nullable
     private String appId;
 
     /**
      * 获取mock信息的url
      */
     private String mockUrl = "http://127.0.0.1:1024/api/mock";
+
+
 
     public boolean isEnabled() {
         return enabled;
@@ -34,6 +38,7 @@ public class MockoProperties {
         this.enabled = enabled;
     }
 
+    @Nullable
     public String getAppId() {
         return appId;
     }

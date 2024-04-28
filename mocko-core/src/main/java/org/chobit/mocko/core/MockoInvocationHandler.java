@@ -1,6 +1,5 @@
 package org.chobit.mocko.core;
 
-import org.chobit.commons.utils.JsonKit;
 import org.chobit.mocko.core.InvocationHandlerFactory.MethodHandler;
 
 import java.lang.reflect.InvocationHandler;
@@ -16,20 +15,25 @@ import java.util.Map;
 public class MockoInvocationHandler extends MockoAspectSupport implements InvocationHandler {
 
 
-    private final Target<?> target;
+    private final String appId;
+
+    private final String mockUrl;
+
+    private final Target target;
 
     private final Map<Method, MethodHandler> dispatch;
 
 
-    public MockoInvocationHandler(Target<?> target, Decoder decoder, Map<Method, MethodHandler> dispatch) {
+    public MockoInvocationHandler(String appId, String mockUrl, Target target, Decoder decoder, Map<Method, MethodHandler> dispatch) {
         super(decoder);
+        this.appId = appId;
+        this.mockUrl = mockUrl;
         this.target = target;
         this.dispatch = dispatch;
     }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-
-        return JsonKit.fromJson("{}", method.getReturnType());
+        return super.execute(null, this.appId, this.mockUrl, this.target, method, args);
     }
 }

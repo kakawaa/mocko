@@ -21,8 +21,6 @@ public class MockoClientFactoryBean implements FactoryBean<Object>, Initializing
 
     private String name;
 
-    private String url;
-
     private ApplicationContext applicationContext;
 
 
@@ -47,7 +45,7 @@ public class MockoClientFactoryBean implements FactoryBean<Object>, Initializing
         MockoProvider.Builder mocko = applicationContext.getBean(MockoProvider.Builder.class);
         Decoder decoder = applicationContext.getBean(Decoder.class);
         mocko.decoder(decoder);
-        Target.DefaultTarget<T> target = new Target.DefaultTarget(this.type, this.name, this.url);
+        Target.DefaultTarget target = new Target.DefaultTarget(this.type, this.name);
 
         return mocko.build().newInstance(target);
     }
@@ -75,13 +73,6 @@ public class MockoClientFactoryBean implements FactoryBean<Object>, Initializing
         this.name = name;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 
     public ApplicationContext getApplicationContext() {
         return applicationContext;
@@ -99,12 +90,11 @@ public class MockoClientFactoryBean implements FactoryBean<Object>, Initializing
         MockoClientFactoryBean that = (MockoClientFactoryBean) o;
         return Objects.equals(type, that.type)
                 && Objects.equals(name, that.name)
-                && Objects.equals(url, that.url)
                 && Objects.equals(applicationContext, that.applicationContext);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, name, url, applicationContext);
+        return Objects.hash(type, name, applicationContext);
     }
 }

@@ -15,8 +15,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.Ordered;
 
-import javax.annotation.Resource;
-
 /**
  * 自启动配置
  *
@@ -33,8 +31,11 @@ public class MockoAutoConfiguration {
     private String appId;
 
 
-    @Resource
-    private ObjectFactory<HttpMessageConverters> messageConverters;
+    private final ObjectFactory<HttpMessageConverters> messageConverters;
+
+    public MockoAutoConfiguration(ObjectFactory<HttpMessageConverters> messageConverters) {
+        this.messageConverters = messageConverters;
+    }
 
 
     @ConditionalOnMissingBean
