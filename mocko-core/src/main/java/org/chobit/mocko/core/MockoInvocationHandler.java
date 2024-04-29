@@ -1,10 +1,7 @@
 package org.chobit.mocko.core;
 
-import org.chobit.mocko.core.InvocationHandlerFactory.MethodHandler;
-
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.util.Map;
 
 
 /**
@@ -21,15 +18,12 @@ public class MockoInvocationHandler extends MockoAspectSupport implements Invoca
 
     private final Target target;
 
-    private final Map<Method, MethodHandler> dispatch;
 
-
-    public MockoInvocationHandler(String appId, String mockUrl, Target target, Decoder decoder, Map<Method, MethodHandler> dispatch) {
+    public MockoInvocationHandler(String appId, String mockUrl, Target target, Decoder decoder) {
         super(decoder);
         this.appId = appId;
         this.mockUrl = mockUrl;
         this.target = target;
-        this.dispatch = dispatch;
     }
 
     @Override

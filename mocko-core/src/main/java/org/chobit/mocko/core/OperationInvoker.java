@@ -24,6 +24,8 @@ public interface OperationInvoker {
      */
     class WrappedThrowableException extends RuntimeException {
 
+        private static final long serialVersionUID = -6473452644685184291L;
+        
         private final Throwable original;
 
         public WrappedThrowableException(Throwable original) {

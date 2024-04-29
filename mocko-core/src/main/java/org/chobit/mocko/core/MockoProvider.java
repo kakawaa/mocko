@@ -1,13 +1,7 @@
 package org.chobit.mocko.core;
 
-import org.chobit.mocko.core.InvocationHandlerFactory.MethodHandler;
-
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 处理类
@@ -21,15 +15,22 @@ public class MockoProvider {
         return new Builder();
     }
 
-    private final Contract contract;
 
     private final InvocationHandlerFactory factory;
 
     private final Decoder decoder;
 
+    private final String appId;
 
-    public MockoProvider(Contract contract, Decoder decoder, InvocationHandlerFactory factory) {
-        this.contract = contract;
+    private final String mockUrl;
+
+
+    public MockoProvider(String appId,
+                         String mockUrl,
+                         Decoder decoder,
+                         InvocationHandlerFactory factory) {
+        this.appId = appId;
+        this.mockUrl = mockUrl;
         this.decoder = decoder;
         this.factory = factory;
     }
@@ -43,58 +44,39 @@ public class MockoProvider {
      */
     @SuppressWarnings("unchecked")
     public <T> T newInstance(Target target) {
-
-        List<MethodMetadata> metadataList = contract.parseAndValidMetadata(target.type());
-
-        Map<Method, MethodHandler> methodToHandler = new LinkedHashMap<>(8);
-
-        for (MethodMetadata metadata : metadataList) {
-            methodToHandler.put(metadata.method(), null);
-        }
-
-        InvocationHandler handler = factory.create(target, decoder, methodToHandler);
+        InvocationHandler handler = factory.create(appId, mockUrl, target, decoder);
         return (T) Proxy.newProxyInstance(target.type().getClassLoader(), new Class<?>[]{target.type()}, handler);
-    }
-
-
-    static class MockoInvocationHandler implements InvocationHandler {
-
-
-        private final Target target;
-
-        private final Map<Method, MethodHandler> dispatch;
-
-
-        public MockoInvocationHandler(Target target, Map<Method, MethodHandler> dispatch) {
-            this.target = target;
-            this.dispatch = dispatch;
-        }
-
-        @Override
-        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            return dispatch.get(method).invoke(args);
-        }
     }
 
 
     public static class Builder {
 
-        private Contract contract = new Contract.Default();
-
         private InvocationHandlerFactory invocationHandlerFactory = new InvocationHandlerFactory.Default();
+
+
+        private String appId;
+
+
+        private String mockUrl;
 
 
         private Decoder decoder;
 
 
-        public Builder contract(Contract contract) {
-            this.contract = contract;
+        public Builder decoder(Decoder decoder) {
+            this.decoder = decoder;
             return this;
         }
 
 
-        public Builder decoder(Decoder decoder) {
-            this.decoder = decoder;
+        public Builder appId(String appId) {
+            this.appId = appId;
+            return this;
+        }
+
+
+        public Builder mockUrl(String mockUrl) {
+            this.mockUrl = mockUrl;
             return this;
         }
 
@@ -106,7 +88,7 @@ public class MockoProvider {
 
 
         public MockoProvider build() {
-            return new MockoProvider(contract, decoder, invocationHandlerFactory);
+            return new MockoProvider(appId, mockUrl, decoder, invocationHandlerFactory);
         }
 
 

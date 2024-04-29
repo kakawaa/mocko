@@ -1,6 +1,5 @@
 package org.chobit.mocko.server.biz;
 
-import org.chobit.mocko.core.annotations.Mocko;
 import org.chobit.mocko.server.service.IFooService;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +12,6 @@ import java.util.Map;
  *
  * @author robin
  */
-@Mocko
 @Component
 public class MyBiz {
 

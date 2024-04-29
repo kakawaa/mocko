@@ -4,7 +4,7 @@ import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Response;
 import org.chobit.mocko.core.Decoder;
-import org.chobit.mocko.core.contants.ResponseCode;
+import org.chobit.mocko.core.contants.MockoCode;
 import org.chobit.mocko.core.exception.MockoException;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
@@ -43,7 +43,7 @@ public class SpringDecoder implements Decoder {
 
         try (ClientHttpResponse resp = new MockoResponseAdapter(response)) {
             if (HttpStatus.OK != resp.getStatusCode()) {
-                throw new MockoException(ResponseCode.REQUEST_MOCKO_SERVER_ERROR);
+                throw new MockoException(MockoCode.REQUEST_MOCKO_SERVER_ERROR);
             }
             return extractor.extractData(resp);
         }

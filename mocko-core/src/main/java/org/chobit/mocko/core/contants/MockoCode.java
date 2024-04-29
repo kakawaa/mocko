@@ -8,7 +8,7 @@ import org.chobit.commons.contract.CodeDescEnum;
  * @author rui.zhang
  */
 
-public enum ResponseCode implements CodeDescEnum {
+public enum MockoCode implements CodeDescEnum {
 
     /**
      * 请求Mocko Server 出错
@@ -22,7 +22,7 @@ public enum ResponseCode implements CodeDescEnum {
     public final String msg;
 
 
-    ResponseCode(int code, String msg) {
+    MockoCode(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }

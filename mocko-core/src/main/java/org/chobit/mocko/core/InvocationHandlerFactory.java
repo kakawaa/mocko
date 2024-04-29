@@ -1,8 +1,6 @@
 package org.chobit.mocko.core;
 
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.util.Map;
 
 /**
  * InvocationHandler 工厂接口
@@ -15,32 +13,20 @@ public interface InvocationHandlerFactory {
     /**
      * 创建InvocationHandler实例
      *
-     * @param target   目标类
-     * @param decoder  响应解析器
-     * @param dispatch 方法和Handler的映射
+     * @param appId   应用ID
+     * @param mockUrl mock请求路径
+     * @param target  目标类
+     * @param decoder 响应解析器
      * @return 方法对应的InvocationHandler
      */
-    InvocationHandler create(Target target, Decoder decoder, Map<Method, MethodHandler> dispatch);
+    InvocationHandler create(String appId, String mockUrl, Target target, Decoder decoder);
 
 
-    interface MethodHandler {
-
-        /**
-         * 执行方法调用
-         *
-         * @param args 方法参数
-         * @return 方法执行结果
-         * @throws Throwable 抛出的异常
-         */
-        Object invoke(Object[] args) throws Throwable;
-    }
-
-
-     final class Default implements InvocationHandlerFactory {
+    final class Default implements InvocationHandlerFactory {
 
         @Override
-        public InvocationHandler create(Target target, Decoder decoder,  Map<Method, MethodHandler> dispatch) {
-            return new MockoInvocationHandler(target,  decoder, dispatch);
+        public InvocationHandler create(String appId, String mockUrl, Target target, Decoder decoder) {
+            return new MockoInvocationHandler(appId, mockUrl, target, decoder);
         }
     }
 

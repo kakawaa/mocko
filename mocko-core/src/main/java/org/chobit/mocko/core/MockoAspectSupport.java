@@ -7,6 +7,8 @@ import org.chobit.mocko.annotations.ClassInfo;
 import org.chobit.mocko.annotations.Operation;
 import org.chobit.mocko.core.annotations.Mocko;
 import org.chobit.mocko.core.annotations.MockoClient;
+import org.chobit.mocko.core.contants.MockoCode;
+import org.chobit.mocko.core.exception.MockoException;
 import org.chobit.mocko.core.model.ArgInfo;
 import org.chobit.mocko.core.model.MethodMeta;
 import org.slf4j.Logger;
@@ -34,6 +36,18 @@ public class MockoAspectSupport {
         this.decoder = decoder;
     }
 
+
+    /**
+     * 执行切面处理
+     *
+     * @param invoker 原方法触发
+     * @param appId   应用ID
+     * @param mockUrl mock请求路径
+     * @param target  原调用实例
+     * @param method  原方法信息
+     * @param args    原方法参数
+     * @return 方法请求结果
+     */
     protected Object execute(OperationInvoker invoker, String appId, String mockUrl, Object target, Method method, Object[] args) {
 
         MethodMeta methodMeta = null;
@@ -45,7 +59,10 @@ public class MockoAspectSupport {
             return decoder.decode(response, methodMeta.getReturnType());
         } catch (Exception e) {
             logger.warn("request mocko server error, method info:{}", JsonKit.toJson(methodMeta), e);
-            return invoker.invoke();
+            if (null != invoker) {
+                return invoker.invoke();
+            }
+            throw new MockoException(MockoCode.REQUEST_MOCKO_SERVER_ERROR, e);
         }
     }
 
