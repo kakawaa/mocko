@@ -7,7 +7,7 @@ import org.chobit.mocko.server.model.entity.MethodEntity;
 /**
  * 方法Mapper
  *
- * @author rui.zhang
+ * @author robin
  */
 @Mapper
 public interface MethodMapper extends BaseMapper<MethodEntity> {

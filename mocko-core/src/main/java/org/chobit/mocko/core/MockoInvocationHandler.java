@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 /**
  * 通过动态代理
  *
- * @author rui.zhang
+ * @author robin
  */
 public class MockoInvocationHandler extends MockoAspectSupport implements InvocationHandler {
 

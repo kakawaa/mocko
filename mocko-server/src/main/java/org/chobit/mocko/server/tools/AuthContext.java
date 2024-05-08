@@ -5,7 +5,7 @@ import org.chobit.mocko.server.model.entity.UserEntity;
 /**
  * 用户登录信息及权限信息上下文
  *
- * @author rui.zhang
+ * @author robin
  */
 public final class AuthContext {
 

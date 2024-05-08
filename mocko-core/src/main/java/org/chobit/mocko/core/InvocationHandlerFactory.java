@@ -5,7 +5,7 @@ import java.lang.reflect.InvocationHandler;
 /**
  * InvocationHandler 工厂接口
  *
- * @author rui.zhang
+ * @author robin
  */
 public interface InvocationHandlerFactory {
 

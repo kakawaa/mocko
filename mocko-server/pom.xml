@@ -20,7 +20,10 @@
         <dependency>
             <groupId>org.chobit.mocko</groupId>
             <artifactId>mocko-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.chobit.mocko</groupId>
+            <artifactId>mocko-annotation</artifactId>
         </dependency>
         <!--spring boot common-->
         <dependency>

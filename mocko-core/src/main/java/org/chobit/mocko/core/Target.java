@@ -6,7 +6,7 @@ import java.util.Objects;
 import static org.chobit.mocko.core.tools.Args.checkNotNull;
 
 /**
- * @author rui.zhang
+ * @author robin
  */
 public interface Target {
 

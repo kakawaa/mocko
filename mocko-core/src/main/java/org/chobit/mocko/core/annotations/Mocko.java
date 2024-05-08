@@ -9,7 +9,7 @@ import java.lang.annotation.*;
  * 用于标记类或方法，说明相关方法可以使用Mocko提供的服务
  * </p>
  *
- * @author rui.zhang
+ * @author robin
  */
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

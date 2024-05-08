@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * Mocko服务中心启动类
  *
- * @author rui.zhang
+ * @author robin
  */
 @EnableTransactionManagement
 @EnableCaching

@@ -35,12 +35,17 @@
         <dependencies>
             <dependency>
                 <groupId>org.chobit.mocko</groupId>
-                <artifactId>mocko-annotations</artifactId>
+                <artifactId>mocko-annotation</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.chobit.mocko</groupId>
                 <artifactId>mocko-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.chobit.mocko</groupId>
+                <artifactId>mocko-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -143,7 +148,7 @@
     </build>
 
     <modules>
-        <module>mocko-annotations</module>
+        <module>mocko-annotation</module>
         <module>mocko-core</module>
         <module>mocko-server</module>
         <module>mocko-spring-boot-starter</module>

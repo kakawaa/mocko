@@ -7,7 +7,7 @@ import org.chobit.mocko.server.model.entity.TypeEntity;
 /**
  * 组件Mapper
  *
- * @author rui.zhang
+ * @author robin
  */
 @Mapper
 public interface TypeMapper extends BaseMapper<TypeEntity> {

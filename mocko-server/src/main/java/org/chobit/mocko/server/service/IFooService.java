@@ -5,7 +5,7 @@ import org.chobit.mocko.core.annotations.MockoClient;
 /**
  * 测试用mock接口
  *
- * @author rui.zhang
+ * @author robin
  */
 @MockoClient
 public interface IFooService {

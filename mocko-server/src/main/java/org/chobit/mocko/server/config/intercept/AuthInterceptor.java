@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 权限校验拦截器
  *
- * @author rui.zhang
+ * @author robin
  */
 @Slf4j
 public class AuthInterceptor implements HandlerInterceptor {

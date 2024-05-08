@@ -6,7 +6,7 @@ import java.lang.reflect.Proxy;
 /**
  * 处理类
  *
- * @author rui.zhang
+ * @author robin
  */
 public class MockoProvider {
 

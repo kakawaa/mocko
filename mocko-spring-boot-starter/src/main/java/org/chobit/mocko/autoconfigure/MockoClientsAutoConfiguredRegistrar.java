@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * 执行MockoClient相关类注入
  *
- * @author rui.zhang
+ * @author robin
  */
 public class MockoClientsAutoConfiguredRegistrar extends MockoClientsRegistrar implements ImportBeanDefinitionRegistrar, BeanFactoryAware {
 

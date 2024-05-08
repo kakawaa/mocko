@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * entity基础类
  *
- * @author rui.zhang
+ * @author robin
  */
 @Data
 abstract class AbstractEntity {

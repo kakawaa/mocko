@@ -5,12 +5,10 @@ import org.chobit.mocko.server.except.MockoServerException;
 
 import java.util.Objects;
 
-import static java.lang.String.format;
-
 /**
  * 参数校验工具类
  *
- * @author rui.zhang
+ * @author robin
  */
 public final class Args {
 

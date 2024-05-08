@@ -4,7 +4,7 @@ import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Response;
 import org.chobit.mocko.core.Decoder;
-import org.chobit.mocko.core.contants.MockoCode;
+import org.chobit.mocko.core.exception.MockoCode;
 import org.chobit.mocko.core.exception.MockoException;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;

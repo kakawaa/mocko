@@ -18,7 +18,7 @@ import org.springframework.core.Ordered;
 /**
  * 自启动配置
  *
- * @author rui.zhang
+ * @author robin
  */
 @EnableConfigurationProperties(MockoProperties.class)
 @ConditionalOnProperty(name = "mocko.enabled", matchIfMissing = true)

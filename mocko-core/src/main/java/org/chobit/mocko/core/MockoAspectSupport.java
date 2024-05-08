@@ -7,7 +7,7 @@ import org.chobit.mocko.annotations.ClassInfo;
 import org.chobit.mocko.annotations.Operation;
 import org.chobit.mocko.core.annotations.Mocko;
 import org.chobit.mocko.core.annotations.MockoClient;
-import org.chobit.mocko.core.contants.MockoCode;
+import org.chobit.mocko.core.exception.MockoCode;
 import org.chobit.mocko.core.exception.MockoException;
 import org.chobit.mocko.core.model.ArgInfo;
 import org.chobit.mocko.core.model.MethodMeta;
@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Mocko切面支持
  *
- * @author rui.zhang
+ * @author robin
  */
 public class MockoAspectSupport {
 

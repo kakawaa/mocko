@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 /**
  * 登录相关校验
  *
- * @author rui.zhang
+ * @author robin
  */
 @Slf4j
 @Component

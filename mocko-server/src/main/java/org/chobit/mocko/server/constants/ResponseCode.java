@@ -5,7 +5,7 @@ import org.chobit.commons.contract.CodeDescEnum;
 /**
  * 响应编码
  *
- * @author rui.zhang
+ * @author robin
  */
 
 public enum ResponseCode implements CodeDescEnum {

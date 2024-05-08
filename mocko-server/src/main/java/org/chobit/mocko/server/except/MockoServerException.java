@@ -6,7 +6,7 @@ import org.chobit.mocko.server.constants.ResponseCode;
 /**
  * Mocko服务端异常
  *
- * @author rui.zhang
+ * @author robin
  */
 @Getter
 public class MockoServerException extends RuntimeException {

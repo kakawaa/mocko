@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 用户信息
  *
- * @author rui.zhang
+ * @author robin
  */
 @TableName("m_user")
 @Data

@@ -3,7 +3,7 @@ package org.chobit.mocko.server.constants;
 /**
  * 节点类型
  *
- * @author rui.zhang
+ * @author robin
  */
 public enum NodeType {
 

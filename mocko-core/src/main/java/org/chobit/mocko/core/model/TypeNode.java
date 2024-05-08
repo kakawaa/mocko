@@ -9,7 +9,7 @@ import java.util.List;
  * <p>
  * 每个节点需要是直接类型、直接类型的包装类或者是字符串，以及对应的数组
  *
- * @author rui.zhang
+ * @author robin
  */
 @Data
 public class TypeNode {

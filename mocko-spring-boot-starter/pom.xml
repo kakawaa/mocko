@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>org.chobit.mocko</groupId>
-            <artifactId>mocko-annotations</artifactId>
+            <artifactId>mocko-annotation</artifactId>
         </dependency>
         <dependency>
             <groupId>org.chobit.mocko</groupId>

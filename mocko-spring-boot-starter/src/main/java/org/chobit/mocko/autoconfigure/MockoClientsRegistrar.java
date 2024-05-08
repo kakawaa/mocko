@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * MockoClient实例注入抽象类
  *
- * @author rui.zhang
+ * @author robin
  */
 public abstract class MockoClientsRegistrar {
 

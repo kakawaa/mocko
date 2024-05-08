@@ -1,13 +1,12 @@
-package org.chobit.mocko.core.contants;
+package org.chobit.mocko.core.exception;
 
 import org.chobit.commons.contract.CodeDescEnum;
 
 /**
- * 响应编码
+ * Mocko异常编码
  *
- * @author rui.zhang
+ * @author robinF
  */
-
 public enum MockoCode implements CodeDescEnum {
 
     /**

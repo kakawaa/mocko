@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * 路由、拦截器等各项配置
  *
- * @author rui.zhang
+ * @author robin
  */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {

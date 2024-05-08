@@ -12,7 +12,7 @@ import java.io.Serializable;
 /**
  * Mocko方法拦截器定义
  *
- * @author rui.zhang
+ * @author robin
  */
 public class MockoInterceptor extends MockoAspectSupport implements MethodInterceptor, Serializable {
 

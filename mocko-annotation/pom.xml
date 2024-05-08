@@ -13,7 +13,7 @@
     </parent>
 
 
-    <artifactId>mocko-annotations</artifactId>
+    <artifactId>mocko-annotation</artifactId>
     <packaging>jar</packaging>
 
     <properties>

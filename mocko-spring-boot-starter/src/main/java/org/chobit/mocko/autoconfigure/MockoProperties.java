@@ -7,7 +7,7 @@ import org.springframework.lang.Nullable;
 /**
  * 配置映射类
  *
- * @author rui.zhang
+ * @author robin
  */
 @ConfigurationProperties(prefix = "mocko")
 public class MockoProperties {

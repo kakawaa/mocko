@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Scope;
 
 /**
- * @author rui.zhang
+ * @author robin
  */
 @EnableConfigurationProperties(MockoProperties.class)
 @ConditionalOnProperty(name = "mocko.enabled", matchIfMissing = true)

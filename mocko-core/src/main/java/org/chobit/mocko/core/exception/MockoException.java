@@ -5,7 +5,7 @@ import org.chobit.commons.contract.CodeDescEnum;
 /**
  * Mocko相关异常定义
  *
- * @author rui.zhang
+ * @author robin
  */
 public class MockoException extends RuntimeException {
 

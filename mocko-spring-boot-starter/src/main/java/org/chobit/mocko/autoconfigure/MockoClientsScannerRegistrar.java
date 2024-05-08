@@ -10,7 +10,7 @@ import org.springframework.util.ClassUtils;
  * <p>
  * 配合@MockoClientsScanner注解使用
  *
- * @author rui.zhang
+ * @author robin
  */
 public class MockoClientsScannerRegistrar extends MockoClientsRegistrar
         implements ImportBeanDefinitionRegistrar {

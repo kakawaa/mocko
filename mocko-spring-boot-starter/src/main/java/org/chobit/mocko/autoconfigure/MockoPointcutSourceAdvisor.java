@@ -8,7 +8,7 @@ import org.springframework.aop.support.AbstractBeanFactoryPointcutAdvisor;
 /**
  * Mocko切面定义
  *
- * @author rui.zhang
+ * @author robin
  */
 public class MockoPointcutSourceAdvisor extends AbstractBeanFactoryPointcutAdvisor {
 

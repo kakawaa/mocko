@@ -8,7 +8,7 @@ import org.chobit.mocko.server.model.entity.PackageEntity;
 /**
  * 包信息表Mapper
  *
- * @author rui.zhang
+ * @author robin
  */
 @Mapper
 public interface PackageMapper extends BaseMapper<PackageEntity> {

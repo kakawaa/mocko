@@ -20,7 +20,7 @@ import static org.chobit.mocko.server.constants.ResponseCode.USER_LOGIN_INFO_ERR
 /**
  * 用户相关业务处理
  *
- * @author rui.zhang
+ * @author robin
  */
 @Component
 public class UserBiz {

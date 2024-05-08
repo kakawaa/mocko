@@ -8,7 +8,7 @@ import org.chobit.mocko.server.model.entity.UserEntity;
 /**
  * 用户信息表Mapper
  *
- * @author rui.zhang
+ * @author robin
  */
 @Mapper
 public interface UserMapper extends BaseMapper<UserEntity> {

@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 /**
  * 应用信息更新请求
  *
- * @author rui.zhang
+ * @author robin
  */
 @Data
 public class AppModifyRequest {

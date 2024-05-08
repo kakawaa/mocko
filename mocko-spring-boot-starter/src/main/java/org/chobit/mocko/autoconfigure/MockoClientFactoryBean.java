@@ -12,7 +12,7 @@ import org.springframework.context.ApplicationContextAware;
 import java.util.Objects;
 
 /**
- * @author rui.zhang
+ * @author robin
  */
 public class MockoClientFactoryBean implements FactoryBean<Object>, InitializingBean, ApplicationContextAware {
 
