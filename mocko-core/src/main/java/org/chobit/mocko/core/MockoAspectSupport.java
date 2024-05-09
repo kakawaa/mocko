@@ -3,6 +3,7 @@ package org.chobit.mocko.core;
 import org.apache.http.client.fluent.Response;
 import org.chobit.commons.http.HttpClient;
 import org.chobit.commons.utils.JsonKit;
+import org.chobit.commons.utils.StrKit;
 import org.chobit.mocko.annotations.ClassInfo;
 import org.chobit.mocko.annotations.Operation;
 import org.chobit.mocko.core.annotations.Mocko;
@@ -119,7 +120,7 @@ public class MockoAspectSupport {
 
         ClassInfo classInfo = clazz.getAnnotation(ClassInfo.class);
         if (null != classInfo) {
-            return classInfo.value();
+            return StrKit.coalesce(classInfo.value(), classInfo.alias());
         }
 
         return "";

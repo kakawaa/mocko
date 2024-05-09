@@ -14,11 +14,21 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ClassInfo {
 
+
+
     /**
      * 类信息
      *
      * @return 类信息
      */
     String value();
+
+
+    /**
+     * 类别名
+     *
+     * @return 类别名
+     */
+    String alias() default "";
 
 }

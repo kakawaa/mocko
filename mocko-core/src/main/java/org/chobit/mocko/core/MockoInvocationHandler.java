@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 
 
 /**
- * 通过动态代理
+ * 通过动态代理mock方法返回值
  *
  * @author robin
  */
@@ -25,6 +25,7 @@ public class MockoInvocationHandler extends MockoAspectSupport implements Invoca
         this.mockUrl = mockUrl;
         this.target = target;
     }
+    
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
