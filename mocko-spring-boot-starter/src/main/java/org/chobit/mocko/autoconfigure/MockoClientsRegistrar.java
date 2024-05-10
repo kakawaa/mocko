@@ -32,6 +32,7 @@ public abstract class MockoClientsRegistrar {
         basePackages.forEach(e -> this.registerMockoClients(e, registry));
     }
 
+
     /**
      * 将MockoClient相关实例注入到容器
      */
@@ -58,6 +59,7 @@ public abstract class MockoClientsRegistrar {
     }
 
 
+
     private void registerMockoClient(BeanDefinitionRegistry registry,
                                      AnnotationMetadata metadata,
                                      Map<String, Object> attributes) {
@@ -72,8 +74,6 @@ public abstract class MockoClientsRegistrar {
 
         String alias = className + "MockoClient";
 
-
-
         AbstractBeanDefinition beanDefinition = builder.getBeanDefinition();
         beanDefinition.setAttribute(FactoryBean.OBJECT_TYPE_ATTRIBUTE, className);
 
@@ -81,9 +81,7 @@ public abstract class MockoClientsRegistrar {
         boolean primary = (Boolean) attributes.get("primary");
 
         beanDefinition.setPrimary(primary);
-
         builder.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
-
 
         BeanDefinitionHolder holder = new BeanDefinitionHolder(beanDefinition, className, new String[]{alias});
         BeanDefinitionReaderUtils.registerBeanDefinition(holder, registry);

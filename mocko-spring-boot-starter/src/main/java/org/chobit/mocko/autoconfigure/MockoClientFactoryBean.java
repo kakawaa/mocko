@@ -41,7 +41,7 @@ public class MockoClientFactoryBean implements FactoryBean<Object>, Initializing
     }
 
 
-    <T> T getTarget() {
+    private <T> T getTarget() {
         MockoProvider.Builder mocko = applicationContext.getBean(MockoProvider.Builder.class);
         Decoder decoder = applicationContext.getBean(Decoder.class);
         mocko.decoder(decoder);
@@ -71,11 +71,6 @@ public class MockoClientFactoryBean implements FactoryBean<Object>, Initializing
 
     public void setName(String name) {
         this.name = name;
-    }
-
-
-    public ApplicationContext getApplicationContext() {
-        return applicationContext;
     }
 
 
