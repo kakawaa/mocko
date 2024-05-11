@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
- * 支持MockoClient
+ * MockoClient扫描
  *
  * @author robin
  */
@@ -18,4 +18,5 @@ public @interface MockoClientScan {
 
 
     String[] value() default {};
+
 }
