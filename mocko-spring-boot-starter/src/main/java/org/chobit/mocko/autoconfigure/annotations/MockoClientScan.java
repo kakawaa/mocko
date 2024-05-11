@@ -17,6 +17,11 @@ import java.lang.annotation.*;
 public @interface MockoClientScan {
 
 
+    /**
+     * 要扫描的包
+     *
+     * @return 要扫描的包的集合
+     */
     String[] value() default {};
 
 }
