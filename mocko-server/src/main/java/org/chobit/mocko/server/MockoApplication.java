@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.chobit.commons.utils.JsonKit;
+import org.chobit.mocko.autoconfigure.annotations.MockoClientScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
@@ -16,6 +17,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  *
  * @author robin
  */
+@MockoClientScan({
+        "com.zhyea.mocko"
+})
 @EnableTransactionManagement
 @EnableCaching
 @SpringBootApplication
@@ -27,9 +31,8 @@ public class MockoApplication {
     }
 
 
-
     @Bean
-    public ObjectMapper objectMapper(){
+    public ObjectMapper objectMapper() {
 
         ObjectMapper mapper = JsonKit.mapper();
         mapper.registerModule(new Jdk8Module());
@@ -37,7 +40,6 @@ public class MockoApplication {
 
         return mapper;
     }
-
 
 
 }

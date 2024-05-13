@@ -15,7 +15,6 @@ import java.lang.annotation.Target;
 public @interface ClassInfo {
 
 
-
     /**
      * 类信息
      *
