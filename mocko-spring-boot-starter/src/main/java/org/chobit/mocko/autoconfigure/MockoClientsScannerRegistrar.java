@@ -2,6 +2,7 @@ package org.chobit.mocko.autoconfigure;
 
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
+import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.util.ClassUtils;
 
@@ -17,6 +18,14 @@ public class MockoClientsScannerRegistrar extends MockoClientsRegistrar
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
+
+
+        AnnotationAttributes mockoClientScanAttr = AnnotationAttributes
+                .fromMap(importingClassMetadata.getAnnotationAttributes(MockoClientsConfiguration.class.getName()));
+        if (mockoClientScanAttr != null) {
+            registerBeanDefinitions(importingClassMetadata, mockoClientScanAttr, registry,
+                    generateBaseBeanName(importingClassMetadata, 0));
+        }
 
         String basePackage = ClassUtils.getPackageName(importingClassMetadata.getClassName());
 
