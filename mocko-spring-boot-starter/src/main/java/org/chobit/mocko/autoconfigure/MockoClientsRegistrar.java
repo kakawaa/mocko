@@ -59,7 +59,6 @@ public abstract class MockoClientsRegistrar {
     }
 
 
-
     private void registerMockoClient(BeanDefinitionRegistry registry,
                                      AnnotationMetadata metadata,
                                      Map<String, Object> attributes) {
@@ -71,19 +70,23 @@ public abstract class MockoClientsRegistrar {
         builder.addPropertyValue("name", className);
         builder.addPropertyValue("type", className);
         builder.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
-
-        String alias = className + "MockoClient";
+        builder.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
 
         AbstractBeanDefinition beanDefinition = builder.getBeanDefinition();
+
         beanDefinition.setAttribute(FactoryBean.OBJECT_TYPE_ATTRIBUTE, className);
 
         // has a default, won't be null
         boolean primary = (Boolean) attributes.get("primary");
-
         beanDefinition.setPrimary(primary);
-        builder.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
 
+        String alias = className + "MockoClient";
         BeanDefinitionHolder holder = new BeanDefinitionHolder(beanDefinition, className, new String[]{alias});
+
+        if (registry.isBeanNameInUse(holder.getBeanName()) || registry.isBeanNameInUse(alias)) {
+            return;
+        }
+
         BeanDefinitionReaderUtils.registerBeanDefinition(holder, registry);
     }
 
