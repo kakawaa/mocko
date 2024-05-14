@@ -59,6 +59,9 @@ public abstract class MockoClientsRegistrar {
     }
 
 
+    /**
+     * 注入MockoClient实例
+     */
     private void registerMockoClient(BeanDefinitionRegistry registry,
                                      AnnotationMetadata metadata,
                                      Map<String, Object> attributes) {
