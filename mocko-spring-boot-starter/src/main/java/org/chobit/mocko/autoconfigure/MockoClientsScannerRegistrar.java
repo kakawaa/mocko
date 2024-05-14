@@ -1,10 +1,16 @@
 package org.chobit.mocko.autoconfigure;
 
+import org.chobit.mocko.autoconfigure.annotations.MockoClientScan;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.util.ClassUtils;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * MockoClient实例注册类
@@ -19,16 +25,32 @@ public class MockoClientsScannerRegistrar extends MockoClientsRegistrar
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
 
+        Collection<String> basePackages = this.parseBasePackages(importingClassMetadata);
 
-        AnnotationAttributes mockoClientScanAttr = AnnotationAttributes
-                .fromMap(importingClassMetadata.getAnnotationAttributes(MockoClientsConfiguration.class.getName()));
-        if (mockoClientScanAttr != null) {
-            registerBeanDefinitions(importingClassMetadata, mockoClientScanAttr, registry,
-                    generateBaseBeanName(importingClassMetadata, 0));
+        super.registerMockoClients(basePackages, registry);
+    }
+
+
+    /**
+     * 调整MockoClientScan的包解析
+     *
+     * @param importingClassMetadata 导入类的元数据
+     * @return basePackage集合
+     */
+    private Collection<String> parseBasePackages(AnnotationMetadata importingClassMetadata) {
+
+        AnnotationAttributes attr = AnnotationAttributes
+                .fromMap(importingClassMetadata.getAnnotationAttributes(MockoClientScan.class.getName()));
+
+        Set<String> result = new HashSet<>(8);
+        if (attr != null) {
+            String[] basePackages = attr.getStringArray("value");
+            result.addAll(Arrays.asList(basePackages));
         }
 
         String basePackage = ClassUtils.getPackageName(importingClassMetadata.getClassName());
+        result.add(basePackage);
 
-        super.registerMockoClients(basePackage, registry);
+        return result;
     }
 }
