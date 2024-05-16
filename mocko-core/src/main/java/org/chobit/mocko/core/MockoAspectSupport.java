@@ -4,7 +4,7 @@ import org.apache.http.client.fluent.Response;
 import org.chobit.commons.http.HttpClient;
 import org.chobit.commons.utils.JsonKit;
 import org.chobit.commons.utils.StrKit;
-import org.chobit.mocko.annotations.ClassInfo;
+import org.chobit.mocko.annotations.ClassDesc;
 import org.chobit.mocko.annotations.Operation;
 import org.chobit.mocko.core.annotations.Mocko;
 import org.chobit.mocko.core.annotations.MockoClient;
@@ -118,9 +118,9 @@ public class MockoAspectSupport {
             return mockoClass.value();
         }
 
-        ClassInfo classInfo = clazz.getAnnotation(ClassInfo.class);
-        if (null != classInfo) {
-            return StrKit.coalesce(classInfo.value(), classInfo.alias());
+        ClassDesc classDesc = clazz.getAnnotation(ClassDesc.class);
+        if (null != classDesc) {
+            return StrKit.coalesce(classDesc.value(), classDesc.alias());
         }
 
         return "";

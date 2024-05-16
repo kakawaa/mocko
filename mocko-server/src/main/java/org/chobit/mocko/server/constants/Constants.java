@@ -18,6 +18,11 @@ public final class Constants {
      */
     public static final String SYSTEM_NAME = "系统";
 
+    /**
+     * token标记
+     */
+    public static final String TOKEN_FLAG = "token";
+
 
     private Constants() {
     }
