@@ -27,7 +27,7 @@ public class UserLoginRequest implements Serializable {
     /**
      * 密码
      */
-    @NotBlank(message = "密码信息不可为空")
+    @NotBlank(message = "密码不可为空")
     private String password;
 
 

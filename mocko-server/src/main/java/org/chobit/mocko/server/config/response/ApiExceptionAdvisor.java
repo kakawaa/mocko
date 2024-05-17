@@ -31,49 +31,47 @@ public class ApiExceptionAdvisor {
     @ExceptionHandler(value = MockoServerException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Object mockoExceptionHandler(MockoServerException e) {
-        logger.warn("Mock返回值错误", e);
-        return null;
+
+        Result<?> r = new Result<>(e.getCode());
+        r.setMsg(e.getMessage());
+
+        logger.warn("发现Mocko异常：{}", r.getMsg(), e);
+
+        return r;
     }
 
 
     /**
      * Api异常返回值处理
      *
-     * @param e 异常信息
+     * @param ex 异常信息
      * @return 封装后的异常返回值
      */
     @ResponseBody
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Result<?> paramExceptionHandler(MethodArgumentNotValidException e) {
+    public Result<?> paramExceptionHandler(MethodArgumentNotValidException ex) {
 
         String msg = "";
-        if(e.hasFieldErrors()){
-            msg = e.getFieldError().getDefaultMessage();
+        StringBuilder logMsg = new StringBuilder();
+        if (ex.hasFieldErrors()) {
+            msg = (null == ex.getFieldError() ? "" : ex.getFieldError().getDefaultMessage());
+        } else if (ex.hasGlobalErrors()) {
+            msg = (null == ex.getGlobalError() ? "" : ex.getGlobalError().getDefaultMessage());
         }
 
+        ex.getAllErrors().forEach(e -> {
+            if (logMsg.length() > 0) {
+                logMsg.append(", ");
+            }
+            logMsg.append(e.getDefaultMessage());
+        });
+
         Result<?> r = new Result<>(CommonStatusCode.FAIL);
+        r.setMsg(msg);
 
-        String parameterName = e.getObjectName();
-        r.setMsg(e.getMessage());
+        logger.warn("请求参数错误, total:{}, detail: {}", ex.getErrorCount(), logMsg);
 
-
-        System.out.println(e.getMessage());
-        System.out.println(e.getParameter());
-        System.out.println(e.getObjectName());
-        System.out.println(e.getCause());
-        System.out.println(e.getLocalizedMessage());
-        System.out.println(e.getAllErrors());
-        System.out.println(e.getFieldError().getDefaultMessage());
-        System.out.println(e.getFieldErrorCount());
-        System.out.println(e.getFieldErrors());
-        System.out.println(e.getGlobalError());
-        System.out.println(e.getGlobalErrors());
-        System.out.println(e.getGlobalErrorCount());
-        System.out.println(e.getModel());
-        System.out.println(e.getNestedPath());
-        System.out.println(e.getPropertyEditorRegistry());
-        logger.warn("请求参数错误, param:{}", parameterName,  e);
         return r;
     }
 
@@ -90,9 +88,10 @@ public class ApiExceptionAdvisor {
     public Result<?> exceptionHandler(Exception e) {
 
         Result<?> r = new Result<>(CommonStatusCode.FAIL);
-        r.setMsg("内部异常");
+        r.setMsg("未知异常");
 
-        logger.warn("发现内部异常：{}", r.getMsg(), e);
+        logger.warn("发现未知异常：{}", r.getMsg(), e);
+
         return r;
     }
 

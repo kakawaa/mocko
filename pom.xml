@@ -152,6 +152,7 @@
         <module>mocko-core</module>
         <module>mocko-server</module>
         <module>mocko-spring-boot-starter</module>
+        <module>mocko-lite-spring-boot-starter</module>
     </modules>
 
 </project>
