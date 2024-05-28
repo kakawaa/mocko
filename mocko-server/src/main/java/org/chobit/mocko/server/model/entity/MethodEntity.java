@@ -4,6 +4,8 @@ package org.chobit.mocko.server.model.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * 方法相关信息
  *
@@ -60,5 +62,11 @@ public final class MethodEntity extends AbstractEntity {
      * 响应信息
      */
     private String response;
+
+
+    /**
+     * 上次请求时间
+     */
+    private Date lastRequestTime;
 
 }

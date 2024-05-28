@@ -9,6 +9,7 @@ import org.chobit.mocko.server.model.request.MethodResponseUpdateRequest;
 import org.chobit.mocko.server.service.mapper.MethodMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 import static org.chobit.commons.utils.StrKit.isNotBlank;
@@ -63,6 +64,19 @@ public class MethodService extends ServiceImpl<MethodMapper, MethodEntity> {
                 .set(MethodEntity::getResponse, req.getResponse())
                 .eq(MethodEntity::getMethodId, req.getMethodId());
         return this.update(luw);
+    }
+
+
+    /**
+     * 更新方法的上次调用时间
+     *
+     * @param methodId 方法ID
+     */
+    public void updateRequestTime(String methodId) {
+        LambdaUpdateWrapper<MethodEntity> luw = new LambdaUpdateWrapper<>();
+        luw.set(MethodEntity::getLastRequestTime, new Date())
+                .eq(MethodEntity::getMethodId, methodId);
+        this.update(luw);
     }
 
 }
