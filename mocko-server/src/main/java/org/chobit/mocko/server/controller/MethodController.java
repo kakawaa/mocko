@@ -1,7 +1,7 @@
 package org.chobit.mocko.server.controller;
 
 import org.chobit.mocko.server.biz.MethodBiz;
-import org.chobit.mocko.server.config.response.ResponseWrapper;
+import org.chobit.spring.rw.ResponseWrapper;
 import org.chobit.mocko.server.model.entity.MethodEntity;
 import org.chobit.mocko.server.model.request.MethodIdRequest;
 import org.chobit.mocko.server.model.request.MethodResponseUpdateRequest;

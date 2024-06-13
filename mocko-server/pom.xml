@@ -25,6 +25,11 @@
             <groupId>org.chobit.mocko</groupId>
             <artifactId>mocko-annotation</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.chobit.spring</groupId>
+            <artifactId>zhy-spring-boot-starter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <!--spring boot common-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

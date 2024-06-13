@@ -1,7 +1,7 @@
 package org.chobit.mocko.server.controller;
 
 import org.chobit.mocko.server.biz.TypeBiz;
-import org.chobit.mocko.server.config.response.ResponseWrapper;
+import org.chobit.spring.rw.ResponseWrapper;
 import org.chobit.mocko.server.model.request.AppIdRequest;
 import org.chobit.mocko.server.model.request.ClassIdRequest;
 import org.chobit.mocko.server.model.vo.ClassTreeNode;

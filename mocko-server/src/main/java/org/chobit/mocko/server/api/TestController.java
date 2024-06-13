@@ -1,10 +1,10 @@
 package org.chobit.mocko.server.api;
 
 import com.zhyea.mocko.server.TestService;
-import org.chobit.mocko.server.config.response.ResponseWrapper;
-import org.springframework.stereotype.Controller;
+import org.chobit.spring.rw.ResponseWrapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * @author robin
  */
 @ResponseWrapper
-@Controller
+@RestController
 @RequestMapping("/api/test")
 public class TestController {
 

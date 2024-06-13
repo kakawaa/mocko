@@ -1,10 +1,10 @@
 package org.chobit.mocko.server.controller;
 
 import org.chobit.mocko.server.biz.AppBiz;
-import org.chobit.mocko.server.config.response.ResponseWrapper;
 import org.chobit.mocko.server.model.entity.AppEntity;
 import org.chobit.mocko.server.model.request.AppIdRequest;
 import org.chobit.mocko.server.model.request.AppModifyRequest;
+import org.chobit.spring.rw.ResponseWrapper;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
