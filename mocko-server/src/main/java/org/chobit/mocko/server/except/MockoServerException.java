@@ -2,6 +2,7 @@ package org.chobit.mocko.server.except;
 
 import lombok.Getter;
 import org.chobit.mocko.server.constants.ResponseCode;
+import org.chobit.spring.rw.exception.RwServerException;
 
 /**
  * Mocko服务端异常
@@ -9,22 +10,18 @@ import org.chobit.mocko.server.constants.ResponseCode;
  * @author robin
  */
 @Getter
-public class MockoServerException extends RuntimeException {
+public class MockoServerException extends RwServerException {
 
 
     private static final long serialVersionUID = 7773203247174587636L;
 
 
-    private final int code;
-
     public MockoServerException(ResponseCode code) {
-        super(code.msg);
-        this.code = code.code;
+        super(code.code, code.msg);
     }
 
     public MockoServerException(ResponseCode code, Throwable t) {
-        super(code.msg, t);
-        this.code = code.code;
+        super(code.code, code.msg, t);
     }
 
 
