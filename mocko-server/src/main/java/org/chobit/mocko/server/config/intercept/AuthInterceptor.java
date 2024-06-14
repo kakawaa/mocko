@@ -1,7 +1,6 @@
 package org.chobit.mocko.server.config.intercept;
 
 import lombok.extern.slf4j.Slf4j;
-import org.chobit.commons.utils.JsonKit;
 import org.chobit.commons.utils.ObjKit;
 import org.chobit.mocko.server.tools.AuthContext;
 import org.springframework.lang.Nullable;
@@ -35,8 +34,9 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         String token = request.getHeader(TOKEN_FLAG);
 
+        // TODO 发现存在问题
         if (isBlank(token) || ObjKit.nonEquals(token, AuthContext.getToken())) {
-            logger.info("Mocko Request is blocked, url:{}, headers:{} ", url, JsonKit.toJson(request));
+            logger.info("Mocko Request is blocked, url:{}, headers:{} ", url, request.getHeaderNames());
             return false;
         }
 
