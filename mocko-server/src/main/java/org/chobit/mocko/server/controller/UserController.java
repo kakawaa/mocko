@@ -1,8 +1,8 @@
 package org.chobit.mocko.server.controller;
 
 import org.chobit.mocko.server.biz.UserBiz;
-import org.chobit.spring.rw.ResponseWrapper;
 import org.chobit.mocko.server.model.request.UserAddRequest;
+import org.chobit.spring.autoconfigure.rw.ResponseWrapper;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,10 +1,10 @@
 package org.chobit.mocko.server.controller;
 
 import org.chobit.mocko.server.biz.MethodBiz;
-import org.chobit.spring.rw.ResponseWrapper;
 import org.chobit.mocko.server.model.entity.MethodEntity;
 import org.chobit.mocko.server.model.request.MethodIdRequest;
 import org.chobit.mocko.server.model.request.MethodResponseUpdateRequest;
+import org.chobit.spring.autoconfigure.rw.ResponseWrapper;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
