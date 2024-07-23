@@ -3,7 +3,7 @@ package org.chobit.mocko.server.biz;
 import lombok.extern.slf4j.Slf4j;
 import org.chobit.mocko.core.annotations.Mocko;
 import org.chobit.mocko.server.model.entity.MethodEntity;
-import org.chobit.mocko.server.model.request.MethodResponseUpdateRequest;
+import org.chobit.mocko.server.model.request.MethodResponseModifyRequest;
 import org.chobit.mocko.server.service.MethodService;
 import org.springframework.stereotype.Component;
 
@@ -41,7 +41,7 @@ public class MethodBiz {
      * @param request 请求
      * @return 更新结果
      */
-    public boolean changeMethodResponse(MethodResponseUpdateRequest request) {
+    public boolean changeMethodResponse(MethodResponseModifyRequest request) {
         return methodService.changeResponse(request);
     }
 

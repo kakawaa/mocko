@@ -5,12 +5,12 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 /**
- * 方法返回值更新请求
+ * 方法信息更新请求
  *
  * @author robin
  */
 @Data
-public class MethodResponseUpdateRequest {
+public class MethodModifyRequest {
 
     /**
      * 方法ID

@@ -5,14 +5,12 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.chobit.mocko.server.model.entity.MethodEntity;
-import org.chobit.mocko.server.model.request.MethodResponseUpdateRequest;
+import org.chobit.mocko.server.model.request.MethodResponseModifyRequest;
 import org.chobit.mocko.server.service.mapper.MethodMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-
-import static org.chobit.commons.utils.StrKit.isNotBlank;
 
 
 /**
@@ -58,10 +56,9 @@ public class MethodService extends ServiceImpl<MethodMapper, MethodEntity> {
      * @param req 更新请求
      * @return 是否更新成功
      */
-    public boolean changeResponse(MethodResponseUpdateRequest req) {
+    public boolean changeResponse(MethodResponseModifyRequest req) {
         LambdaUpdateWrapper<MethodEntity> luw = new LambdaUpdateWrapper<>();
-        luw.set(isNotBlank(req.getMethodAlias()), MethodEntity::getResponse, req.getMethodAlias())
-                .set(MethodEntity::getResponse, req.getResponse())
+        luw.set(MethodEntity::getResponse, req.getResponse())
                 .eq(MethodEntity::getMethodId, req.getMethodId());
         return this.update(luw);
     }
