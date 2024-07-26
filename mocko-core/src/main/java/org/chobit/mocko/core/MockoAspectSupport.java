@@ -59,7 +59,7 @@ public class MockoAspectSupport {
             Response response = HttpClient.postForResponse(mockUrl, null, methodMeta);
             return decoder.decode(response, methodMeta.getReturnType());
         } catch (Exception e) {
-            logger.warn("request mocko server error, method info:{}", JsonKit.toJson(methodMeta), e);
+            logger.info("request mocko server failed, exception:{}, method info:{}", e.getMessage(), JsonKit.toJson(methodMeta));
             if (null != invoker) {
                 return invoker.invoke();
             }
@@ -79,6 +79,9 @@ public class MockoAspectSupport {
     private MethodMeta parseMethodMetadata(Object target, Method method, Object[] args) {
 
         String className = target.getClass().getCanonicalName();
+        if (target instanceof Target) {
+            className = ((Target) target).type().getCanonicalName();
+        }
         String classAlias = this.parseClassAlias(target.getClass());
 
         String methodName = method.getName();

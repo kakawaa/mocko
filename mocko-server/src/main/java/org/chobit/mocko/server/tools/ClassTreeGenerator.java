@@ -184,7 +184,11 @@ public final class ClassTreeGenerator {
         TreeNode<String> tmp = node;
         while (null != tmp) {
             if (isNotBlank(tmp.getValue())) {
-                builder.insert(0, tmp.getValue() + POINT);
+                if (builder.length() == 0) {
+                    builder.append(tmp.getValue());
+                } else {
+                    builder.insert(0, tmp.getValue() + POINT);
+                }
             }
             tmp = tmp.parent();
         }

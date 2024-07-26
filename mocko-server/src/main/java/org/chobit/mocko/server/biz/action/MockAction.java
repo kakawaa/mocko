@@ -8,7 +8,7 @@ import org.chobit.mocko.core.model.ArgInfo;
 import org.chobit.mocko.core.model.MethodMeta;
 import org.chobit.mocko.server.constants.Constants;
 import org.chobit.mocko.server.constants.ResponseCode;
-import org.chobit.mocko.server.except.MockoServerException;
+import org.chobit.mocko.server.except.MockoResponseException;
 import org.chobit.mocko.server.model.entity.AppEntity;
 import org.chobit.mocko.server.model.entity.MethodEntity;
 import org.chobit.mocko.server.model.entity.TypeEntity;
@@ -51,11 +51,11 @@ public class MockAction {
 
         if (null == method) {
             checkAndSave(meta, methodId);
-            throw new MockoServerException(ResponseCode.EMPTY_MOCK_RESPONSE);
+            throw new MockoResponseException(ResponseCode.EMPTY_MOCK_RESPONSE);
         }
 
         if (isBlank(method.getResponse())) {
-            throw new MockoServerException(ResponseCode.EMPTY_MOCK_RESPONSE);
+            throw new MockoResponseException(ResponseCode.EMPTY_MOCK_RESPONSE);
         }
 
         methodService.updateRequestTime(methodId);
@@ -83,7 +83,7 @@ public class MockAction {
 
         this.addMethod(meta, classId, methodId);
 
-        throw new MockoServerException(ResponseCode.EMPTY_MOCK_RESPONSE);
+        throw new MockoResponseException(ResponseCode.EMPTY_MOCK_RESPONSE);
     }
 
 

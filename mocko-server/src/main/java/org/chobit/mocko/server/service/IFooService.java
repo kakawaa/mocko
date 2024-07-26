@@ -17,6 +17,6 @@ public interface IFooService {
      * @param name 名称
      * @return any value
      */
-    String bar(String name);
+    String foo(String name);
 
 }

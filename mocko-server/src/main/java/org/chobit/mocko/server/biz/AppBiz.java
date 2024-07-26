@@ -1,10 +1,9 @@
 package org.chobit.mocko.server.biz;
 
-import org.chobit.mocko.core.annotations.Mocko;
-import org.chobit.mocko.server.tools.AuthContext;
 import org.chobit.mocko.server.model.entity.AppEntity;
 import org.chobit.mocko.server.model.request.AppModifyRequest;
 import org.chobit.mocko.server.service.AppService;
+import org.chobit.mocko.server.tools.AuthContext;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -15,7 +14,6 @@ import java.util.List;
  *
  * @author robin
  */
-@Mocko
 @Component
 public class AppBiz {
 

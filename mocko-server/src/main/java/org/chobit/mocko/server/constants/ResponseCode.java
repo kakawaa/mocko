@@ -5,6 +5,8 @@ import org.chobit.commons.contract.CodeDescEnum;
 /**
  * 响应编码
  *
+ * 1xxxx api
+ *
  * @author robin
  */
 
@@ -19,6 +21,11 @@ public enum ResponseCode implements CodeDescEnum {
      * 未定义错误
      */
     ERROR(1000, "未定义错误"),
+
+    /**
+     * 未定义错误
+     */
+    ARGUMENT_ERROR(10000, "参数错误错误"),
 
     /**
      * 方法不存在

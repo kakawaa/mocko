@@ -21,6 +21,10 @@ mybatis-plus:
   global-config:
     banner: off
 
+rw:
+  wrapExcept: false
+
+
 mocko:
   password:
     salt: MayTheForceBeWithYou!

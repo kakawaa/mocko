@@ -21,25 +21,31 @@ import java.util.Map;
 public class PingController {
 
 
-	@Resource
-	private MyBiz myBiz;
+    @Resource
+    private MyBiz myBiz;
 
 
-	@GetMapping("/ping")
-	public String ping() {
-		return myBiz.ping();
-	}
+    @GetMapping("/ping")
+    public String ping() {
+        return myBiz.ping();
+    }
 
 
-	@GetMapping("/pong")
-	public Map<String, Integer> pong() {
-		return myBiz.pong();
-	}
+    @GetMapping("/map")
+    public Map<String, Integer> newMap() {
+        return myBiz.mapInfo();
+    }
 
 
-	@GetMapping("/foo")
-	public String foo(@RequestParam("n") String name) {
-		return myBiz.foo(name);
-	}
+    @GetMapping("/staff")
+    public MyBiz.Staff newStaff() {
+        return myBiz.staff();
+    }
+
+
+    @GetMapping("/foo")
+    public String foo(@RequestParam("n") String name) {
+        return myBiz.foo(name);
+    }
 
 }

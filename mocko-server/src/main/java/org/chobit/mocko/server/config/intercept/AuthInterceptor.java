@@ -1,8 +1,6 @@
 package org.chobit.mocko.server.config.intercept;
 
 import lombok.extern.slf4j.Slf4j;
-import org.chobit.commons.utils.ObjKit;
-import org.chobit.mocko.server.tools.AuthContext;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -10,7 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static org.chobit.commons.utils.StrKit.isBlank;
 import static org.chobit.mocko.server.constants.Constants.TOKEN_FLAG;
 
 /**
@@ -35,10 +32,10 @@ public class AuthInterceptor implements HandlerInterceptor {
         String token = request.getHeader(TOKEN_FLAG);
 
         // TODO 发现存在问题
-        if (isBlank(token) || ObjKit.nonEquals(token, AuthContext.getToken())) {
-            logger.info("Mocko Request is blocked, url:{}, headers:{} ", url, request.getHeaderNames());
-            return false;
-        }
+//        if (isBlank(token) || ObjKit.nonEquals(token, AuthContext.getToken())) {
+//            logger.info("Mocko Request is blocked, url:{}, headers:{} ", url, request.getHeaderNames());
+//            return false;
+//        }
 
         return true;
     }

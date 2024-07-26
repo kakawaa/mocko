@@ -34,7 +34,6 @@ public class MethodModifyRequest {
     /**
      * 方法返回值
      */
-    @NotBlank(message = "方法返回值不可为空")
     private String response;
 
 }
