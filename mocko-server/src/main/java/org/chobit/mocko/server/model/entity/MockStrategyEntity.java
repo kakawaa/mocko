@@ -15,6 +15,12 @@ public class MockStrategyEntity extends AbstractEntity {
 
 
     /**
+     * 方法ID
+     */
+    private String methodId;
+
+
+    /**
      * 策略表达式
      */
     private String expression;

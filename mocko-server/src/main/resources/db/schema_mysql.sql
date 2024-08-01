@@ -91,16 +91,17 @@ create table if not exists m_method
 --
 create table if not exists m_mock_strategy
 (
-    id                int       not null default 0 auto_increment comment 'id',
+    id                int         not null default 0 auto_increment comment 'id',
 
-    expression        tinytext  not null default '' comment '表达式',
-    response          tinytext  not null default '' comment 'mock的返回值',
-    last_request_time datetime  not null default now() comment '上次请求时间',
+    method_id         varchar(32) not null default '' comment '方法ID',
+    expression        tinytext    not null default '' comment '表达式',
+    response          tinytext    not null default '' comment 'mock的返回值',
+    last_request_time datetime    not null default '1970-01-01 08:00:00' comment '上次请求时间',
 
-    operator_code     int       not null default 0 comment '操作人ID',
-    deleted           int       not null default 0 comment '删除标记',
-    create_time       datetime  not null default now() comment '创建时间',
-    update_time       timestamp not null default current_timestamp on update current_timestamp comment '更新时间',
+    operator_code     int         not null default 0 comment '操作人ID',
+    deleted           int         not null default 0 comment '删除标记',
+    create_time       datetime    not null default now() comment '创建时间',
+    update_time       timestamp   not null default current_timestamp on update current_timestamp comment '更新时间',
     primary key (id)
 
 )
