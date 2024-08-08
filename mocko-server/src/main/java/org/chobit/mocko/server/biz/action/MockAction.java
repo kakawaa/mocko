@@ -58,7 +58,7 @@ public class MockAction {
             throw new MockoResponseException(ResponseCode.EMPTY_MOCK_RESPONSE);
         }
 
-        methodService.updateRequestTime(methodId);
+        methodService.resetRequestTime(methodId);
 
         return method.getResponse();
     }

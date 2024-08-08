@@ -1,11 +1,11 @@
 package org.chobit.mocko.server.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.chobit.mocko.server.model.entity.UserEntity;
 import org.chobit.mocko.server.service.mapper.UserMapper;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * 用户信息处理
@@ -14,7 +14,11 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-public class UserService extends ServiceImpl<UserMapper, UserEntity> {
+public class UserService {
+
+
+    @Resource
+    private UserMapper userMapper;
 
 
     /**
@@ -25,12 +29,7 @@ public class UserService extends ServiceImpl<UserMapper, UserEntity> {
      * @return 用户信息
      */
     public UserEntity getByUserPwd(String username, String password) {
-
-        LambdaQueryWrapper<UserEntity> lqw = new LambdaQueryWrapper<>();
-        lqw.eq(UserEntity::getUsername, username)
-                .eq(UserEntity::getPassword, password);
-
-        return this.getOne(lqw);
+        return userMapper.getByUserAndPassword(username, password);
     }
 
 
@@ -49,7 +48,9 @@ public class UserService extends ServiceImpl<UserMapper, UserEntity> {
         user.setPassword(password);
         user.setNickName(nickname);
 
-        return this.getBaseMapper().insert(user);
+        userMapper.add(user);
+
+        return user.getId();
     }
 
 }

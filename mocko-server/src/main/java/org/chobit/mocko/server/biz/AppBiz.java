@@ -29,7 +29,7 @@ public class AppBiz {
      * @return true 更新成功, false 更新失败
      */
     public boolean update(AppModifyRequest request) {
-        return appService.updateAppName(request.getAppId(), request.getAppName());
+        return appService.modifyAppName(request.getAppId(), request.getAppName());
     }
 
 
@@ -39,7 +39,7 @@ public class AppBiz {
      * @return 用户应用集合
      */
     public List<AppEntity> findAll() {
-        return appService.findByUser(AuthContext.getUsername());
+        return appService.findByUsername(AuthContext.getUsername());
     }
 
 

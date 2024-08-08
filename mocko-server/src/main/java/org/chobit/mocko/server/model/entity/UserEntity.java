@@ -1,6 +1,5 @@
 package org.chobit.mocko.server.model.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 /**
@@ -8,7 +7,6 @@ import lombok.Data;
  *
  * @author robin
  */
-@TableName("m_user")
 @Data
 public final class UserEntity extends AbstractEntity {
 

@@ -1,14 +1,10 @@
 package org.chobit.mocko.server.service.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.chobit.mocko.server.model.entity.AppEntity;
 
 @Mapper
-public interface AppMapper extends BaseMapper<AppEntity> {
+public interface AppMapper {
 
 
     /**
@@ -30,5 +26,18 @@ public interface AppMapper extends BaseMapper<AppEntity> {
      */
     @Update({"update m_app set app_name=#{appName} where app_id=#{appId} "})
     boolean modifyAppName(@Param("appName") String appName, @Param("appId") String appId);
+
+
+    /**
+     * 新增应用记录
+     *
+     * @param app 应用信息
+     */
+    @Insert({
+            "insert into m_app (app_id, app_name, operator_code)",
+            "values",
+            "(#{app.appId}, #{app.appName}, #{app.operatorCode})"
+    })
+    void add(@Param("app") AppEntity app);
 
 }

@@ -1,7 +1,6 @@
 package org.chobit.mocko.server.model.entity;
 
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.util.Date;
@@ -11,7 +10,6 @@ import java.util.Date;
  *
  * @author robin
  */
-@TableName("m_method")
 @Data
 public final class MethodEntity extends AbstractEntity {
 

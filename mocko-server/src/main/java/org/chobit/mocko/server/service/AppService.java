@@ -1,13 +1,12 @@
 package org.chobit.mocko.server.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.chobit.mocko.server.model.entity.AppEntity;
 import org.chobit.mocko.server.service.mapper.AppMapper;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -18,7 +17,12 @@ import java.util.List;
  */
 @Slf4j
 @Service
-public class AppService extends ServiceImpl<AppMapper, AppEntity> {
+public class AppService {
+
+
+    @Resource
+    private AppMapper appMapper;
+
 
     /**
      * 根据应用Id查询应用信息
@@ -27,9 +31,7 @@ public class AppService extends ServiceImpl<AppMapper, AppEntity> {
      * @return 应用信息
      */
     public AppEntity getByAppId(String appId) {
-        LambdaQueryWrapper<AppEntity> lqw = new LambdaQueryWrapper<>();
-        lqw.eq(AppEntity::getAppId, appId);
-        return this.getOne(lqw);
+        return appMapper.getByAppId(appId);
     }
 
 
@@ -40,11 +42,8 @@ public class AppService extends ServiceImpl<AppMapper, AppEntity> {
      * @param appName 应用名称
      * @return 是否更新成功
      */
-    public Boolean updateAppName(String appId, String appName) {
-        LambdaUpdateWrapper<AppEntity> luw = new LambdaUpdateWrapper<>();
-        luw.set(AppEntity::getAppName, appName)
-                .eq(AppEntity::getAppId, appId);
-        return this.update(luw);
+    public Boolean modifyAppName(String appId, String appName) {
+        return appMapper.modifyAppName(appId, appName);
     }
 
 
@@ -53,8 +52,17 @@ public class AppService extends ServiceImpl<AppMapper, AppEntity> {
      *
      * @return 应用集合
      */
-    public List<AppEntity> findByUser(String username) {
-        return this.list();
+    public List<AppEntity> findByUsername(String username) {
+        return new LinkedList<>();
     }
 
+
+    /**
+     * 新增app记录
+     *
+     * @param app app记录
+     */
+    public void add(AppEntity app) {
+        appMapper.add(app);
+    }
 }

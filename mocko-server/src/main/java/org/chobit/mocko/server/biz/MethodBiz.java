@@ -40,7 +40,7 @@ public class MethodBiz {
      * @return 更新结果
      */
     public boolean changeMethodResponse(MethodResponseModifyRequest request) {
-        return methodService.changeResponse(request);
+        return methodService.modifyResponse(request);
     }
 
 }

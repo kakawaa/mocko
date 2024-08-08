@@ -1,12 +1,11 @@
 package org.chobit.mocko.server.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.chobit.mocko.server.model.entity.TypeEntity;
 import org.chobit.mocko.server.service.mapper.TypeMapper;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 
@@ -17,19 +16,21 @@ import java.util.List;
  */
 @Slf4j
 @Service
-public class TypeService extends ServiceImpl<TypeMapper, TypeEntity> {
+public class TypeService {
+
+
+    @Resource
+    private TypeMapper typeMapper;
 
 
     /**
      * 根据组件ID查询组件信息
      *
-     * @param cmpId 组件ID
+     * @param typeId 类ID
      * @return 组件信息
      */
-    public TypeEntity getByTypeId(String cmpId) {
-        LambdaQueryWrapper<TypeEntity> lqw = new LambdaQueryWrapper<>();
-        lqw.eq(TypeEntity::getTypeId, cmpId);
-        return this.getOne(lqw);
+    public TypeEntity getByTypeId(String typeId) {
+        return typeMapper.getByTypeId(typeId);
     }
 
 
@@ -40,9 +41,7 @@ public class TypeService extends ServiceImpl<TypeMapper, TypeEntity> {
      * @return 类信息
      */
     public List<TypeEntity> findByAppId(String appId) {
-        LambdaQueryWrapper<TypeEntity> lqw = new LambdaQueryWrapper<>();
-        lqw.eq(TypeEntity::getAppId, appId);
-        return this.list(lqw);
+        return typeMapper.findByAppId(appId);
     }
 
 
