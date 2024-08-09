@@ -6,9 +6,9 @@ import org.chobit.mocko.core.model.MethodMeta;
 import org.chobit.mocko.server.constants.Constants;
 import org.chobit.mocko.server.model.entity.TypeEntity;
 import org.chobit.mocko.server.service.mapper.TypeMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 
@@ -22,8 +22,13 @@ import java.util.List;
 public class TypeService {
 
 
-	@Resource
-	private TypeMapper typeMapper;
+	private final TypeMapper typeMapper;
+
+
+	@Autowired
+	public TypeService(TypeMapper typeMapper) {
+		this.typeMapper = typeMapper;
+	}
 
 
 	/**
@@ -45,17 +50,6 @@ public class TypeService {
 	 */
 	public List<TypeEntity> findByAppId(String appId) {
 		return typeMapper.findByAppId(appId);
-	}
-
-
-	/**
-	 * 更新类信息
-	 *
-	 * @param type 类信息
-	 * @return 更新结果
-	 */
-	public Boolean updateType(TypeEntity type) {
-		return false;
 	}
 
 

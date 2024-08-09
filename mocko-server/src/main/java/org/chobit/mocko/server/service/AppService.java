@@ -4,11 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.chobit.mocko.server.constants.Constants;
 import org.chobit.mocko.server.model.entity.AppEntity;
 import org.chobit.mocko.server.service.mapper.AppMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.util.LinkedList;
-import java.util.List;
 
 
 /**
@@ -21,9 +18,13 @@ import java.util.List;
 public class AppService {
 
 
-	@Resource
-	private AppMapper appMapper;
+	private final AppMapper appMapper;
 
+
+	@Autowired
+	public AppService(AppMapper appMapper) {
+		this.appMapper = appMapper;
+	}
 
 	/**
 	 * 根据应用Id查询应用信息
@@ -45,16 +46,6 @@ public class AppService {
 	 */
 	public Boolean modifyAppName(String appId, String appName) {
 		return appMapper.modifyAppName(appId, appName);
-	}
-
-
-	/**
-	 * 获取全部的应用
-	 *
-	 * @return 应用集合
-	 */
-	public List<AppEntity> findByUsername(String username) {
-		return new LinkedList<>();
 	}
 
 

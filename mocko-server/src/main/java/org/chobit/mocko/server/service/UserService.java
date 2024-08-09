@@ -3,9 +3,8 @@ package org.chobit.mocko.server.service;
 import lombok.extern.slf4j.Slf4j;
 import org.chobit.mocko.server.model.entity.UserEntity;
 import org.chobit.mocko.server.service.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 /**
  * 用户信息处理
@@ -17,40 +16,45 @@ import javax.annotation.Resource;
 public class UserService {
 
 
-    @Resource
-    private UserMapper userMapper;
+	private final UserMapper userMapper;
 
 
-    /**
-     * 根据登录信息查询用户
-     *
-     * @param username 用户名
-     * @param password 密码
-     * @return 用户信息
-     */
-    public UserEntity getByUserPwd(String username, String password) {
-        return userMapper.getByUserAndPassword(username, password);
-    }
+	@Autowired
+	public UserService(UserMapper userMapper) {
+		this.userMapper = userMapper;
+	}
 
 
-    /**
-     * 新增用户信息
-     *
-     * @param username 用户名
-     * @param password 密码
-     * @param nickname 昵称
-     * @return 用户记录ID
-     */
-    public Integer addUser(String username, String password, String nickname) {
+	/**
+	 * 根据登录信息查询用户
+	 *
+	 * @param username 用户名
+	 * @param password 密码
+	 * @return 用户信息
+	 */
+	public UserEntity getByUserPwd(String username, String password) {
+		return userMapper.getByUserAndPassword(username, password);
+	}
 
-        UserEntity user = new UserEntity();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setNickName(nickname);
 
-        userMapper.add(user);
+	/**
+	 * 新增用户信息
+	 *
+	 * @param username 用户名
+	 * @param password 密码
+	 * @param nickname 昵称
+	 * @return 用户记录ID
+	 */
+	public Integer addUser(String username, String password, String nickname) {
 
-        return user.getId();
-    }
+		UserEntity user = new UserEntity();
+		user.setUsername(username);
+		user.setPassword(password);
+		user.setNickName(nickname);
+
+		userMapper.add(user);
+
+		return user.getId();
+	}
 
 }

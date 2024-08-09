@@ -6,9 +6,9 @@ import org.chobit.mocko.core.model.MethodMeta;
 import org.chobit.mocko.server.model.entity.MethodEntity;
 import org.chobit.mocko.server.model.request.MethodResponseModifyRequest;
 import org.chobit.mocko.server.service.mapper.MethodMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 
@@ -22,8 +22,13 @@ import java.util.List;
 public class MethodService {
 
 
-	@Resource
-	private MethodMapper methodMapper;
+	private final MethodMapper methodMapper;
+
+
+	@Autowired
+	public MethodService(MethodMapper methodMapper) {
+		this.methodMapper = methodMapper;
+	}
 
 	/**
 	 * 根据方法Id查询方法信息
