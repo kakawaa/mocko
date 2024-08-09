@@ -1,8 +1,6 @@
 package org.chobit.mocko.server.service.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.chobit.mocko.server.model.entity.TypeEntity;
 
 import java.util.List;
@@ -34,5 +32,20 @@ public interface TypeMapper {
      */
     @Select({"select * from m_type where app_id=#{appId}"})
     List<TypeEntity> findByAppId(@Param("appId") String appId);
+
+
+    /**
+     * 写入新的类
+     *
+     * @param type 类信息
+     */
+    @Insert({
+            "insert into m_type",
+            "(app_id, type_id, type_name, type_alias, full_name, operator_code)",
+            "values",
+            "(#{t.appId}, #{t.typeId}, #{t.typeName}, #{t.typeAlias}, #{t.fullName}, #{t.operatorCode})"
+    })
+    @Options(useGeneratedKeys = true)
+    void add(@Param("t") TypeEntity type);
 
 }

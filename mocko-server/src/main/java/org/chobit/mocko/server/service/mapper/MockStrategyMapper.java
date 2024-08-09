@@ -2,6 +2,7 @@ package org.chobit.mocko.server.service.mapper;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -15,6 +16,7 @@ public interface MockStrategyMapper {
             "values",
             "(#{expression}, #{response}, #{operator})"
     })
+    @Options(useGeneratedKeys = true)
     void add(@Param("expression") String expression, @Param("response") String response, @Param("operator") int operator);
 
 }

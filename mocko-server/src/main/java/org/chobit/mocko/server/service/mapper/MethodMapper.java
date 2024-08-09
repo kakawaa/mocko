@@ -1,9 +1,6 @@
 package org.chobit.mocko.server.service.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.chobit.mocko.server.model.entity.MethodEntity;
 import org.chobit.mocko.server.model.request.MethodResponseModifyRequest;
 
@@ -52,8 +49,17 @@ public interface MethodMapper {
      * 重置方法的最新请求时间
      *
      * @param methodId 方法ID
-     * @return 是否重置成功
      */
     @Update({"update m_method set last_request_time=now() where method_id=#{methodId}"})
-    boolean resetMethodRequestTime(@Param("methodId") String methodId);
+    void resetMethodRequestTime(@Param("methodId") String methodId);
+
+
+    @Insert({
+            "insert into m_method",
+            "(app_id, type_id, method_id, method_alias, method_name, args, response_type)",
+            "values",
+            "(#{m.appId}, #{m.typeId}, #{m.methodId}, #{m.methodAlias}, #{m.methodName}, #{m.args}, #{m.responseType})"
+    })
+    @Options(useGeneratedKeys = true)
+    void add(@Param("m") MethodEntity method);
 }

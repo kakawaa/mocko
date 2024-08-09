@@ -24,7 +24,8 @@ public interface AppMapper {
      * @param appId   应用ID
      * @return 应用名称
      */
-    @Update({"update m_app set app_name=#{appName} where app_id=#{appId} "})
+    @Update({"update m_app set app_name=#{appName}",
+            "where app_id=#{appId} "})
     boolean modifyAppName(@Param("appName") String appName, @Param("appId") String appId);
 
 
@@ -38,6 +39,7 @@ public interface AppMapper {
             "values",
             "(#{app.appId}, #{app.appName}, #{app.operatorCode})"
     })
+    @Options(useGeneratedKeys = true)
     void add(@Param("app") AppEntity app);
 
 }
