@@ -7,6 +7,8 @@ import org.chobit.mocko.server.service.mapper.AppMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 /**
  * 应用Service
@@ -46,6 +48,17 @@ public class AppService {
 	 */
 	public Boolean modifyAppName(String appId, String appName) {
 		return appMapper.modifyAppName(appId, appName);
+	}
+
+
+	/**
+	 * 查询获取全部的应用信息
+	 *
+	 * @return 应用信息
+	 */
+	public List<AppEntity> findAll() {
+		List<AppEntity> result = appMapper.findAll();
+		return result;
 	}
 
 

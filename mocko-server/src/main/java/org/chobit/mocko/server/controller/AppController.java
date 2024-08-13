@@ -1,14 +1,14 @@
 package org.chobit.mocko.server.controller;
 
-import org.chobit.mocko.server.biz.AppBiz;
 import org.chobit.mocko.server.model.entity.AppEntity;
 import org.chobit.mocko.server.model.request.AppIdRequest;
 import org.chobit.mocko.server.model.request.AppModifyRequest;
+import org.chobit.mocko.server.service.AppService;
 import org.chobit.spring.autoconfigure.rw.ResponseWrapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -22,25 +22,29 @@ import java.util.List;
 public class AppController {
 
 
-    @Resource
-    private AppBiz appBiz;
+	private final AppService appService;
 
 
-    @PostMapping("/update")
-    public boolean update(@Validated @RequestBody AppModifyRequest request) {
-        return appBiz.update(request);
-    }
+	@Autowired
+	public AppController(AppService appService) {
+		this.appService = appService;
+	}
+
+	@PostMapping("/update")
+	public boolean update(@Validated @RequestBody AppModifyRequest request) {
+		return appService.modifyAppName(request.getAppId(), request.getAppName());
+	}
 
 
-    @GetMapping("/list")
-    public List<AppEntity> findApps() {
-        return appBiz.findAll();
-    }
+	@GetMapping("/list")
+	public List<AppEntity> findApps() {
+		return appService.findAll();
+	}
 
 
-    @PostMapping("/get")
-    public AppEntity getApp(@Validated @RequestBody AppIdRequest request) {
-        return appBiz.getApp(request.getAppId());
-    }
+	@PostMapping("/get")
+	public AppEntity getApp(@Validated @RequestBody AppIdRequest request) {
+		return appService.getByAppId(request.getAppId());
+	}
 
 }

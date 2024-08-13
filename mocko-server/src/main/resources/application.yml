@@ -15,11 +15,9 @@ spring:
 server:
   port: 8190
 
-mybatis-plus:
+mybatis:
   configuration:
     mapUnderscoreToCamelCase: true
-  global-config:
-    banner: off
 
 rw:
   wrapExcept: false

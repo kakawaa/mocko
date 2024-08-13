@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static org.chobit.mocko.server.utils.StringKit.nullOrEmpty;
+
 
 /**
  * 类信息Service
@@ -79,7 +81,7 @@ public class TypeService {
 		type.setAppId(meta.getAppId());
 		type.setTypeId(typeId);
 		type.setTypeName(typeName);
-		type.setTypeAlias(meta.getClassAlias());
+		type.setTypeAlias(nullOrEmpty(meta.getClassAlias()));
 		type.setFullName(fullName);
 		type.setOperatorCode(Constants.SYSTEM);
 		typeMapper.add(type);

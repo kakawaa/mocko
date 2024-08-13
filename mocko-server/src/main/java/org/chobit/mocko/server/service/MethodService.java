@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static org.chobit.mocko.server.utils.StringKit.nullOrEmpty;
+
 
 /**
  * 方法Service
@@ -86,8 +88,8 @@ public class MethodService {
 		method.setAppId(meta.getAppId());
 		method.setTypeId(classId);
 		method.setMethodId(methodId);
-		method.setMethodAlias(meta.getMethodAlias());
-		method.setMethodName(meta.getMethodName());
+		method.setMethodAlias(nullOrEmpty(meta.getMethodAlias()));
+		method.setMethodName(nullOrEmpty(meta.getMethodName()));
 		method.setArgs(JsonKit.toJson(meta.getArgs()));
 		method.setResponseType(meta.getReturnType().getTypeName());
 
