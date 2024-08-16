@@ -11,7 +11,7 @@ import java.util.Date;
  * @author robin
  */
 @Data
-public final class MethodEntity extends AbstractEntity {
+public final class MethodEntity extends BaseEntity {
 
 
     /**

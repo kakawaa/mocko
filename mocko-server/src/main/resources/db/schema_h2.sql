@@ -7,16 +7,17 @@
 --
 create table if not exists m_user
 (
-    id            int         not null default 0 auto_increment comment 'id',
+    id              int         not null default 0 auto_increment comment 'id',
 
-    nick_name     varchar(32) not null default '' comment '昵称',
-    username      varchar(32) not null default '' comment '用户名',
-    password      varchar(32) not null default '' comment '密码',
+    nick_name       varchar(32) not null default '' comment '昵称',
+    username        varchar(32) not null default '' comment '用户名',
+    password        varchar(32) not null default '' comment '密码',
+    last_login_time datetime    not null default '1970-01-01 08:00:00.001' comment '上次登录时间',
 
-    operator_code varchar(32) not null default 0 comment '操作人ID',
-    deleted       tinyint     not null default 0 comment '删除标记',
-    create_time   datetime    not null default now() comment '创建时间',
-    update_time   timestamp   not null default current_timestamp on update current_timestamp comment '更新时间',
+    operator_code   varchar(32) not null default 0 comment '操作人ID',
+    deleted         tinyint     not null default 0 comment '删除标记',
+    create_time     datetime    not null default now() comment '创建时间',
+    update_time     timestamp   not null default current_timestamp on update current_timestamp comment '更新时间',
     primary key (id)
 );
 

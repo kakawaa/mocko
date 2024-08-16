@@ -1,14 +1,14 @@
 package org.chobit.mocko.server.controller;
 
-import org.chobit.mocko.server.biz.UserBiz;
 import org.chobit.mocko.server.model.request.UserAddRequest;
+import org.chobit.mocko.server.service.UserService;
 import org.chobit.spring.autoconfigure.rw.ResponseWrapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import javax.validation.Valid;
 
 /**
@@ -22,13 +22,18 @@ import javax.validation.Valid;
 public class UserController {
 
 
-	@Resource
-	private UserBiz userBiz;
+	private final UserService userService;
+
+
+	@Autowired
+	public UserController(UserService userBiz) {
+		this.userService = userBiz;
+	}
 
 
 	@PostMapping("/add")
-	public Integer add(@Valid @RequestBody UserAddRequest request) {
-		return userBiz.add(request);
+	public Integer add(@RequestBody @Valid UserAddRequest request) {
+		return userService.addUser(request);
 	}
 
 

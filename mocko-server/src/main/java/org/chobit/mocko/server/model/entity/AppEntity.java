@@ -8,7 +8,7 @@ import lombok.Data;
  * @author robin
  */
 @Data
-public final class AppEntity extends AbstractEntity {
+public final class AppEntity extends BaseEntity {
 
 
     /**

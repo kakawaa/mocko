@@ -9,7 +9,7 @@ import lombok.Data;
  * @author robin
  */
 @Data
-public final class PackageEntity extends AbstractEntity {
+public final class PackageEntity extends BaseEntity {
 
 
     /**

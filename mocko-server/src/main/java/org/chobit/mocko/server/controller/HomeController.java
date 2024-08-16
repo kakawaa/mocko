@@ -1,6 +1,6 @@
 package org.chobit.mocko.server.controller;
 
-import org.chobit.mocko.server.biz.UserBiz;
+import org.chobit.mocko.server.biz.UserLoginAction;
 import org.chobit.mocko.server.model.request.UserLoginRequest;
 import org.chobit.mocko.server.tools.AuthContext;
 import org.chobit.spring.autoconfigure.rw.ResponseWrapper;
@@ -22,12 +22,12 @@ public class HomeController {
 
 
     @Resource
-    private UserBiz userBiz;
+    private UserLoginAction userBiz;
 
 
     @PostMapping("/login")
     public String login(@Valid @RequestBody UserLoginRequest request) {
-        return userBiz.checkPassword(request.getUsername(), request.getPassword());
+        return userBiz.doLogin(request.getUsername(), request.getPassword());
     }
 
 
