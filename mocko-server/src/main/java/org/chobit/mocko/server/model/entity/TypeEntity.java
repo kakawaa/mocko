@@ -8,42 +8,42 @@ import lombok.Data;
  * @author robin
  */
 @Data
-public class TypeEntity extends BaseEntity {
+public final class TypeEntity extends BaseEntity {
 
 
-    /**
-     * 应用ID
-     */
-    private String appId;
+	/**
+	 * 应用ID
+	 */
+	private String appId;
 
 
-    /**
-     * 类ID
-     */
-    private String typeId;
+	/**
+	 * 类ID
+	 */
+	private String typeId;
 
 
-    /**
-     * 类别名
-     */
-    private String typeAlias;
+	/**
+	 * 类别名
+	 */
+	private String typeAlias;
 
 
-    /**
-     * 类名称
-     */
-    private String typeName;
+	/**
+	 * 类名称
+	 */
+	private String typeName;
 
 
-    /**
-     * 全限定类名
-     */
-    private String fullName;
+	/**
+	 * 全限定类名
+	 */
+	private String fullName;
 
 
-    /**
-     * 类描述信息
-     */
-    private String remark;
+	/**
+	 * 类描述信息
+	 */
+	private String remark;
 
 }

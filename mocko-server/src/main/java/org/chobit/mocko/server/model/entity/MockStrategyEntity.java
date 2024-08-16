@@ -11,31 +11,31 @@ import java.util.Date;
  * @author robin
  */
 @Data
-public class MockStrategyEntity extends BaseEntity {
+public final class MockStrategyEntity extends BaseEntity {
 
 
-    /**
-     * 方法ID
-     */
-    private String methodId;
+	/**
+	 * 方法ID
+	 */
+	private String methodId;
 
 
-    /**
-     * 策略表达式
-     */
-    private String expression;
+	/**
+	 * 策略表达式
+	 */
+	private String expression;
 
 
-    /**
-     * 响应时间
-     */
-    private String response;
+	/**
+	 * 响应时间
+	 */
+	private String response;
 
 
-    /**
-     * 上次请求时间
-     */
-    private Date lastRequestTime;
+	/**
+	 * 上次请求时间
+	 */
+	private Date lastRequestTime;
 
 
 }
