@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 import static org.chobit.commons.constans.Symbol.COMMA;
-import static org.chobit.mocko.server.constants.ResponseCode.USER_LOGIN_INFO_ERROR;
+import static org.chobit.mocko.server.constants.ResponseCode.USER_AUTH_ERROR;
 
 /**
  * 用户相关业务处理
@@ -55,7 +55,7 @@ public class UserLoginAction {
 		UserEntity user = userService.getByUserPwd(username, password);
 
 		if (null == user) {
-			throw new MockoServerException(USER_LOGIN_INFO_ERROR);
+			throw new MockoServerException(USER_AUTH_ERROR);
 		}
 
 		// 重置上次登录时间

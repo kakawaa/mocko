@@ -21,7 +21,7 @@ public final class Constants {
     /**
      * token标记
      */
-    public static final String TOKEN_FLAG = "token";
+    public static final String TOKEN_FLAG = "Authorization";
 
 
     private Constants() {
