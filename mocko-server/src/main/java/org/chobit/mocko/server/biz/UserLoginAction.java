@@ -4,6 +4,7 @@ import org.chobit.commons.codec.MD5;
 import org.chobit.commons.utils.LocalDateKit;
 import org.chobit.commons.utils.StrKit;
 import org.chobit.mocko.server.except.MockoServerException;
+import org.chobit.mocko.server.model.dto.UserItem;
 import org.chobit.mocko.server.model.entity.UserEntity;
 import org.chobit.mocko.server.service.UserService;
 import org.chobit.mocko.server.service.mapper.UserMapper;
@@ -61,16 +62,14 @@ public class UserLoginAction {
 		// 重置上次登录时间
 		LocalDateTime now = LocalDateTime.now();
 		userMapper.resetLoginTime(username, now);
-		user.setLastLoginTime(now);
 
 		// 使用用户名、密码、登录时间生成token
 		String authInfo = StrKit.join(COMMA, username, password, LocalDateKit.formatTime(now));
 		String token = MD5.encode(authInfo);
 
-		// 将登录信息置于权限认证上下文
-		AuthContext.addUsername(username);
-		AuthContext.addUser(user);
-		AuthContext.addToken(token);
+		// 将登录信息置于AuthContext
+		UserItem userItem = UserItem.builder().username(username).token(token).lastLoginTime(now).build();
+		AuthContext.addUser(userItem);
 
 		return token;
 	}

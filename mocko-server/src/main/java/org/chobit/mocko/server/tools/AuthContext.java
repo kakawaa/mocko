@@ -1,6 +1,10 @@
 package org.chobit.mocko.server.tools;
 
-import org.chobit.mocko.server.model.entity.UserEntity;
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import org.chobit.mocko.server.model.dto.UserItem;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * 用户登录信息及权限信息上下文
@@ -10,95 +14,92 @@ import org.chobit.mocko.server.model.entity.UserEntity;
 public final class AuthContext {
 
 
-    /**
-     * username线程缓存
-     */
-    private static final ThreadLocal<String> T_LOCAL_USERNAME = new InheritableThreadLocal<>();
+	/**
+	 * 用户信息缓存
+	 */
+	private static final Cache<String, UserItem> USER_CACHE =
+			Caffeine.newBuilder().maximumSize(1024).expireAfterAccess(30, TimeUnit.MINUTES).build();
 
 
-    /**
-     * token线程缓存
-     */
-    private static final ThreadLocal<String> T_LOCAL_TOKEN = new InheritableThreadLocal<>();
+	/**
+	 * user信息线程缓存
+	 */
+	private static final ThreadLocal<String> T_SESSION_ID = new InheritableThreadLocal<>();
 
 
-    /**
-     * user信息线程缓存
-     */
-    private static final ThreadLocal<UserEntity> T_LOCAL_USER = new InheritableThreadLocal<>();
+	/**
+	 * 将用户信息保存到线程缓存
+	 *
+	 * @param user 用户信息
+	 */
+	public static void addUser(UserItem user) {
+		String sessionId = T_SESSION_ID.get();
+		USER_CACHE.put(sessionId, user);
+	}
 
 
-    /**
-     * 将用户名保存到线程缓存
-     *
-     * @param username 用户名
-     */
-    public static void addUsername(String username) {
-        T_LOCAL_USERNAME.set(username);
-    }
+	/**
+	 * 获取用户信息
+	 *
+	 * @return 用户信息
+	 */
+	public static UserItem getUser() {
+		String sessionId = T_SESSION_ID.get();
+		return USER_CACHE.getIfPresent(sessionId);
+	}
 
 
-    /**
-     * 将用户信息保存到线程缓存
-     *
-     * @param user 用户信息
-     */
-    public static void addUser(UserEntity user) {
-        T_LOCAL_USER.set(user);
-    }
+	/**
+	 * 获取用户名
+	 *
+	 * @return 用户名
+	 */
+	public static String getUsername() {
+		UserItem user = getUser();
+		return null == user ? null : user.getUsername();
+	}
 
 
-    /**
-     * 将token信息保存到线程缓存
-     *
-     * @param token token信息
-     */
-    public static void addToken(String token) {
-        T_LOCAL_TOKEN.set(token);
-    }
+	/**
+	 * 获取当前的token信息
+	 *
+	 * @return token信息
+	 */
+	public static String getToken() {
+		UserItem user = getUser();
+		return null == user ? null : user.getToken();
+	}
 
 
-    /**
-     * 获取用户名
-     *
-     * @return 用户名
-     */
-    public static String getUsername() {
-        return T_LOCAL_USERNAME.get();
-    }
+	/**
+	 * 设置sessionId
+	 *
+	 * @param sessionId sessionId
+	 */
+	public static void setSessionId(String sessionId) {
+		T_SESSION_ID.set(sessionId);
+	}
 
 
-    /**
-     * 获取用户信息
-     *
-     * @return 用户信息
-     */
-    public static UserEntity getUser() {
-        return T_LOCAL_USER.get();
-    }
+	/**
+	 * 移除sessionId
+	 */
+	public static void removeSessionId() {
+		T_SESSION_ID.remove();
+	}
 
 
-    /**
-     * 获取当前的token信息
-     *
-     * @return token信息
-     */
-    public static String getToken() {
-        return T_LOCAL_TOKEN.get();
-    }
+	/**
+	 * 清理当前线程的缓存
+	 */
+	public static void clear() {
+		String sessionId = T_SESSION_ID.get();
+		USER_CACHE.invalidate(sessionId);
+		T_SESSION_ID.remove();
+	}
 
 
-    /**
-     * 清理当前线程的缓存
-     */
-    public static void clear() {
-        T_LOCAL_USERNAME.remove();
-        T_LOCAL_USER.remove();
-        T_LOCAL_TOKEN.remove();
-    }
-
-
-    private AuthContext() {
-        throw new UnsupportedOperationException("private constructor, cannot be accessed!");
-    }
+	private AuthContext() {
+		throw new UnsupportedOperationException("private constructor, cannot be accessed!");
+	}
 }
