@@ -3,11 +3,8 @@ package org.chobit.mocko.server.biz;
 import org.chobit.mocko.server.model.entity.AppEntity;
 import org.chobit.mocko.server.model.request.AppModifyRequest;
 import org.chobit.mocko.server.service.AppService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * 应用相关业务处理
@@ -18,8 +15,12 @@ import java.util.List;
 public class AppBiz {
 
 
-	@Resource
-	private AppService appService;
+	private final AppService appService;
+
+	@Autowired
+	public AppBiz(AppService appService) {
+		this.appService = appService;
+	}
 
 
 	/**
@@ -30,16 +31,6 @@ public class AppBiz {
 	 */
 	public boolean update(AppModifyRequest request) {
 		return appService.modifyAppName(request.getAppId(), request.getAppName());
-	}
-
-
-	/**
-	 * 获取用户应用集合
-	 *
-	 * @return 用户应用集合
-	 */
-	public List<AppEntity> findAll() {
-		return new LinkedList<>();
 	}
 
 

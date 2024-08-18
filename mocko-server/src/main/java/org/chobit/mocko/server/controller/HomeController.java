@@ -1,6 +1,6 @@
 package org.chobit.mocko.server.controller;
 
-import org.chobit.mocko.server.biz.UserLoginAction;
+import org.chobit.mocko.server.biz.action.UserLoginAction;
 import org.chobit.mocko.server.model.request.UserLoginRequest;
 import org.chobit.mocko.server.tools.AuthContext;
 import org.chobit.spring.autoconfigure.rw.ResponseWrapper;

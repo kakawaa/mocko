@@ -13,9 +13,8 @@ import org.chobit.mocko.server.model.entity.TypeEntity;
 import org.chobit.mocko.server.service.AppService;
 import org.chobit.mocko.server.service.MethodService;
 import org.chobit.mocko.server.service.TypeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 
 import static org.chobit.commons.utils.StrKit.isBlank;
 
@@ -29,12 +28,22 @@ import static org.chobit.commons.utils.StrKit.isBlank;
 public class MockAction {
 
 
-	@Resource
-	private AppService appService;
-	@Resource
-	private TypeService typeService;
-	@Resource
-	private MethodService methodService;
+
+	private final AppService appService;
+
+	private final TypeService typeService;
+
+	private final MethodService methodService;
+
+
+	@Autowired
+	public MockAction(AppService appService,
+	                  TypeService typeService,
+	                  MethodService methodService) {
+		this.appService = appService;
+		this.typeService = typeService;
+		this.methodService = methodService;
+	}
 
 
 	/**

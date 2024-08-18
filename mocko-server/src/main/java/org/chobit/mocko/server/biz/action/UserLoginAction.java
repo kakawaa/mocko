@@ -1,4 +1,4 @@
-package org.chobit.mocko.server.biz;
+package org.chobit.mocko.server.biz.action;
 
 import org.chobit.commons.codec.MD5;
 import org.chobit.commons.utils.LocalDateKit;
@@ -68,7 +68,8 @@ public class UserLoginAction {
 		String token = MD5.encode(authInfo);
 
 		// 将登录信息置于AuthContext
-		UserItem userItem = UserItem.builder().username(username).token(token).lastLoginTime(now).build();
+		UserItem userItem =
+				UserItem.builder().username(username).token(token).lastLoginTime(now).build();
 		AuthContext.addUser(userItem);
 
 		return token;
