@@ -11,7 +11,7 @@ import java.util.Date;
  * @author robin
  */
 @Data
-public final class MockStrategyEntity extends BaseEntity {
+public final class MethodResponseEntity extends BaseEntity {
 
 
 	/**

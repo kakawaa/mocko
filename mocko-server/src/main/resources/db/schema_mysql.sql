@@ -89,7 +89,7 @@ create table if not exists m_method
 --
 -- 方法mock策略表
 --
-create table if not exists m_method_strategy
+create table if not exists m_method_response
 (
     id                int          not null default 0 auto_increment comment 'id',
 
