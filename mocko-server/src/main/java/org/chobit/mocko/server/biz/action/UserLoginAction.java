@@ -3,6 +3,7 @@ package org.chobit.mocko.server.biz.action;
 import org.chobit.commons.codec.MD5;
 import org.chobit.commons.utils.LocalDateKit;
 import org.chobit.commons.utils.StrKit;
+import org.chobit.mocko.server.constants.ResponseCode;
 import org.chobit.mocko.server.except.MockoServerException;
 import org.chobit.mocko.server.model.dto.UserItem;
 import org.chobit.mocko.server.model.entity.UserEntity;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 import static org.chobit.commons.constans.Symbol.COMMA;
-import static org.chobit.mocko.server.constants.ResponseCode.USER_AUTH_ERROR;
 
 /**
  * 用户相关业务处理
@@ -56,7 +56,7 @@ public class UserLoginAction {
 		UserEntity user = userService.getByUserPwd(username, password);
 
 		if (null == user) {
-			throw new MockoServerException(USER_AUTH_ERROR);
+			throw new MockoServerException(ResponseCode.USER_LOGIN_INFO_ERROR);
 		}
 
 		// 重置上次登录时间

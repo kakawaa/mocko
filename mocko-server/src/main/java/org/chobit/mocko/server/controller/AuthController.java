@@ -18,7 +18,7 @@ import javax.validation.Valid;
 @ResponseWrapper
 @RestController
 @RequestMapping("")
-public class HomeController {
+public class AuthController {
 
 
     @Resource
