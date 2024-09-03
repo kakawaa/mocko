@@ -7,10 +7,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static org.chobit.commons.utils.StrKit.isBlank;
-import static org.chobit.commons.utils.StrKit.uuid;
-import static org.chobit.mocko.server.constants.Constants.SESSION_ID;
-
 /**
  * session信息拦截器
  *
@@ -22,10 +18,8 @@ public class SessionInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		if (isBlank(request.getRequestedSessionId())) {
-			request.getSession().setAttribute(SESSION_ID, uuid());
-		}
-		System.out.println(Thread.currentThread().getId() + " ------------------BEGIN " + request.getRequestedSessionId());
+		String sessionId = request.getSession(true).getId();
+		System.out.println(Thread.currentThread().getId() + " ------------------BEGIN " + sessionId);
 		AuthContext.setSessionId(request.getRequestedSessionId());
 
 		return true;
