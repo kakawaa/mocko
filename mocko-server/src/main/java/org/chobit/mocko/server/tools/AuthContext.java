@@ -2,7 +2,7 @@ package org.chobit.mocko.server.tools;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import org.chobit.mocko.server.model.dto.UserItem;
+import org.chobit.mocko.server.model.response.item.UserItem;
 
 import java.util.concurrent.TimeUnit;
 

@@ -3,7 +3,7 @@ package org.chobit.mocko.server.controller;
 import org.chobit.mocko.server.biz.TypeBiz;
 import org.chobit.mocko.server.model.request.AppIdRequest;
 import org.chobit.mocko.server.model.request.ClassIdRequest;
-import org.chobit.mocko.server.model.vo.ClassTreeNode;
+import org.chobit.mocko.server.model.response.item.ClassTreeNode;
 import org.chobit.spring.autoconfigure.rw.ResponseWrapper;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -5,7 +5,7 @@ import org.chobit.commons.model.Tuple2;
 import org.chobit.commons.utils.Collections2;
 import org.chobit.commons.utils.StrKit;
 import org.chobit.mocko.server.constants.NodeType;
-import org.chobit.mocko.server.model.vo.ClassTreeNode;
+import org.chobit.mocko.server.model.response.item.ClassTreeNode;
 
 import java.util.*;
 import java.util.stream.Collectors;

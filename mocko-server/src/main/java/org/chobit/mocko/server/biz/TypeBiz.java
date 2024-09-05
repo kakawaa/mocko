@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.chobit.commons.utils.Collections2;
 import org.chobit.mocko.server.model.entity.MethodEntity;
 import org.chobit.mocko.server.model.entity.TypeEntity;
-import org.chobit.mocko.server.model.vo.ClassTreeNode;
+import org.chobit.mocko.server.model.response.item.ClassTreeNode;
 import org.chobit.mocko.server.service.MethodService;
 import org.chobit.mocko.server.service.TypeService;
 import org.chobit.mocko.server.tools.ClassTreeGenerator;

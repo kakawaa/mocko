@@ -3,6 +3,7 @@ package org.chobit.mocko.server.service.mapper;
 import org.apache.ibatis.annotations.*;
 import org.chobit.mocko.server.model.entity.MethodEntity;
 import org.chobit.mocko.server.model.request.MethodResponseModifyRequest;
+import org.chobit.mocko.server.model.response.item.MethodItem;
 
 import java.util.List;
 
@@ -54,6 +55,11 @@ public interface MethodMapper {
     void resetMethodRequestTime(@Param("methodId") String methodId);
 
 
+    /**
+     * 新增方法记录
+     *
+     * @param method 方法信息
+     */
     @Insert({
             "insert into m_method",
             "(app_id, type_id, method_id, method_alias, method_name, args, response_type)",
@@ -62,4 +68,14 @@ public interface MethodMapper {
     })
     @Options(useGeneratedKeys = true)
     void add(@Param("m") MethodEntity method);
+
+
+    /**
+     * 查询方法信息，支持方法列表
+     *
+     * @param appId   应用ID
+     * @param keyword 关键字
+     * @return 方法信息集合
+     */
+    List<MethodItem> findList(@Param("appId") String appId, @Param("keyword") String keyword);
 }

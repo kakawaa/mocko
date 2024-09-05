@@ -1,4 +1,4 @@
-package org.chobit.mocko.server.model.vo;
+package org.chobit.mocko.server.model.response.item;
 
 import lombok.Data;
 import org.chobit.commons.model.TreeNode;

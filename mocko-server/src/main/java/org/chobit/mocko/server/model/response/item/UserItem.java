@@ -1,4 +1,4 @@
-package org.chobit.mocko.server.model.dto;
+package org.chobit.mocko.server.model.response.item;
 
 import lombok.Builder;
 import lombok.Data;

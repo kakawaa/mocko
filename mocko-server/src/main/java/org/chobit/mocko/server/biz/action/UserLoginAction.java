@@ -5,7 +5,7 @@ import org.chobit.commons.utils.LocalDateKit;
 import org.chobit.commons.utils.StrKit;
 import org.chobit.mocko.server.constants.ResponseCode;
 import org.chobit.mocko.server.except.MockoServerException;
-import org.chobit.mocko.server.model.dto.UserItem;
+import org.chobit.mocko.server.model.response.item.UserItem;
 import org.chobit.mocko.server.model.entity.UserEntity;
 import org.chobit.mocko.server.service.UserService;
 import org.chobit.mocko.server.service.mapper.UserMapper;

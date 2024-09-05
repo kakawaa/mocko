@@ -1,9 +1,12 @@
 package org.chobit.mocko.server.controller;
 
-import org.chobit.mocko.server.biz.MethodBiz;
+import org.chobit.commons.model.response.PageItem;
 import org.chobit.mocko.server.model.entity.MethodEntity;
 import org.chobit.mocko.server.model.request.MethodIdRequest;
+import org.chobit.mocko.server.model.request.MethodPageRequest;
 import org.chobit.mocko.server.model.request.MethodResponseModifyRequest;
+import org.chobit.mocko.server.model.response.item.MethodItem;
+import org.chobit.mocko.server.service.MethodService;
 import org.chobit.spring.autoconfigure.rw.ResponseWrapper;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +28,7 @@ public class MethodController {
 
 
     @Resource
-    private MethodBiz methodBiz;
+    private MethodService methodService;
 
 
     /**
@@ -36,7 +39,7 @@ public class MethodController {
      */
     @PostMapping("/get")
     public MethodEntity getByMethodId(@RequestBody @Validated MethodIdRequest request) {
-        return methodBiz.getByMethodId(request.getMethodId());
+        return methodService.getByMethodId(request.getMethodId());
     }
 
 
@@ -48,7 +51,19 @@ public class MethodController {
      */
     @PostMapping("/change-response")
     public boolean changeResponse(@RequestBody @Validated MethodResponseModifyRequest request) {
-        return methodBiz.changeMethodResponse(request);
+        return methodService.modifyResponse(request);
+    }
+
+
+    /**
+     * 分页查询方法信息
+     *
+     * @param request 方法分页查询请求
+     * @return 方法信息
+     */
+    @PostMapping("/list")
+    public PageItem<MethodItem> findMethodsInPage(@RequestBody @Validated MethodPageRequest request) {
+        return methodService.findInPage(request);
     }
 
 }
