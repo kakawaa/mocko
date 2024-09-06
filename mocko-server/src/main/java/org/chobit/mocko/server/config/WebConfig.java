@@ -15,14 +15,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
 
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
 
-		registry.addInterceptor(new SessionInterceptor());
+        registry.addInterceptor(new SessionInterceptor());
 
-		registry.addInterceptor(new AuthInterceptor())
-				.excludePathPatterns("/api/**", "/login", "/logout");
-	}
+        registry.addInterceptor(new AuthInterceptor())
+                .excludePathPatterns("/api/**", "/login", "/logout", "/favicon.ico");
+    }
 
 
 }

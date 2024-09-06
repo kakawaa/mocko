@@ -45,7 +45,7 @@ public class ApiExceptionAdvisor {
         Result<?> r = new Result<>(e.getCode());
         r.setMsg(e.getMessage());
 
-        logger.warn("发现服务端异常：{}", r.getMsg(), e);
+        logger.warn("发现服务端异常：{}", r.getMsg());
 
         return r;
     }
