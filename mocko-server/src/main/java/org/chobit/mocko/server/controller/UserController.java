@@ -4,12 +4,12 @@ import org.chobit.mocko.server.model.request.UserAddRequest;
 import org.chobit.mocko.server.service.UserService;
 import org.chobit.spring.autoconfigure.rw.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 
 /**
  * 用户信息相关接口
@@ -32,7 +32,7 @@ public class UserController {
 
 
 	@PostMapping("/add")
-	public Integer add(@RequestBody @Valid UserAddRequest request) {
+	public Integer add(@RequestBody @Validated UserAddRequest request) {
 		return userService.addUser(request);
 	}
 

@@ -5,7 +5,7 @@
     <select id="findList"
             resultType="org.chobit.mocko.server.model.response.item.MethodItem">
         select
-        t.app_id
+        t.app_id,
         t.type_id,
         m.method_id,
         t.type_alias,

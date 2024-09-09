@@ -4,13 +4,13 @@ import org.chobit.mocko.server.biz.action.UserLoginAction;
 import org.chobit.mocko.server.model.request.UserLoginRequest;
 import org.chobit.mocko.server.tools.AuthContext;
 import org.chobit.spring.autoconfigure.rw.ResponseWrapper;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
 
 /**
  * @author robin
@@ -26,7 +26,7 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    public String login(@Valid @RequestBody UserLoginRequest request) {
+    public String login(@Validated @RequestBody UserLoginRequest request) {
         return userBiz.doLogin(request.getUsername(), request.getPassword());
     }
 

@@ -2,7 +2,7 @@ package org.chobit.mocko.server.model.request;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**

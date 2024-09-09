@@ -13,6 +13,7 @@ spring:
     dbcp2:
       validation-query: SELECT 1
       pool-prepared-statements: true
+      test-on-borrow: true
   h2:
     console:
       enabled: true

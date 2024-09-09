@@ -3,6 +3,8 @@ package org.chobit.mocko.server.model.request;
 import lombok.Data;
 import org.chobit.commons.model.request.BasePageRequest;
 
+import jakarta.validation.constraints.NotBlank;
+
 @Data
 public class MethodPageRequest extends BasePageRequest {
 
@@ -13,6 +15,7 @@ public class MethodPageRequest extends BasePageRequest {
     /**
      * 应用ID
      */
+    @NotBlank(message = "应用ID不可为空")
     private String appId;
 
 

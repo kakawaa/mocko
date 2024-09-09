@@ -1,8 +1,8 @@
 package org.chobit.mocko.server.model.request;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
 
 /**
  * 根据应用ID执行的请求

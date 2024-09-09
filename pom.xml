@@ -82,7 +82,12 @@
                 <artifactId>common-utils</artifactId>
                 <version>${zhy.version}</version>
             </dependency>
-
+            
+            <dependency>
+                <groupId>jakarta.validation</groupId>
+                <artifactId>jakarta.validation-api</artifactId>
+                <version>3.1.0</version>
+            </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-core</artifactId>

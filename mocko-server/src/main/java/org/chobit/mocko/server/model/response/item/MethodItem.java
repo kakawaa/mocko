@@ -1,9 +1,12 @@
 package org.chobit.mocko.server.model.response.item;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+
+import static org.chobit.commons.constans.CommonConstants.COMMON_DATETIME_PATTERN;
 
 @Data
 public class MethodItem {
@@ -57,6 +60,7 @@ public class MethodItem {
     /**
      * 方法上次请求时间
      */
+    @JsonFormat(pattern = COMMON_DATETIME_PATTERN)
     private LocalDateTime lastRequestTime;
 
 }
