@@ -89,14 +89,15 @@ create table if not exists m_method
 --
 -- 方法mock策略表
 --
-create table if not exists m_method_response
+create table if not exists m_method_rule
 (
     id                int          not null default 0 auto_increment comment 'id',
 
     method_id         varchar(32)  not null default '' comment '方法ID',
-    title             varchar(64)  not null default '' comment '标题',
-    rule              varchar(128) not null default '' comment '策略规则',
+    rule_title        varchar(64)  not null default '' comment '标题',
+    rule_exp          varchar(128) not null default '' comment '策略规则',
     response          tinytext     not null default '' comment 'mock的返回值',
+    remark            mediumtext   not null default '' comment '备注',
     last_request_time datetime     not null default '1970-01-01 08:00:00' comment '上次请求时间',
 
     operator_code     int          not null default 0 comment '操作人ID',
