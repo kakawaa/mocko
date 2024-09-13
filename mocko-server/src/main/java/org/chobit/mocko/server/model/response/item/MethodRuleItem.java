@@ -1,17 +1,17 @@
-package org.chobit.mocko.server.model.entity;
-
+package org.chobit.mocko.server.model.response.item;
 
 import lombok.Data;
 
 import java.util.Date;
 
-/**
- * mock 策略
- *
- * @author robin
- */
 @Data
-public final class MethodRuleEntity extends BaseEntity {
+public class MethodRuleItem {
+
+
+    /**
+     * 规则ID
+     */
+    private Integer id;
 
 
     /**

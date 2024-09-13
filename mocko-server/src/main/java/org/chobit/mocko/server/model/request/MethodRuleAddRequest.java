@@ -1,28 +1,26 @@
-package org.chobit.mocko.server.model.entity;
+package org.chobit.mocko.server.model.request;
 
-
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
-import java.util.Date;
-
 /**
- * mock 策略
- *
- * @author robin
+ * 方法规则新增请求
  */
 @Data
-public final class MethodRuleEntity extends BaseEntity {
+public class MethodRuleAddRequest {
 
 
     /**
      * 方法ID
      */
+    @NotBlank(message = "方法ID不可为空")
     private String methodId;
 
 
     /**
      * 规则名称
      */
+    @NotBlank(message = "规则名称不可为空")
     private String ruleTitle;
 
 
@@ -35,6 +33,7 @@ public final class MethodRuleEntity extends BaseEntity {
     /**
      * 响应时间
      */
+    @NotBlank(message = "方法返回值不可为空")
     private String response;
 
 
@@ -42,12 +41,6 @@ public final class MethodRuleEntity extends BaseEntity {
      * 备注
      */
     private String remark;
-
-
-    /**
-     * 上次请求时间
-     */
-    private Date lastRequestTime;
 
 
 }

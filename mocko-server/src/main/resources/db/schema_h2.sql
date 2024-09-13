@@ -109,21 +109,18 @@ create table if not exists m_method
 
 
 --
--- 方法信息表
+-- 方法规则表
 --
 create table if not exists m_method_rule
 (
     id                int          not null default 0 auto_increment comment 'id',
 
-    app_id            varchar(32)  not null default '' comment '应用ID',
-    type_id           varchar(32)  not null default '' comment '类ID',
     method_id         varchar(32)  not null default '' comment '方法ID',
-    method_alias      varchar(32)  not null default '' comment '方法别名',
-    method_name       varchar(64)  not null default '' comment '方法名称: 全限定类名#方法名',
-    response_type     varchar(128) not null default '' comment '返回值类型',
-    args              tinytext     not null default '' comment '参数信息',
-    response          text         not null default '' comment '响应信息',
-    last_request_time datetime     not null default now() comment '上次请求时间',
+    rule_title        varchar(64)  not null default '' comment '规则标题',
+    expression        varchar(128) not null default '' comment '规则表达式',
+    response          text         not null default '' comment 'mock的返回值',
+    remark            tinytext     not null default '' comment '备注',
+    last_request_time datetime     not null default '1970-01-01 08:00:00' comment '上次请求时间',
 
     operator_code     int          not null default 0 comment '操作人ID',
     deleted           int          not null default 0 comment '删除标记',
