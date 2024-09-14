@@ -16,15 +16,6 @@ import java.util.List;
 public interface MethodMapper {
 
 
-    /**
-     * 根据methodId获取方法信息
-     *
-     * @param methodId 方法ID
-     * @return 方法信息
-     */
-    @Select({"select * from m_method where method_id=#{methodId} limit 1"})
-    MethodEntity getByMethodId(@Param("methodId") String methodId);
-
 
     /**
      * 查询类下的全部方法
@@ -33,7 +24,7 @@ public interface MethodMapper {
      * @return 类下的全部方法
      */
     @Select({"select * from m_method where type_id=#{typeId}"})
-    List<MethodEntity> findByCLassId(@Param("typeId") String classId);
+    List<MethodEntity> findByClassId(@Param("typeId") String classId);
 
 
     /**
@@ -78,4 +69,13 @@ public interface MethodMapper {
      * @return 方法信息集合
      */
     List<MethodItem> findList(@Param("appId") String appId, @Param("keyword") String keyword);
+
+
+    /**
+     * 根据methodId获取方法信息
+     *
+     * @param methodId 方法ID
+     * @return 方法信息
+     */
+    MethodItem getByMethodId(@Param("methodId") String methodId);
 }

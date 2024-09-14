@@ -8,8 +8,8 @@ import org.chobit.mocko.core.model.MethodMeta;
 import org.chobit.mocko.server.constants.ResponseCode;
 import org.chobit.mocko.server.except.MockoResponseException;
 import org.chobit.mocko.server.model.entity.AppEntity;
-import org.chobit.mocko.server.model.entity.MethodEntity;
 import org.chobit.mocko.server.model.entity.TypeEntity;
+import org.chobit.mocko.server.model.response.item.MethodItem;
 import org.chobit.mocko.server.service.AppService;
 import org.chobit.mocko.server.service.MethodService;
 import org.chobit.mocko.server.service.TypeService;
@@ -54,7 +54,7 @@ public class MockAction {
 	 */
 	public String queryMockResponse(MethodMeta meta) {
 		String methodId = this.computeMethodId(meta);
-		MethodEntity method = methodService.getByMethodId(methodId);
+		MethodItem method = methodService.getByMethodId(methodId);
 
 		if (null == method) {
 			checkAndSave(meta, methodId);

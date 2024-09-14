@@ -8,6 +8,10 @@ import java.time.LocalDateTime;
 
 import static org.chobit.commons.constans.CommonConstants.COMMON_DATETIME_PATTERN;
 
+/**
+ * 方法信息
+ * @author robin
+ */
 @Data
 public class MethodItem {
 
@@ -35,7 +39,7 @@ public class MethodItem {
     /**
      * 类全名
      */
-    private String typeFullName;
+    private String typeName;
 
     /**
      * 方法描述

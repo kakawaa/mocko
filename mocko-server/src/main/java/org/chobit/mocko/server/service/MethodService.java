@@ -44,7 +44,7 @@ public class MethodService {
 	 * @param methodId 方法ID
 	 * @return 方法信息
 	 */
-	public MethodEntity getByMethodId(String methodId) {
+	public MethodItem getByMethodId(String methodId) {
 		return methodMapper.getByMethodId(methodId);
 	}
 
@@ -56,7 +56,7 @@ public class MethodService {
 	 * @return 类下的全部方法
 	 */
 	public List<MethodEntity> findByClassId(String classId) {
-		return methodMapper.findByCLassId(classId);
+		return methodMapper.findByClassId(classId);
 	}
 
 

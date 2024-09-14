@@ -12,28 +12,37 @@ import jakarta.validation.constraints.NotBlank;
 @Data
 public class MethodModifyRequest {
 
-    /**
-     * 方法ID
-     */
-    @NotBlank(message = "方法ID不可为空")
-    private String methodId;
+
+	/**
+	 * 方法ID
+	 */
+	@NotBlank(message = "方法ID不可为空")
+	private String methodId;
 
 
-    /**
-     * 方法名称
-     */
-    private String methodName;
+	/**
+	 * 类名
+	 */
+	private String typeName;
 
 
-    /**
-     * 方法别名
-     */
-    private String methodAlias;
+	/**
+	 * 方法名称
+	 */
+	private String methodName;
 
 
-    /**
-     * 方法返回值
-     */
-    private String response;
+	/**
+	 * 方法描述
+	 */
+	@NotBlank(message = "方法描述不可为空")
+	private String methodAlias;
+
+
+	/**
+	 * 返回值类型
+	 */
+	private String responseType;
+
 
 }
