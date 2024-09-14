@@ -100,7 +100,7 @@ create table if not exists m_method
     response          text         not null default '' comment '响应信息',
     last_request_time datetime     not null default now() comment '上次请求时间',
 
-    operator_code     int          not null default 0 comment '操作人ID',
+    operator_code     varchar(32)  not null default 0 comment '操作人ID',
     deleted           int          not null default 0 comment '删除标记',
     create_time       datetime     not null default now() comment '创建时间',
     update_time       timestamp    not null default current_timestamp on update current_timestamp comment '更新时间',
@@ -122,7 +122,7 @@ create table if not exists m_method_rule
     remark            tinytext     not null default '' comment '备注',
     last_request_time datetime     not null default '1970-01-01 08:00:00' comment '上次请求时间',
 
-    operator_code     int          not null default 0 comment '操作人ID',
+    operator_code     varchar(32)  not null default 0 comment '操作人ID',
     deleted           int          not null default 0 comment '删除标记',
     create_time       datetime     not null default now() comment '创建时间',
     update_time       timestamp    not null default current_timestamp on update current_timestamp comment '更新时间',

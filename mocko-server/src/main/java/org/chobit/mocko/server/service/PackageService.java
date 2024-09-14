@@ -1,9 +1,9 @@
 package org.chobit.mocko.server.service;
 
 import org.chobit.mocko.server.service.mapper.PackageMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 
@@ -13,12 +13,16 @@ import java.util.List;
  * @author robin
  */
 @Service
-public class PackageService  {
+public class PackageService {
 
 
-    @Resource
-    private PackageMapper packageMapper;
+    private final PackageMapper packageMapper;
 
+
+    @Autowired
+    public PackageService(PackageMapper packageMapper) {
+        this.packageMapper = packageMapper;
+    }
 
     /**
      * 根据应用ID查找包名

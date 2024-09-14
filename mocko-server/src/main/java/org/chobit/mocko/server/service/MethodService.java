@@ -12,6 +12,7 @@ import org.chobit.mocko.server.model.request.MethodModifyRequest;
 import org.chobit.mocko.server.model.request.MethodPageRequest;
 import org.chobit.mocko.server.model.request.MethodResponseModifyRequest;
 import org.chobit.mocko.server.model.response.item.MethodItem;
+import org.chobit.mocko.server.model.response.item.MethodRuleItem;
 import org.chobit.mocko.server.service.mapper.MethodMapper;
 import org.chobit.mocko.server.service.mapper.MethodRuleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,12 @@ public class MethodService {
      * @return 方法信息
      */
     public MethodItem getByMethodId(String methodId) {
-        return methodMapper.getByMethodId(methodId);
+        MethodItem result = methodMapper.getByMethodId(methodId);
+        if (null != result) {
+            List<MethodRuleItem> ruleList = methodRuleMapper.fidByMethodId(methodId);
+            result.setRuleList(ruleList);
+        }
+        return result;
     }
 
 

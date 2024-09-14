@@ -5,11 +5,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.chobit.commons.constans.CommonConstants.COMMON_DATETIME_PATTERN;
 
 /**
  * 方法信息
+ *
  * @author robin
  */
 @Data
@@ -66,5 +68,10 @@ public class MethodItem {
      */
     @JsonFormat(pattern = COMMON_DATETIME_PATTERN)
     private LocalDateTime lastRequestTime;
+
+    /**
+     * 方法对应的规则信息
+     */
+    private List<MethodRuleItem> ruleList;
 
 }
