@@ -99,6 +99,7 @@ create table if not exists m_method
     args              tinytext     not null default '' comment '参数信息',
     response          text         not null default '' comment '响应信息',
     last_request_time datetime     not null default now() comment '上次请求时间',
+    request_count     int          not null default 0 comment '请求次数',
 
     operator_code     varchar(32)  not null default 0 comment '操作人ID',
     deleted           int          not null default 0 comment '删除标记',
@@ -119,6 +120,7 @@ create table if not exists m_method_rule
     rule_title        varchar(64)  not null default '' comment '规则标题',
     expression        varchar(128) not null default '' comment '规则表达式',
     response          text         not null default '' comment 'mock的返回值',
+    switch_flag       tinyint      not null default 1 comment '是否开启规则',
     remark            tinytext     not null default '' comment '备注',
     last_request_time datetime     not null default '1970-01-01 08:00:00' comment '上次请求时间',
 

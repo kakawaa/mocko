@@ -52,9 +52,15 @@ public enum ResponseCode implements CodeDescEnum {
 
 
 	/**
+	 * 没有有效的方法响应信息
+	 */
+	NONE_VALID_MOCK_RESPONSE(20002, "没有有效的方法响应信息"),
+
+
+	/**
 	 * 方法响应信息无效
 	 */
-	ILLEGAL_MOCK_RESPONSE(20002, "方法响应信息无效"),
+	ILLEGAL_MOCK_RESPONSE(20003, "方法响应信息无效"),
 
 
 	/**

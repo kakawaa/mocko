@@ -1,8 +1,8 @@
 package org.chobit.mocko.server.biz;
 
 import lombok.extern.slf4j.Slf4j;
-import org.chobit.mocko.server.model.entity.MethodEntity;
 import org.chobit.mocko.server.model.request.MethodResponseModifyRequest;
+import org.chobit.mocko.server.model.response.item.MethodItem;
 import org.chobit.mocko.server.service.MethodService;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +28,7 @@ public class MethodBiz {
      * @param methodId 方法ID
      * @return 方法信息
      */
-    public MethodEntity getByMethodId(String methodId) {
+    public MethodItem getByMethodId(String methodId) {
         return methodService.getByMethodId(methodId);
     }
 

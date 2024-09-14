@@ -3,14 +3,13 @@ package org.chobit.mocko.server.model.request;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-
 /**
- * 方法规则编辑请求
+ * 方法规则ID相关请求
  *
  * @author robin
  */
 @Data
-public class MethodRuleModifyRequest extends MethodRuleAddRequest {
+public class MethodRuleIdRequest {
 
 
 	/**
@@ -18,5 +17,6 @@ public class MethodRuleModifyRequest extends MethodRuleAddRequest {
 	 */
 	@NotNull(message = "规则ID不可为空")
 	private Integer id;
+
 
 }

@@ -1,20 +1,31 @@
 package org.chobit.mocko.server.biz.action;
 
+import lombok.extern.slf4j.Slf4j;
 import org.chobit.commons.codec.MD5;
 import org.chobit.commons.constans.Symbol;
 import org.chobit.commons.utils.Collections2;
+import org.chobit.commons.utils.JsonKit;
 import org.chobit.mocko.core.model.ArgInfo;
 import org.chobit.mocko.core.model.MethodMeta;
 import org.chobit.mocko.server.constants.ResponseCode;
+import org.chobit.mocko.server.constants.YesOrNo;
 import org.chobit.mocko.server.except.MockoResponseException;
 import org.chobit.mocko.server.model.entity.AppEntity;
 import org.chobit.mocko.server.model.entity.TypeEntity;
 import org.chobit.mocko.server.model.response.item.MethodItem;
+import org.chobit.mocko.server.model.response.item.MethodRuleItem;
 import org.chobit.mocko.server.service.AppService;
+import org.chobit.mocko.server.service.MethodRuleService;
 import org.chobit.mocko.server.service.MethodService;
 import org.chobit.mocko.server.service.TypeService;
+import org.mvel2.MVEL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.chobit.commons.utils.StrKit.isBlank;
 
@@ -24,9 +35,9 @@ import static org.chobit.commons.utils.StrKit.isBlank;
  *
  * @author robin
  */
+@Slf4j
 @Component
 public class MockAction {
-
 
 
 	private final AppService appService;
@@ -35,14 +46,16 @@ public class MockAction {
 
 	private final MethodService methodService;
 
+	private final MethodRuleService methodRuleService;
+
 
 	@Autowired
-	public MockAction(AppService appService,
-	                  TypeService typeService,
-	                  MethodService methodService) {
+	public MockAction(AppService appService, TypeService typeService,
+	                  MethodService methodService, MethodRuleService methodRuleService) {
 		this.appService = appService;
 		this.typeService = typeService;
 		this.methodService = methodService;
+		this.methodRuleService = methodRuleService;
 	}
 
 
@@ -61,13 +74,64 @@ public class MockAction {
 			throw new MockoResponseException(ResponseCode.EMPTY_MOCK_RESPONSE);
 		}
 
-		if (isBlank(method.getResponse())) {
+		if (Collections2.isEmpty(method.getRuleList())) {
 			throw new MockoResponseException(ResponseCode.EMPTY_MOCK_RESPONSE);
 		}
 
-		methodService.resetRequestTime(methodId);
+		// 过滤出正在启用的规则
+		List<MethodRuleItem> methodRuleItems = method.getRuleList()
+				.stream().filter(e -> YesOrNo.YES.is(e.getSwitchFlag())).collect(Collectors.toList());
+		if (Collections2.isEmpty(methodRuleItems)) {
+			throw new MockoResponseException(ResponseCode.EMPTY_MOCK_RESPONSE);
+		}
 
-		return method.getResponse();
+		// 根据参数匹配出响应信息
+		MethodRuleItem rule = this.matchResponse(meta.getArgs(), methodRuleItems);
+		if (null == rule || isBlank(rule.getResponse())) {
+			throw new MockoResponseException(ResponseCode.NONE_VALID_MOCK_RESPONSE);
+		}
+
+		// 重置请求信息
+		methodService.resetRequestTime(methodId);
+		methodRuleService.resetRequestInfo(rule.getId());
+
+		return rule.getResponse();
+	}
+
+
+	private MethodRuleItem matchResponse(List<ArgInfo> args, List<MethodRuleItem> rules) {
+
+		if (Collections2.isEmpty(rules)) {
+			return rules.get(0);
+		}
+
+		Map<String, Object> map = new LinkedHashMap<>();
+		for (int i = 0; i < args.size(); i++) {
+			String key = "$" + i;
+			map.put(key, args.get(i).getValue());
+		}
+
+		for (MethodRuleItem rule : rules) {
+			// 不设置表达式时，默认是通用规则
+			if (isBlank(rule.getExpression())) {
+				return rule;
+			}
+
+			// 根据表达式和参数匹配出预期的结果
+			boolean isMatched;
+			try {
+				isMatched = MVEL.evalToBoolean(rule.getExpression(), map);
+			} catch (Exception e) {
+				logger.info("match response error, expression: {}, args: {}", rule.getExpression(), JsonKit.toJson(map));
+				continue;
+			}
+
+			if (isMatched) {
+				return rule;
+			}
+		}
+
+		return null;
 	}
 
 
