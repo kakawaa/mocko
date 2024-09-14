@@ -51,8 +51,18 @@ public interface MethodRuleMapper {
      * @return 方法返回值规则信息
      */
     @Select({
-            "select * from m_method_response where method_id=#{methodId} order by id desc"
+            "select * from m_method_rule where method_id=#{methodId} order by id desc"
     })
     List<MethodRuleItem> fidByMethodId(@Param("methodId") String methodId);
+
+
+    /**
+     * 删除方法对应的规则记录
+     *
+     * @param methodId 方法ID
+     * @return 删除的条数
+     */
+    @Delete({"delete from m_method_rule where method_id=#{methodId}"})
+    int deleteByMethodId(@Param("methodId") String methodId);
 
 }

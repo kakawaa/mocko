@@ -2,6 +2,7 @@ package org.chobit.mocko.server.service.mapper;
 
 import org.apache.ibatis.annotations.*;
 import org.chobit.mocko.server.model.entity.MethodEntity;
+import org.chobit.mocko.server.model.request.MethodModifyRequest;
 import org.chobit.mocko.server.model.request.MethodResponseModifyRequest;
 import org.chobit.mocko.server.model.response.item.MethodItem;
 
@@ -14,7 +15,6 @@ import java.util.List;
  */
 @Mapper
 public interface MethodMapper {
-
 
 
     /**
@@ -78,4 +78,30 @@ public interface MethodMapper {
      * @return 方法信息
      */
     MethodItem getByMethodId(@Param("methodId") String methodId);
+
+
+    /**
+     * 更新方法信息
+     *
+     * @param req 更新请求
+     * @return 是否更新成功
+     */
+    @Update({
+            "update m_method set",
+            "method_alias=#{item.methodAlias}",
+            "where method_id=#{item.methodId}"
+    })
+    boolean modify(@Param("item") MethodModifyRequest req);
+
+
+    /**
+     * 删除方法
+     *
+     * @param methodId 方法ID
+     * @return 是否删除成功
+     */
+    @Delete({
+            "delete from m_method where method_id=#{methodId}"
+    })
+    boolean delete(@Param("methodId") String methodId);
 }
