@@ -41,18 +41,6 @@ public class MethodController {
 
 
     /**
-     * 更新方法返回值
-     *
-     * @param request 更新请求
-     * @return 是否更新成功
-     */
-    @PostMapping("/change-response")
-    public boolean changeResponse(@RequestBody @Validated MethodResponseModifyRequest request) {
-        return methodService.modifyResponse(request);
-    }
-
-
-    /**
      * 分页查询方法信息
      *
      * @param request 方法分页查询请求

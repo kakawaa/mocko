@@ -3,7 +3,6 @@ package org.chobit.mocko.server.service.mapper;
 import org.apache.ibatis.annotations.*;
 import org.chobit.mocko.server.model.entity.MethodEntity;
 import org.chobit.mocko.server.model.request.MethodModifyRequest;
-import org.chobit.mocko.server.model.request.MethodResponseModifyRequest;
 import org.chobit.mocko.server.model.response.item.MethodItem;
 
 import java.util.List;
@@ -25,16 +24,6 @@ public interface MethodMapper {
      */
     @Select({"select * from m_method where type_id=#{typeId}"})
     List<MethodEntity> findByClassId(@Param("typeId") String classId);
-
-
-    /**
-     * 更新方法返回值
-     *
-     * @param req 更新请求
-     * @return 是否更新成功
-     */
-    @Update({"update m_method set response=#{req.response} where method_id=#{req.methodId}"})
-    boolean modifyMethodResponse(@Param("req") MethodResponseModifyRequest req);
 
 
     /**

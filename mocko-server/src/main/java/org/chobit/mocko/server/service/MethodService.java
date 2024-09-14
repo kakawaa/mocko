@@ -10,7 +10,6 @@ import org.chobit.mocko.server.model.entity.MethodEntity;
 import org.chobit.mocko.server.model.request.MethodDeleteRequest;
 import org.chobit.mocko.server.model.request.MethodModifyRequest;
 import org.chobit.mocko.server.model.request.MethodPageRequest;
-import org.chobit.mocko.server.model.request.MethodResponseModifyRequest;
 import org.chobit.mocko.server.model.response.item.MethodItem;
 import org.chobit.mocko.server.model.response.item.MethodRuleItem;
 import org.chobit.mocko.server.service.mapper.MethodMapper;
@@ -70,17 +69,6 @@ public class MethodService {
      */
     public List<MethodEntity> findByClassId(String classId) {
         return methodMapper.findByClassId(classId);
-    }
-
-
-    /**
-     * 更新方法返回值
-     *
-     * @param req 更新请求
-     * @return 是否更新成功
-     */
-    public boolean modifyResponse(MethodResponseModifyRequest req) {
-        return methodMapper.modifyMethodResponse(req);
     }
 
 
