@@ -3,10 +3,13 @@ package org.chobit.mocko.server.service;
 import lombok.extern.slf4j.Slf4j;
 import org.chobit.mocko.server.model.request.MethodRuleAddRequest;
 import org.chobit.mocko.server.model.request.MethodRuleModifyRequest;
+import org.chobit.mocko.server.model.response.item.MethodRuleItem;
 import org.chobit.mocko.server.service.mapper.MethodRuleMapper;
 import org.chobit.mocko.server.tools.AuthContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 /**
@@ -72,5 +75,15 @@ public class MethodRuleService {
 		methodRuleMapper.resetRequestInfo(ruleId);
 	}
 
+
+	/**
+	 * 根据方法ID获取规则信息
+	 *
+	 * @param methodId 方法ID
+	 * @return 规则集合
+	 */
+	public List<MethodRuleItem> findByMethodId(String methodId) {
+		return methodRuleMapper.fidByMethodId(methodId);
+	}
 
 }
