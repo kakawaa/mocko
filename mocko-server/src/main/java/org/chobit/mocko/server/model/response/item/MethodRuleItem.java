@@ -2,8 +2,13 @@ package org.chobit.mocko.server.model.response.item;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
+/**
+ * 方法规则信息
+ *
+ * @author robin
+ */
 @Data
 public class MethodRuleItem {
 
@@ -53,7 +58,7 @@ public class MethodRuleItem {
 	/**
 	 * 上次请求时间
 	 */
-	private Date lastRequestTime;
+	private LocalDateTime lastRequestTime;
 
 
 	/**

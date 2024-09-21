@@ -86,4 +86,14 @@ public class MethodRuleService {
 		return methodRuleMapper.fidByMethodId(methodId);
 	}
 
+
+	/**
+	 * 根据规则ID获取规则信息
+	 *
+	 * @param ruleId 规则ID
+	 * @return 规则信息
+	 */
+	public MethodRuleItem getById(int ruleId) {
+		return methodRuleMapper.getById(ruleId);
+	}
 }

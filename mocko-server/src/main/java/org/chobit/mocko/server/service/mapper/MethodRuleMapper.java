@@ -50,7 +50,7 @@ public interface MethodRuleMapper {
 	 * @param methodId 方法ID
 	 * @return 方法返回值规则信息
 	 */
-	@Select({"select * from m_method_rule where method_id=#{methodId} order by id desc"})
+	@Select({"select * from m_method_rule where method_id=#{methodId} and deleted=0 order by id desc"})
 	List<MethodRuleItem> fidByMethodId(@Param("methodId") String methodId);
 
 
@@ -84,4 +84,13 @@ public interface MethodRuleMapper {
 			"where id=#{id}"})
 	void resetRequestInfo(@Param("id") int id);
 
+
+	/**
+	 * 根据ID查询规则信息
+	 *
+	 * @param id 规则ID
+	 * @return 规则信息
+	 */
+	@Select({"select * from m_method_rule where id=#{id}"})
+	MethodRuleItem getById(@Param("id") int id);
 }

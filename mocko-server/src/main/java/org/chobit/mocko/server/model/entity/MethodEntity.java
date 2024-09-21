@@ -3,7 +3,7 @@ package org.chobit.mocko.server.model.entity;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 方法相关信息
@@ -65,6 +65,6 @@ public final class MethodEntity extends BaseEntity {
     /**
      * 上次请求时间
      */
-    private Date lastRequestTime;
+    private LocalDateTime lastRequestTime;
 
 }

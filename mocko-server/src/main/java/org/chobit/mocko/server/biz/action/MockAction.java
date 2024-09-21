@@ -74,19 +74,20 @@ public class MockAction {
 			throw new MockoResponseException(ResponseCode.EMPTY_MOCK_RESPONSE);
 		}
 
-		if (Collections2.isEmpty(method.getRuleList())) {
+		List<MethodRuleItem> methodRuleList = methodRuleService.findByMethodId(methodId);
+		if (Collections2.isEmpty(methodRuleList)) {
 			throw new MockoResponseException(ResponseCode.EMPTY_MOCK_RESPONSE);
 		}
 
 		// 过滤出正在启用的规则
-		List<MethodRuleItem> methodRuleItems = method.getRuleList()
+		methodRuleList = methodRuleList
 				.stream().filter(e -> YesOrNo.YES.is(e.getSwitchFlag())).collect(Collectors.toList());
-		if (Collections2.isEmpty(methodRuleItems)) {
+		if (Collections2.isEmpty(methodRuleList)) {
 			throw new MockoResponseException(ResponseCode.EMPTY_MOCK_RESPONSE);
 		}
 
 		// 根据参数匹配出响应信息
-		MethodRuleItem rule = this.matchResponse(meta.getArgs(), methodRuleItems);
+		MethodRuleItem rule = this.matchResponse(meta.getArgs(), methodRuleList);
 		if (null == rule || isBlank(rule.getResponse())) {
 			throw new MockoResponseException(ResponseCode.NONE_VALID_MOCK_RESPONSE);
 		}

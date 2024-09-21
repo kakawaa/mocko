@@ -83,4 +83,15 @@ public class MethodRuleController {
 		return methodRuleService.findByMethodId(request.getMethodId());
 	}
 
+
+	/**
+	 * 根据ID查询方法规则
+	 *
+	 * @param req 方法规则ID请求
+	 * @return 方法规则
+	 */
+	@PostMapping("/get")
+	public MethodRuleItem getById(@RequestBody @Validated MethodRuleIdRequest req) {
+		return methodRuleService.getById(req.getId());
+	}
 }
