@@ -1,4 +1,0 @@
-
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    org.chobit.mocko.autoconfigure.MockoClientsConfiguration,\
-    org.chobit.mocko.autoconfigure.MockoAutoConfiguration

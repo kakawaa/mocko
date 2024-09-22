@@ -1,6 +1,0 @@
-*.idea
-logs
-*/target
-*/*/target
-target
-mocko-db.mv.db
