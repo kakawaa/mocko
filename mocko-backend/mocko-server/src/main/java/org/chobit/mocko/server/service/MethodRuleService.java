@@ -3,6 +3,7 @@ package org.chobit.mocko.server.service;
 import lombok.extern.slf4j.Slf4j;
 import org.chobit.mocko.server.model.request.MethodRuleAddRequest;
 import org.chobit.mocko.server.model.request.MethodRuleModifyRequest;
+import org.chobit.mocko.server.model.request.MethodRuleSwitchRequest;
 import org.chobit.mocko.server.model.response.item.MethodRuleItem;
 import org.chobit.mocko.server.service.mapper.MethodRuleMapper;
 import org.chobit.mocko.server.tools.AuthContext;
@@ -95,5 +96,16 @@ public class MethodRuleService {
 	 */
 	public MethodRuleItem getById(int ruleId) {
 		return methodRuleMapper.getById(ruleId);
+	}
+
+
+	/**
+	 * 切换规则开关
+	 *
+	 * @param req 请求参数
+	 * @return 是否切换成功
+	 */
+	public boolean switchRule(MethodRuleSwitchRequest req) {
+		return methodRuleMapper.switchRule(req.getId(), req.getSwitchFlag());
 	}
 }

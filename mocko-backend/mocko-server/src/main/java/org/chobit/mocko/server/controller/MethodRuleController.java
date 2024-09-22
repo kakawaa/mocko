@@ -1,9 +1,6 @@
 package org.chobit.mocko.server.controller;
 
-import org.chobit.mocko.server.model.request.MethodIdRequest;
-import org.chobit.mocko.server.model.request.MethodRuleAddRequest;
-import org.chobit.mocko.server.model.request.MethodRuleIdRequest;
-import org.chobit.mocko.server.model.request.MethodRuleModifyRequest;
+import org.chobit.mocko.server.model.request.*;
 import org.chobit.mocko.server.model.response.item.MethodRuleItem;
 import org.chobit.mocko.server.service.MethodRuleService;
 import org.chobit.spring.autoconfigure.rw.ResponseWrapper;
@@ -93,5 +90,17 @@ public class MethodRuleController {
 	@PostMapping("/get")
 	public MethodRuleItem getById(@RequestBody @Validated MethodRuleIdRequest req) {
 		return methodRuleService.getById(req.getId());
+	}
+
+
+	/**
+	 * 启用/禁用方法规则
+	 *
+	 * @param req 方法规则启用/禁用请求
+	 * @return 是否启用/禁用成功
+	 */
+	@PostMapping("/switch")
+	public boolean switchRule(@RequestBody @Validated MethodRuleSwitchRequest req) {
+		return methodRuleService.switchRule(req);
 	}
 }

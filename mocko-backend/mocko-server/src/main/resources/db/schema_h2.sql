@@ -118,7 +118,7 @@ create table if not exists m_method_rule
 
     method_id         varchar(32)  not null default '' comment '方法ID',
     rule_title        varchar(64)  not null default '' comment '规则标题',
-    expression        varchar(128) not null default '' comment '规则表达式',
+    `expression`      varchar(128) not null default '' comment '规则表达式',
     response          text         not null default '' comment 'mock的返回值',
     switch_flag       tinyint      not null default 1 comment '是否开启规则',
     remark            tinytext     not null default '' comment '备注',

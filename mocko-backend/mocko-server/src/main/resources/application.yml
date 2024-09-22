@@ -21,6 +21,7 @@ mybatis:
     mapUnderscoreToCamelCase: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath*:mapper/**.xml
+  # typeHandlersPackage: org.chobit.mocko.server.config.mybatis.type,
 
 pagehelper:
   helperDialect: mysql

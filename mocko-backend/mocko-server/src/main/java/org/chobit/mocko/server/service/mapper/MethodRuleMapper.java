@@ -21,9 +21,11 @@ public interface MethodRuleMapper {
 	 * @param operator 操作人
 	 */
 	@Insert({
-			"insert into m_method_rule (method_id, rule_title, expression, response, remark, operator)",
+			"insert into m_method_rule (method_id, rule_title, expression, response, remark, operator_code)",
 			"values",
-			"(#{methodId}, #{ruleTitle}, #{expression}, #{response}, #{remark}, #{operator})"
+			"(#{item.methodId}, #{item.ruleTitle}, ",
+			"#{item.ruleExp, typeHandler=org.chobit.mocko.server.config.mybatis.NullTypeHandler}, ",
+			"#{item.response}, #{item.remark}, #{operator})"
 	})
 	@Options(useGeneratedKeys = true)
 	boolean add(@Param("item") MethodRuleAddRequest req, @Param("operator") String operator);
@@ -38,7 +40,9 @@ public interface MethodRuleMapper {
 	 */
 	@Update({
 			"update m_method_rule set ",
-			"rule_title=#{item.ruleTitle}, expression=#{item.expression}, response=#{item.response}, remark=#{item.remark}, operator=#{operator}",
+			"rule_title=#{item.ruleTitle}, ",
+			"expression=#{item.ruleExp, typeHandler=org.chobit.mocko.server.config.mybatis.NullTypeHandler}, ",
+			"response=#{item.response}, remark=#{item.remark}, operator=#{operator}",
 			"where id=#{item.id}"
 	})
 	boolean modify(@Param("item") MethodRuleModifyRequest req, @Param("operator") String operator);
@@ -50,7 +54,8 @@ public interface MethodRuleMapper {
 	 * @param methodId 方法ID
 	 * @return 方法返回值规则信息
 	 */
-	@Select({"select * from m_method_rule where method_id=#{methodId} and deleted=0 order by id desc"})
+	@Select({"select id as rule_id, * from m_method_rule ",
+			"where method_id=#{methodId} and deleted=0 order by id desc"})
 	List<MethodRuleItem> fidByMethodId(@Param("methodId") String methodId);
 
 
@@ -91,6 +96,17 @@ public interface MethodRuleMapper {
 	 * @param id 规则ID
 	 * @return 规则信息
 	 */
-	@Select({"select * from m_method_rule where id=#{id}"})
+	@Select({"select id as rule_id, * from m_method_rule where id=#{id}"})
 	MethodRuleItem getById(@Param("id") int id);
+
+
+	/**
+	 * 切换规则开关
+	 *
+	 * @param id         规则ID
+	 * @param switchFlag 开关状态
+	 * @return 是否切换成功
+	 */
+	@Update({"update m_method_rule set switch_flag=#{switchFlag} where id=#{id}"})
+	boolean switchRule(@Param("id") int id, @Param("switchFlag") Integer switchFlag);
 }
