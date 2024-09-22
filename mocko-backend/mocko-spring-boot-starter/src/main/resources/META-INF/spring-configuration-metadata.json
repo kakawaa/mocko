@@ -1,0 +1,31 @@
+{
+	"hints": [],
+	"groups": [
+		{
+			"sourceType": "org.chobit.mocko.autoconfigure.MockoProperties",
+			"name": "mocko",
+			"type": "org.chobit.mocko.autoconfigure.MockoProperties"
+		}
+	],
+	"properties": [
+		{
+			"sourceType": "org.chobit.mocko.autoconfigure.MockoProperties",
+			"name": "mocko.enabled",
+			"description": "Enable Mocko Client",
+			"type": "java.lang.Boolean",
+			"defaultValue": "true"
+		},
+		{
+			"sourceType": "org.chobit.mocko.autoconfigure.MockoProperties",
+			"name": "mocko.appId",
+			"description": "The appId",
+			"type": "java.lang.String"
+		},
+		{
+			"sourceType": "org.chobit.mocko.autoconfigure.MockoProperties",
+			"name": "mocko.mockUrl",
+			"description": "url of mock request",
+			"type": "java.lang.String"
+		}
+	]
+}

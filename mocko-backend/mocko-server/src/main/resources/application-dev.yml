@@ -1,0 +1,23 @@
+debug: false
+
+spring:
+  sql:
+    init:
+      mode: EMBEDDED
+      schema-locations: classpath:/db/schema_h2.sql
+      data-locations: classpath:/db/data_h2.sql
+  datasource:
+    type: org.apache.commons.dbcp2.BasicDataSource
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:mocko-db;DB_CLOSE_ON_EXIT=FALSE
+    dbcp2:
+      validation-query: SELECT 1
+      pool-prepared-statements: true
+      test-on-borrow: true
+  h2:
+    console:
+      enabled: true
+      path: /db-h2
+      settings:
+        web-allow-others: true
+        trace: true
