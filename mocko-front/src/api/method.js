@@ -54,6 +54,7 @@ export function addMethodRule(ruleData) {
 	return request.post('/admin/method/rule/add', ruleData);
 }
 
+
 /**
  * 获取方法规则列表
  */
@@ -63,3 +64,13 @@ export function findRulesByMethodId(methodId) {
 	})
 }
 
+
+/**
+ * 开启/关闭方法规则
+ */
+export function switchMethodRule(id, switchFlag) {
+	return request.post('/admin/method/rule/switch', {
+		'id': id,
+		'switchFlag': switchFlag
+	})
+}

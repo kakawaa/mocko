@@ -20,8 +20,8 @@
 					<el-input type="hidden" v-model="ruleForm.ruleId"/>
 				</el-form-item>
 
-				<el-form-item label="规则名称" prop="ruleName">
-					<el-input v-model="ruleForm.ruleName"/>
+				<el-form-item label="规则名称" prop="ruleTitle">
+					<el-input v-model="ruleForm.ruleTitle"/>
 				</el-form-item>
 
 				<el-form-item label="规则表达式" prop="ruleExp">
@@ -29,7 +29,7 @@
 				</el-form-item>
 
 				<el-form-item label="返回值" prop="response">
-					<el-input type="textarea" :autosize="{ minRows: 4,}" v-model="ruleForm.response"/>
+					<el-input type="textarea" v-model="ruleForm.response" :autosize="{ minRows: 4,}"/>
 				</el-form-item>
 
 				<el-form-item label="是否开启" prop="switchFlag">
@@ -38,6 +38,10 @@
 
 				<el-form-item label="上次调用时间" prop="lastRequestTime" v-if="ruleForm.ruleId">
 					<el-input readonly v-model="ruleForm.lastRequestTime"/>
+				</el-form-item>
+
+				<el-form-item label="备注" prop="remark">
+					<el-input type="textarea" v-model="ruleForm.remark" :autosize="{ minRows: 4,}"/>
 				</el-form-item>
 
 				<el-form-item>
@@ -63,18 +67,19 @@ const methodRuleDrawer = ref(false)
 const ruleForm = ref({
 	ruleId: '',
 	methodId: '',
-	ruleName: '',
+	ruleTitle: '',
 	ruleExp: '',
 	response: '',
 	switchFlag: '',
 	lastRequestTime: '',
+	remark: '',
 })
 
 
 const ruleFormRef = ref()
 
 const ruleFormRules = {
-	ruleName: [
+	ruleTitle: [
 		{required: true, message: '请输入规则名称', trigger: 'blur'},
 	],
 	response: [

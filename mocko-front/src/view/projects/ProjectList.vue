@@ -25,7 +25,9 @@ getAppList().then(response => {
 
 	let arr = response.data
 	arr.forEach(e => {
-		e.icon = e.appName.charAt(0).toUpperCase();
+		if (e.appName) {
+			e.icon = e.appName.charAt(0).toUpperCase();
+		}
 	});
 	appItems.value = arr
 })

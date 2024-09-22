@@ -101,7 +101,9 @@ function loadMethodListData() {
 		'pageNo': pageNo,
 		'pageSize': pageSize,
 	}).then(response => {
-		methodListData.value = response.data.data
+		if (response && response.data && response.data.data) {
+			methodListData.value = response.data.data
+		}
 	})
 }
 

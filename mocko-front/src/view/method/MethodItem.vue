@@ -46,7 +46,19 @@
 				<el-table-column type="index" width="50"/>
 				<el-table-column min-width=120 prop="ruleTitle" label="名称"/>
 				<el-table-column prop="expression" label="规则"/>
-				<el-table-column min-width=60 prop="switchFlag" label="开关"/>
+				<el-table-column min-width=60 prop="switchFlag" label="开关">
+					<template v-slot="{row}">
+						<el-switch
+							v-model="row.switchFlag"
+							inline-prompt
+							active-text="开启"
+							inactive-text="关闭"
+							active-value="0"
+							inactive-value="1"
+							@change="handleSwitchMethodRule(row)"
+						/>
+					</template>
+				</el-table-column>
 				<el-table-column min-width=50 prop="requestCount" label="次数"/>
 				<el-table-column width=180 align="center" prop="lastRequestTime"
 				                 label="上次调用时间"/>
@@ -73,7 +85,7 @@
 
 // do not use same name with ref
 import {ref} from "vue";
-import {findRulesByMethodId, getMethod, modifyMethod} from "@/api/method.js";
+import {findRulesByMethodId, getMethod, modifyMethod, switchMethodRule} from "@/api/method.js";
 import {ElMessage, ElMessageBox} from "element-plus";
 import RuleItem from "@/view/method/RuleItem.vue";
 
@@ -179,8 +191,8 @@ function submitMethodMaintain() {
 
 
 // 加载方法规则列表数据
-function loadMethodRuleList(payload) {
-	console.log(payload)
+function loadMethodRuleList(rule) {
+	loadMethodRuleListData(rule.methodId)
 }
 
 
@@ -210,6 +222,14 @@ function deleteMethodRule(row) {
 	console.log(row)
 }
 
+
+/**
+ * 开启/关闭方法规则
+ */
+function handleSwitchMethodRule(row) {
+	let switchFlag = row.switchFlag === 0 ? 1 : 0
+	switchMethodRule(row.id, switchFlag)
+}
 
 function openMethodRuleAddDrawer() {
 	let methodId = methodForm.value.methodId

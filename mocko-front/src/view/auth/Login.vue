@@ -14,7 +14,7 @@
 			<el-form status-icon
 			         :model="form"
 			         ref="formRef"
-			         :rules="loginFormRules" label-with="0" class="login-form">
+			         :rules="loginFormRules" class="login-form">
 
 				<el-form-item label="" prop="username">
 					<el-input :prefix-icon="User"
