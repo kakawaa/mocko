@@ -42,7 +42,7 @@ public interface MethodRuleMapper {
 			"update m_method_rule set ",
 			"rule_title=#{item.ruleTitle}, ",
 			"expression=#{item.ruleExp, typeHandler=org.chobit.mocko.server.config.mybatis.NullTypeHandler}, ",
-			"response=#{item.response}, remark=#{item.remark}, operator=#{operator}",
+			"response=#{item.response}, remark=#{item.remark}, operator_code=#{operator}",
 			"where id=#{item.id}"
 	})
 	boolean modify(@Param("item") MethodRuleModifyRequest req, @Param("operator") String operator);
