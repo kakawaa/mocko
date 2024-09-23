@@ -48,7 +48,7 @@
 				</el-form-item>
 
 				<el-form-item>
-					<el-button type="primary" @click="submitMethodRule">保存</el-button>
+					<el-button type="primary" :disabled="isRuleFormSubmitted" @click="submitMethodRule">保存</el-button>
 				</el-form-item>
 			</el-form>
 		</el-container>
@@ -93,6 +93,8 @@ const ruleFormRules = {
 
 const emit = defineEmits(['afterRuleModify'])
 
+
+const isRuleFormSubmitted = ref(false)
 
 /**
  * 打开方法规则编辑抽屉
@@ -152,10 +154,15 @@ function submitMethodRule() {
  */
 const maintainMethodRule = (maintainMethod, formData) => {
 
+	console.log(formData)
+
 	ruleFormRef.value.validate((valid) => {
 		if (!valid) {
 			return
 		}
+
+		isRuleFormSubmitted.value = true
+
 		maintainMethod(formData).then(response => {
 			if (response.data) {
 				ElMessage.success({

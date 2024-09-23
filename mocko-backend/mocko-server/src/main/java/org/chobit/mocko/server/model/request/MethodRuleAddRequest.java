@@ -14,45 +14,45 @@ import org.chobit.mocko.server.constants.YesOrNo;
 public class MethodRuleAddRequest {
 
 
-    /**
-     * 方法ID
-     */
-    @NotBlank(message = "方法ID不可为空")
-    private String methodId;
+	/**
+	 * 方法ID
+	 */
+	@NotBlank(message = "方法ID不可为空")
+	private String methodId;
 
 
-    /**
-     * 规则名称
-     */
-    @NotBlank(message = "规则名称不可为空")
-    private String ruleTitle;
+	/**
+	 * 规则名称
+	 */
+	@NotBlank(message = "规则名称不可为空")
+	private String ruleTitle;
 
 
-    /**
-     * 规则表达式
-     */
-    private String ruleExp;
+	/**
+	 * 规则表达式
+	 */
+	private String ruleExp;
 
 
-    /**
-     * 响应时间
-     */
-    @NotBlank(message = "方法返回值不可为空")
-    private String response;
+	/**
+	 * 响应时间
+	 */
+	@NotBlank(message = "方法返回值不可为空")
+	private String response;
 
 
-    /**
-     * 开关标记
-     */
-    @EnumValue(enumClass = YesOrNo.class, message = "开关标记值非法")
-    @NotBlank(message = "开关标记不可为空")
-    private Integer switchFlag;
+	/**
+	 * 开关标记
+	 */
+	@EnumValue(enumClass = YesOrNo.class, message = "开关标记值非法")
+	@NotBlank(message = "开关标记不可为空")
+	private Integer switchFlag;
 
 
-    /**
-     * 备注
-     */
-    private String remark;
+	/**
+	 * 备注
+	 */
+	private String remark;
 
 
 }

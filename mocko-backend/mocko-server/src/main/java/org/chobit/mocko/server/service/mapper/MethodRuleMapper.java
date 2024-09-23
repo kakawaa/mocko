@@ -21,11 +21,11 @@ public interface MethodRuleMapper {
 	 * @param operator 操作人
 	 */
 	@Insert({
-			"insert into m_method_rule (method_id, rule_title, expression, response, remark, operator_code)",
+			"insert into m_method_rule (method_id, rule_title, expression, response, switch_flag, remark, operator_code)",
 			"values",
 			"(#{item.methodId}, #{item.ruleTitle}, ",
 			"#{item.ruleExp, typeHandler=org.chobit.mocko.server.config.mybatis.NullTypeHandler}, ",
-			"#{item.response}, #{item.remark}, #{operator})"
+			"#{item.response}, #{item.switchFlag}, #{item.remark}, #{operator})"
 	})
 	@Options(useGeneratedKeys = true)
 	boolean add(@Param("item") MethodRuleAddRequest req, @Param("operator") String operator);
@@ -42,7 +42,7 @@ public interface MethodRuleMapper {
 			"update m_method_rule set ",
 			"rule_title=#{item.ruleTitle}, ",
 			"expression=#{item.ruleExp, typeHandler=org.chobit.mocko.server.config.mybatis.NullTypeHandler}, ",
-			"response=#{item.response}, remark=#{item.remark}, operator_code=#{operator}",
+			"response=#{item.response}, remark=#{item.remark}, switch_flag=#{item.switchFlag}, operator_code=#{operator}",
 			"where id=#{item.id}"
 	})
 	boolean modify(@Param("item") MethodRuleModifyRequest req, @Param("operator") String operator);
