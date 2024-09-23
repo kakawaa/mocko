@@ -24,8 +24,8 @@
 					<el-input v-model="ruleForm.ruleTitle"/>
 				</el-form-item>
 
-				<el-form-item label="规则表达式" prop="ruleExp">
-					<el-input v-model="ruleForm.ruleExp"/>
+				<el-form-item label="规则表达式" prop="expression">
+					<el-input v-model="ruleForm.expression"/>
 				</el-form-item>
 
 				<el-form-item label="返回值" prop="response">
@@ -33,10 +33,13 @@
 				</el-form-item>
 
 				<el-form-item label="是否开启" prop="switchFlag">
-					<el-switch v-model="ruleForm.switchFlag"/>
+					<el-switch v-model="ruleForm.switchFlag"
+					           :active-value="1"
+					           :inactive-value="0"
+					/>
 				</el-form-item>
 
-				<el-form-item label="上次调用时间" prop="lastRequestTime" v-if="ruleForm.ruleId">
+				<el-form-item label="上次调用时间" prop="lastRequestTime" v-if="ruleForm.id">
 					<el-input readonly v-model="ruleForm.lastRequestTime"/>
 				</el-form-item>
 
@@ -65,10 +68,10 @@ import {ElMessage, ElMessageBox} from "element-plus";
 const methodRuleDrawer = ref(false)
 
 const ruleForm = ref({
-	ruleId: '',
+	id: '',
 	methodId: '',
 	ruleTitle: '',
-	ruleExp: '',
+	expression: '',
 	response: '',
 	switchFlag: '',
 	lastRequestTime: '',
@@ -97,6 +100,8 @@ const emit = defineEmits(['afterRuleModify'])
 const openMethodRuleDrawer = (ruleId, methodId) => {
 	methodRuleDrawer.value = true
 
+	console.log(ruleId + ' ==== ' + methodId)
+
 	if (ruleFormRef.value) {
 		ruleFormRef.value.resetFields();
 	}
@@ -117,7 +122,7 @@ defineExpose({openMethodRuleDrawer})
  * 加载方法规则到表单
  */
 function loadMethodRule(ruleId) {
-
+	console.log(ruleId)
 	getMethodRule(ruleId).then(
 		response => {
 			ruleForm.value = response.data
@@ -132,7 +137,7 @@ function loadMethodRule(ruleId) {
 function submitMethodRule() {
 	const formData = {...ruleForm.value}
 	let maintainMethod = addMethodRule
-	if (formData.ruleId) {
+	if (formData.id) {
 		maintainMethod = modifyMethodRule
 	}
 	maintainMethodRule(maintainMethod, formData)

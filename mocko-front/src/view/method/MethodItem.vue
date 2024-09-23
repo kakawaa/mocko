@@ -23,7 +23,6 @@
 					<el-input readonly v-model="methodForm.methodName"/>
 				</el-form-item>
 
-
 				<el-form-item label="方法描述" prop="methodAlias">
 					<el-input v-model="methodForm.methodAlias"/>
 				</el-form-item>
@@ -53,15 +52,14 @@
 							inline-prompt
 							active-text="开启"
 							inactive-text="关闭"
-							active-value="1"
-							inactive-value="0"
+							:active-value="1"
+							:inactive-value="0"
 							@change="handleSwitchMethodRule(row)"
 						/>
 					</template>
 				</el-table-column>
 				<el-table-column min-width=50 prop="requestCount" label="次数"/>
-				<el-table-column width=180 align="center" prop="lastRequestTime"
-				                 label="上次调用时间"/>
+				<el-table-column width=180 align="center" prop="lastRequestTime" label="上次调用时间"/>
 				<el-table-column label="操作" align="center" fixed="right" width=136>
 					<template #default="scope">
 						<el-button type="success" size="small" @click="editMethodRule(scope.row)">
@@ -211,7 +209,7 @@ function loadMethodRuleListData(methodId) {
  */
 function editMethodRule(row) {
 	console.log(row)
-	methodRuleDrawerRef.value.openMethodRuleDrawer(row.ruleId)
+	methodRuleDrawerRef.value.openMethodRuleDrawer(row.id, row.methodId)
 }
 
 
@@ -228,8 +226,9 @@ function deleteMethodRule(row) {
  */
 function handleSwitchMethodRule(row) {
 	console.log(row)
-	let switchFlag = (row.switchFlag === 0 ? 1 : 0)
-	switchMethodRule(row.id, switchFlag)
+	switchMethodRule(row.id, row.switchFlag).then(resp => {
+		loadMethodRuleListData(row.methodId)
+	})
 }
 
 function openMethodRuleAddDrawer() {
