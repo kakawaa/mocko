@@ -7,7 +7,6 @@
 			<!--方法表单信息-->
 			<el-form status-icon
 			         label-position="right"
-			         label-width="auto"
 			         label-suffix=":"
 			         ref="methodFormRef" :model="methodForm" :rules="methodFormRules" class="method-form">
 
@@ -46,15 +45,15 @@
 				<el-table-column type="index" width="50"/>
 				<el-table-column min-width=120 prop="ruleTitle" label="名称"/>
 				<el-table-column prop="expression" label="规则"/>
-				<el-table-column min-width=60 prop="switchFlag" label="开关">
+				<el-table-column min-width=60 label="开关">
 					<template v-slot="{row}">
 						<el-switch
 							v-model="row.switchFlag"
 							inline-prompt
 							active-text="开启"
 							inactive-text="关闭"
-							active-value="0"
-							inactive-value="1"
+							active-value="1"
+							inactive-value="0"
 							@change="handleSwitchMethodRule(row)"
 						/>
 					</template>
@@ -227,7 +226,8 @@ function deleteMethodRule(row) {
  * 开启/关闭方法规则
  */
 function handleSwitchMethodRule(row) {
-	let switchFlag = row.switchFlag === 0 ? 1 : 0
+	console.log(row)
+	let switchFlag = (row.switchFlag === 0 ? 1 : 0)
 	switchMethodRule(row.id, switchFlag)
 }
 
