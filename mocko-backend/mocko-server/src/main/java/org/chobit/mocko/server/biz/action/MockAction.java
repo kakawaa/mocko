@@ -105,7 +105,7 @@ public class MockAction {
 	 */
 	private MethodRuleItem matchResponse(List<ArgInfo> args, List<MethodRuleItem> rules) {
 
-		if (Collections2.isEmpty(rules)) {
+		if (Collections2.isEmpty(args)) {
 			return rules.get(0);
 		}
 
