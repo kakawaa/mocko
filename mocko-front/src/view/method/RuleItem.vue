@@ -8,7 +8,7 @@
 			<!--表单信息-->
 			<el-form status-icon
 			         label-position="right"
-			         label-width="auto"
+			         label-width="90px"
 			         label-suffix=":"
 			         :model="ruleForm" ref="ruleFormRef" :rules="ruleFormRules" class="rule-form">
 
@@ -113,8 +113,11 @@ const openMethodRuleDrawer = (ruleId, methodId) => {
 	} else {
 		ruleForm.value = {
 			methodId: methodId,
+			switchFlag: 1,
 		}
 	}
+
+	isRuleFormSubmitted.value = false
 }
 
 

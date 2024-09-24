@@ -7,7 +7,7 @@
 			<!--方法表单信息-->
 			<el-form status-icon
 			         label-position="right"
-			         label-width="auto"
+			         label-width="100px"
 			         label-suffix=":"
 			         ref="methodFormRef" :model="methodForm" :rules="methodFormRules" class="method-form">
 
