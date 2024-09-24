@@ -2,7 +2,7 @@
 	<div class="table-container">
 
 		<div class="table-header">
-			<el-form :model="keywordForm" label-width="auto" label-suffix=":" :inline="true"
+			<el-form :model="keywordForm" label-width="60px" label-suffix=":" :inline="true"
 			         @submit.native.prevent
 			>
 				<el-form-item label="关键字">
@@ -30,7 +30,7 @@
 				<el-table-column label="操作" align="center" fixed="right" width=136>
 					<template #default="scope">
 						<el-button type="success" size="small" @click="handleEdit(scope.row)">
-							编辑
+							查看
 						</el-button>
 						<el-button type="danger" size="small" @click="handleDelete(scope.row)">
 							删除
