@@ -39,10 +39,6 @@
 					/>
 				</el-form-item>
 
-				<el-form-item label="上次调用时间" prop="lastRequestTime" v-if="ruleForm.id">
-					<el-input readonly v-model="ruleForm.lastRequestTime"/>
-				</el-form-item>
-
 				<el-form-item label="备注" prop="remark">
 					<el-input type="textarea" v-model="ruleForm.remark" :autosize="{ minRows: 4,}"/>
 				</el-form-item>
@@ -74,7 +70,6 @@ const ruleForm = ref({
 	expression: '',
 	response: '',
 	switchFlag: '',
-	lastRequestTime: '',
 	remark: '',
 })
 
@@ -95,6 +90,7 @@ const emit = defineEmits(['afterRuleModify'])
 
 
 const isRuleFormSubmitted = ref(false)
+
 
 /**
  * 打开方法规则编辑抽屉
@@ -157,8 +153,6 @@ function submitMethodRule() {
  */
 const maintainMethodRule = (maintainMethod, formData) => {
 
-	console.log(formData)
-
 	ruleFormRef.value.validate((valid) => {
 		if (!valid) {
 			return
@@ -174,12 +168,9 @@ const maintainMethodRule = (maintainMethod, formData) => {
 				})
 
 				emit('afterRuleModify', formData)
-			} else {
-				ElMessageBox({
-					title: '提示',
-					message: response.msg,
-				})
 			}
+		}).catch(error => {
+			isRuleFormSubmitted.value = false
 		})
 		// end modify request handle
 	})

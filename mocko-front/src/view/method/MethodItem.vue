@@ -43,9 +43,9 @@
 		<el-container class="table-container">
 			<el-table :data="methodRuleListData" show-overflow-tooltip border style="width: 100%">
 				<el-table-column type="index" width="50"/>
-				<el-table-column min-width=120 prop="ruleTitle" label="名称"/>
-				<el-table-column prop="expression" label="规则"/>
-				<el-table-column min-width=60 label="开关">
+				<el-table-column min-width=80 prop="ruleTitle" label="名称"/>
+				<el-table-column min-width=120 prop="expression" label="规则"/>
+				<el-table-column min-width=36 align="center" label="开关">
 					<template v-slot="{row}">
 						<el-switch
 							v-model="row.switchFlag"
@@ -58,7 +58,7 @@
 						/>
 					</template>
 				</el-table-column>
-				<el-table-column min-width=50 prop="requestCount" label="次数"/>
+				<el-table-column min-width=30 prop="requestCount" label="次数"/>
 				<el-table-column width=180 align="center" prop="lastRequestTime" label="上次调用时间"/>
 				<el-table-column label="操作" align="center" fixed="right" width=136>
 					<template #default="scope">
