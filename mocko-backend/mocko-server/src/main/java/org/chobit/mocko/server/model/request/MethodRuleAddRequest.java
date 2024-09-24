@@ -31,7 +31,7 @@ public class MethodRuleAddRequest {
 	/**
 	 * 规则表达式
 	 */
-	private String ruleExp;
+	private String expression;
 
 
 	/**
