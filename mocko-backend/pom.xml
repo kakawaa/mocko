@@ -153,6 +153,13 @@
         </plugins>
     </build>
 
+    <scm>
+        <connection>scm:git:git@github.com:zhyea/mocko.git</connection>
+        <developerConnection>scm:git:git@github.com:zhyea/mocko.git</developerConnection>
+        <url>https://github.com/zhyea/mocko</url>
+        <tag>mocko, mock</tag>
+    </scm>
+
     <modules>
         <module>mocko-annotation</module>
         <module>mocko-core</module>
