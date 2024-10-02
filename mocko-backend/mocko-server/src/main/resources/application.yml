@@ -33,6 +33,7 @@ pagehelper:
 
 rw:
   wrapExcept: false
+  tags: 测试
 
 
 mocko:
