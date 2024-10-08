@@ -62,6 +62,10 @@
         </dependency>
         <dependency>
             <groupId>org.chobit.commons</groupId>
+            <artifactId>common-utils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.chobit.commons</groupId>
             <artifactId>common-validator</artifactId>
             <version>${zhy.version}</version>
         </dependency>
